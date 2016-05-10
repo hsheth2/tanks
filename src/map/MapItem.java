@@ -3,11 +3,12 @@ package map;
 import physics.Vector;
 
 public abstract class MapItem implements Drawable {
-	private Vector position;
-	private Vector size;
+	protected Vector position;
+	protected Vector size;
 
-	public MapItem() {
-		// TODO Auto-generated constructor stub
+	public MapItem(Vector position, Vector size) {
+		this.position = position;
+		this.size = size;
 	}
 
 }

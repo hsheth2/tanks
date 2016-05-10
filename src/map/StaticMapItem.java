@@ -1,9 +1,11 @@
 package map;
 
+import physics.Vector;
+
 public abstract class StaticMapItem extends MapItem implements Drawable {
 
-	public StaticMapItem() {
-		// TODO Auto-generated constructor stub
+	public StaticMapItem(Vector position, Vector size) {
+		super(position, size);
 	}
 
 }
