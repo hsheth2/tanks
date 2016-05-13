@@ -1,9 +1,18 @@
 package map;
 
-public class Map {
+import java.awt.Color;
+import java.awt.Graphics;
 
+public class Map implements Drawable {
+	private static final int WIDTH = 800;
+	private static final int HEIGHT = 600;
+	
 	public Map() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
+	public void draw(Graphics g) {
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+	}
 }
