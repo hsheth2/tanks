@@ -1,23 +1,46 @@
 package physics;
 
 public class DeltaTimer {
-	private final long MS_PER_FRAME = 17;
+	public static DeltaTimer t = new DeltaTimer();
+	public static final int FPS = 60;
 	
-	private long lag = 0; // (ns)
+	private static final long NS_PER_FRAME = (long)1e9 / FPS;
+	
+	private long lag = 0; // (nanoseconds)
 	private long lastTime;
 	
-	public DeltaTimer() {
+	private DeltaTimer() {
 		lastTime = System.nanoTime();
 	}
 	
 	public void startIter() {
-	    
+	    lastTime = System.nanoTime();
 	}
 	
 	public void stopIter() {
-		// TODO sleep
 		long newTime = System.nanoTime();
-	    int delta_time = (int) ((newTime - lastTime) / 1000000);
-	    lastTime = newTime;
+	    long delta_time = newTime - lastTime;
+	    if (delta_time < NS_PER_FRAME) {
+	    	long left = NS_PER_FRAME - delta_time;
+			if (lag > 0) {
+				if (lag > left) {
+					lag -= left;
+					left = 0;
+				} else {
+					left -= lag;
+					lag = 0;
+				}
+			}
+			
+			if (left > 0) {
+				try {
+					Thread.sleep(0L, (int)left);
+				} catch(InterruptedException ex) {
+				    Thread.currentThread().interrupt();
+				}
+			}
+	    } else {
+	    	lag += delta_time;
+	    }
 	}
 }
