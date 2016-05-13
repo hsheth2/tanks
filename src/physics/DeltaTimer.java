@@ -1,5 +1,7 @@
 package physics;
 
+import java.util.concurrent.TimeUnit;
+
 public class DeltaTimer {
 	public static DeltaTimer t = new DeltaTimer();
 	public static final int FPS = 60;
@@ -34,7 +36,7 @@ public class DeltaTimer {
 			
 			if (left > 0) {
 				try {
-					Thread.sleep(0L, (int)left);
+					TimeUnit.NANOSECONDS.sleep(left);
 				} catch(InterruptedException ex) {
 				    Thread.currentThread().interrupt();
 				}
