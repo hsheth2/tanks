@@ -15,4 +15,8 @@ public abstract class MovableMapItem extends MapItem implements Updatable {
 		this.velocity = velocity;
 	}
 
+	public Vector getVelocity() {
+		return velocity;
+	}
+
 }

@@ -11,4 +11,16 @@ public abstract class MapItem implements Drawable {
 		this.size = size;
 	}
 
+	public Vector getPosition() {
+		return position;
+	}
+
+	public void setPosition(Vector position) {
+		this.position = position;
+	}
+
+	public Vector getSize() {
+		return size;
+	}
+
 }

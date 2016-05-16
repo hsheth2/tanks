@@ -50,7 +50,7 @@ public class KeyboardController extends Controller {
 	}
 	
 	private void mouseClicked() {
-		// TODO this
+		// TODO shooting mechanics
 		for (boolean x : pressed) {
 			System.out.print(" " + x);
 		}
