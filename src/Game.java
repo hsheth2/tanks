@@ -3,10 +3,10 @@ import java.awt.Graphics;
 import map.Map;
 
 public class Game {
-	public Map map;
+	public static Map map = new Map();
 
 	public Game() {
-		map = new Map();
+		
 	}
 	
 	public void init() {
