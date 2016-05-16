@@ -10,6 +10,9 @@ public abstract class MovableMapItem extends MapItem implements Updatable {
 		this.velocity = velocity;
 	}
 
-	
+	public void setVelocity(Vector velocity) {
+		System.out.println("Tank velocity: " + velocity);
+		this.velocity = velocity;
+	}
 
 }

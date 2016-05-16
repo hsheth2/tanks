@@ -8,12 +8,17 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-public class KeyboardController {
+import map.Tank;
+import physics.Vector;
+
+public class KeyboardController extends Controller {
 	private static final char[] keys = { 'w', 's', 'a', 'd' };
 
 	private boolean[] pressed = { false, false, false, false };
 
-	public KeyboardController(JPanel canvas) {
+	public KeyboardController(Tank tank, JPanel canvas) {
+		super(tank);
+		
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent ke) {
@@ -31,6 +36,7 @@ public class KeyboardController {
 						}
 					}
 				}
+				updateDirection();
 				return false;
 			}
 		});
@@ -40,28 +46,6 @@ public class KeyboardController {
 				System.out.println("Mouse pressed; # of clicks: " + e.getClickCount());
 				KeyboardController.this.mouseClicked();
 			}
-
-			// public void mouseReleased(MouseEvent e) {
-			// System.out.println("Mouse released; # of clicks: " +
-			// e.getClickCount());
-			// }
-
-			// public void mouseEntered(MouseEvent e) {
-			// System.out.println("Mouse entered");
-			// }
-
-			// public void mouseExited(MouseEvent e) {
-			// System.out.println("Mouse exited");
-			// }
-
-			// public void mouseClicked(MouseEvent e) {
-			// System.out.println("Mouse clicked (# of clicks: " +
-			// e.getClickCount() + ")");
-			// }
-
-			// public void mouseMoved(MouseEvent e) {
-			// System.out.println("Mouse moved");
-			// }
 		});
 	}
 	
@@ -71,5 +55,19 @@ public class KeyboardController {
 			System.out.print(" " + x);
 		}
 		System.out.println();
+	}
+	
+	private void updateDirection() {
+		Vector dir = Vector.ZERO;
+		if (pressed[0])
+			dir = dir.add(Vector.UP);
+		if (pressed[1])
+			dir = dir.add(Vector.DOWN);
+		if (pressed[2])
+			dir = dir.add(Vector.LEFT);
+		if (pressed[3])
+			dir = dir.add(Vector.RIGHT);
+		
+		setDir(dir);
 	}
 }
