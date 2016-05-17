@@ -25,7 +25,7 @@ public class Map implements Drawable {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.WHITE);
+		g.setColor(Color.CYAN);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 	}
 }

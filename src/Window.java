@@ -21,7 +21,9 @@ public class Window extends JFrame {
 	
 	private class Canvas extends JPanel {
 		public void paintComponent(Graphics g) {
+			Graphics2D g2d = (Graphics2D) g;
 			
+			Game.map.draw(g2d);
 		}
 	}
 	
