@@ -8,7 +8,11 @@ public class CollisionHandler {
 	}
 	
 	public boolean overlapping(MapItem a, MapItem b) {
-		// TODO
+		for (Vector corner : a.getCorners()) {
+			if (b.containsPoint(corner))
+				return true;
+		}
+		return false;
 	}
 
 }

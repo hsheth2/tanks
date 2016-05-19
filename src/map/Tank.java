@@ -1,6 +1,6 @@
 package map;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import physics.CollisionHandler;
 import physics.Vector;
@@ -17,9 +17,16 @@ public class Tank extends MovableMapItem {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public boolean shoot(Vector dir) {
+		// TODO rate limiting
+		// TODO shooting mechanics
+		// TODO set bullet speed
+		return false;
+	}
 
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics2D g) {
 		// TODO Auto-generated method stub
 		
 	}

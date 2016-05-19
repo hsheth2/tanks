@@ -17,5 +17,13 @@ public abstract class Controller {
 			tank.setVelocity(dir);
 		else tank.setVelocity(dir.unit().scale(SPEED));
 	}
+	
+	protected boolean shoot(Vector where) {		
+		System.out.println("Shoot vec: " + where);
+		Vector dir = where.sub(tank.getPosition());
+		System.out.println("Shoot dir: " + dir);
+		
+		return tank.shoot(dir);
+	}
 
 }

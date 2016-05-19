@@ -22,8 +22,20 @@ public class Vector {
 		return y;
 	}
 	
+	public Vector getI() {
+		return new Vector(x, 0);
+	}
+	
+	public Vector getJ() {
+		return new Vector(0, y);
+	}
+	
 	public Vector add(Vector v) {
 		return new Vector(x + v.getX(), y + v.getY());
+	}
+	
+	public Vector sub(Vector v) {
+		return this.add(v.scale(-1));
 	}
 	
 	public double magnitude() {

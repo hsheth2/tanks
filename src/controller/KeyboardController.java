@@ -2,12 +2,14 @@ package controller;
 
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+import main.Window;
 import map.Tank;
 import physics.Vector;
 
@@ -44,17 +46,15 @@ public class KeyboardController extends Controller {
 		canvas.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				System.out.println("Mouse pressed; # of clicks: " + e.getClickCount());
-				KeyboardController.this.mouseClicked();
+				KeyboardController.this.mouseClicked(e.getPoint());
 			}
 		});
 	}
 	
-	private void mouseClicked() {
-		// TODO shooting mechanics
-		for (boolean x : pressed) {
-			System.out.print(" " + x);
-		}
-		System.out.println();
+	private void mouseClicked(Point p) {
+//		System.out.println("Point:"+p.getX() + " " + p.getY());
+		Vector clickPos = Window.real2game(p);
+		this.shoot(clickPos); // TODO use its return value
 	}
 	
 	private void updateDirection() {

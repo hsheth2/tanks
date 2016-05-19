@@ -2,6 +2,7 @@ package map;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 public class Map implements Drawable {
@@ -24,7 +25,7 @@ public class Map implements Drawable {
 		return false;
 	}
 
-	public void draw(Graphics g) {
+	public void draw(Graphics2D g) {
 		g.setColor(Color.CYAN);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 	}
