@@ -24,6 +24,10 @@ public abstract class MapItem implements Drawable {
 	public Vector getSize() {
 		return size;
 	}
+	
+	public Vector getCenter() {
+		return position.add(size.multiply(0.5));
+	}
 
 	public Vector[] getCorners() {
 		return new Vector[] { position, position.add(size.getI()), position.add(size), position.add(size.getJ()) };

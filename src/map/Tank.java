@@ -18,10 +18,10 @@ public class Tank extends MovableMapItem {
 		
 	}
 	
-	public boolean shoot(Vector dir) {
+	public boolean shoot(Map m, Vector dir) {
+		Bullet b = new Bullet(this.position, dir);
+		m.addItem(b);
 		// TODO rate limiting
-		// TODO shooting mechanics
-		// TODO set bullet speed
 		return false;
 	}
 

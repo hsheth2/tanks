@@ -28,5 +28,9 @@ public class Map implements Drawable {
 	public void draw(Graphics2D g) {
 		g.setColor(Color.CYAN);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		for (MapItem item : items) {
+			item.draw(g);
+		}
 	}
 }
