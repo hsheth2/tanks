@@ -3,7 +3,6 @@ package physics;
 import java.util.concurrent.TimeUnit;
 
 public class DeltaTimer {
-	public static DeltaTimer t = new DeltaTimer();
 	public static final int FPS = 60;
 	
 	private static final long NS_PER_FRAME = (long)1e9 / FPS;
@@ -11,7 +10,7 @@ public class DeltaTimer {
 	private long lag = 0; // (nanoseconds)
 	private long lastTime;
 	
-	private DeltaTimer() {
+	public DeltaTimer() {
 		lastTime = System.nanoTime();
 	}
 	

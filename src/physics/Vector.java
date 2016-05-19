@@ -35,7 +35,7 @@ public class Vector {
 	}
 	
 	public Vector sub(Vector v) {
-		return this.add(v.scale(-1));
+		return this.add(v.multiply(-1));
 	}
 	
 	public double magnitude() {
@@ -48,10 +48,12 @@ public class Vector {
 		return new Vector(x/mag, y/mag);
 	}
 	
-	public Vector scale(int mag) {
-		Vector unit = unit();
-		
-		return new Vector(mag*unit.getX(), mag*unit.getY());
+	public Vector multiply(double times) {
+		return new Vector(times*x, times*y);
+	}
+	
+	public Vector scale(double mag) {
+		return this.unit().multiply(mag);
 	}
 	
 	public boolean equals(Vector o) {
