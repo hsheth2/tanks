@@ -14,12 +14,12 @@ public class Vector {
 		this.y = y;
 	}
 	
-	public double getX() {
-		return x;
+	public int getX() {
+		return (int)x;
 	}
 	
-	public double getY() {
-		return y;
+	public int getY() {
+		return (int)y;
 	}
 	
 	public Vector getI() {
@@ -31,7 +31,7 @@ public class Vector {
 	}
 	
 	public Vector add(Vector v) {
-		return new Vector(x + v.getX(), y + v.getY());
+		return new Vector(x + v.x, y + v.y);
 	}
 	
 	public Vector sub(Vector v) {

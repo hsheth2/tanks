@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 import main.Window;
+import map.Map;
 import map.Tank;
 import physics.Vector;
 
@@ -18,8 +19,8 @@ public class KeyboardController extends Controller {
 
 	private boolean[] pressed = { false, false, false, false };
 
-	public KeyboardController(Tank tank, JPanel canvas) {
-		super(tank);
+	public KeyboardController(Map map, Tank tank, JPanel canvas) {
+		super(map, tank);
 		
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override

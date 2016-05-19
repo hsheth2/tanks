@@ -11,7 +11,6 @@ public class DeltaTimer {
 	private long lastTime;
 	
 	public DeltaTimer() {
-		lastTime = System.nanoTime();
 	}
 	
 	public void startIter() {
