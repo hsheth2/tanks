@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import physics.*;
 
 import physics.DeltaTimer;
 
@@ -12,6 +13,7 @@ public class Map implements Drawable {
 	public static final int HEIGHT = 1200;
 	
 	private ArrayList<MapItem> items = new ArrayList<>();
+	private CollisionHandler ch = new CollisionHandler();
 	
 	public final DeltaTimer dt;
 	
@@ -44,7 +46,9 @@ public class Map implements Drawable {
 	
 	public void update() {
 		for (MapItem item : items) {
-			
+			if (item instanceof Updatable) {
+				((Updatable) item).update(this, ch);
+			}
 		}
 	}
 }
