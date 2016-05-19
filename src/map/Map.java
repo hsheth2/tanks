@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import physics.*;
 
 public class Map implements Drawable {
 	private static final int WIDTH = 800;
 	private static final int HEIGHT = 600;
 	
 	private ArrayList<MapItem> items = new ArrayList<>();
+	private CollisionHandler ch = new CollisionHandler();
 	
 	public void addItem(MapItem item) {
 		items.add(item);
@@ -36,7 +38,9 @@ public class Map implements Drawable {
 	
 	public void update() {
 		for (MapItem item : items) {
-			
+			if (item instanceof Updatable) {
+				((Updatable) item).update(this, ch);
+			}
 		}
 	}
 }
