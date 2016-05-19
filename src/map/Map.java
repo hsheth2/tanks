@@ -5,11 +5,19 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import physics.DeltaTimer;
+
 public class Map implements Drawable {
-	private static final int WIDTH = 800;
-	private static final int HEIGHT = 600;
+	public static final int WIDTH = 1600;
+	public static final int HEIGHT = 1200;
 	
 	private ArrayList<MapItem> items = new ArrayList<>();
+	
+	public final DeltaTimer dt;
+	
+	public Map(DeltaTimer t) {
+		this.dt = t;
+	}
 	
 	public void addItem(MapItem item) {
 		items.add(item);

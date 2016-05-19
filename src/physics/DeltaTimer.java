@@ -7,6 +7,8 @@ public class DeltaTimer {
 	
 	private static final long NS_PER_FRAME = (long)1e9 / FPS;
 	
+	public long frameCount = 0;
+	
 	private long lag = 0; // (nanoseconds)
 	private long lastTime;
 	
@@ -15,6 +17,7 @@ public class DeltaTimer {
 	
 	public void startIter() {
 	    lastTime = System.nanoTime();
+	    frameCount++;
 	}
 	
 	public void stopIter() {

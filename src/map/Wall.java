@@ -1,6 +1,6 @@
 package map;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import physics.Vector;
 
@@ -9,7 +9,12 @@ public class Wall extends StaticMapItem {
 
 	public Wall(Vector position) {
 		super(position, SIZE);
-		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void draw(Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
