@@ -8,10 +8,11 @@ import physics.Vector;
 
 public class Bullet extends MovableMapItem {
 	public static final Vector SIZE = new Vector(10, 10);
+	public static final int SPEED = 10;
 
-	public Bullet(Vector position, Vector velocity) {
-		super(position, SIZE, velocity);
-		// TODO Auto-generated constructor stub
+	public Bullet(Vector position, Vector direction) {
+		super(position, SIZE, direction.scale(SPEED));
+		this.position = position.add(velocity.multiply(2));
 	}
 
 	public void update(Map m, CollisionHandler ch) {

@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import controller.KeyboardController;
+import map.Map;
 import map.Tank;
 import physics.Vector;
 
@@ -21,8 +22,7 @@ public class Window extends JFrame {
 	}
 	
 	public static Point game2real(Vector x) {
-		// TODO this method
-		return null;
+		return new Point(WIDTH * x.getX() / GAME_WIDTH, HEIGHT * x.getY() / GAME_HEIGHT);
 	}
 
 	private Canvas canvas;
@@ -39,8 +39,10 @@ public class Window extends JFrame {
 		setVisible(true);
 
 		// FIXME remove this testing code
+		Map m = new Map();
 		Tank t = new Tank(new Vector(500, 500), Vector.ZERO);
-		KeyboardController k = new KeyboardController(t, canvas);
+		m.addItem(t);
+		KeyboardController k = new KeyboardController(m, t, canvas);
 	}
 
 	private class Canvas extends JPanel {
