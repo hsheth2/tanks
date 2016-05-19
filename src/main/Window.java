@@ -14,6 +14,8 @@ public class Window extends JFrame {
 	public static final int GAME_WIDTH = 1600;
 	public static final int GAME_HEIGHT = 1200;
 	
+	private Graphics2D g2d;
+	
 	public static Vector real2game(Point p) {
 		return new Vector(GAME_WIDTH * p.getX() / WIDTH, GAME_HEIGHT * p.getY() / HEIGHT);
 	}
@@ -30,7 +32,7 @@ public class Window extends JFrame {
 		canvas.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
 		getContentPane().add(canvas);
-
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pack();
 		setTitle("Tanks Game");
@@ -43,17 +45,7 @@ public class Window extends JFrame {
 
 	private class Canvas extends JPanel {
 		public void paintComponent(Graphics g) {
-			Graphics2D g2d = (Graphics2D) g;
-
 			Game.map.draw(g2d);
 		}
-	}
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new Window();
-			}
-		});
 	}
 }

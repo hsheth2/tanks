@@ -29,4 +29,10 @@ public class Map implements Drawable {
 		g.setColor(Color.CYAN);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 	}
+	
+	public void update() {
+		for (MapItem item : items) {
+			
+		}
+	}
 }

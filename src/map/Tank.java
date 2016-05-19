@@ -1,5 +1,6 @@
 package map;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import physics.CollisionHandler;
@@ -26,9 +27,9 @@ public class Tank extends MovableMapItem {
 	}
 
 	@Override
-	public void draw(Graphics2D g) {
-		// TODO Auto-generated method stub
-		
+	public void draw(Graphics2D g2d) {
+		g2d.setColor(Color.RED);
+		g2d.fillRect(position.getX(), position.getY(), SIZE.getX(), size.getY());
 	}
 
 }

@@ -1,5 +1,6 @@
 package map;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import physics.CollisionHandler;
@@ -20,7 +21,7 @@ public class Bullet extends MovableMapItem {
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		
+		g2d.setColor(Color.ORANGE);
+		g2d.fillRect(position.getX(), position.getY(), SIZE.getX(), SIZE.getY());
 	}
 }

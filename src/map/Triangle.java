@@ -12,7 +12,7 @@ public class Triangle implements Drawable {
 		String[] pts = s.split(" ");
 		
 		for (int i = 0; i < 3; i++) {
-			points[i] = Double.parseDouble(pts[i]);
+			
 		}
 	}
 	
