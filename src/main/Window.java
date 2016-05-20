@@ -25,7 +25,7 @@ public class Window extends JFrame {
 		return new Point(WIDTH * x.getX() / GAME_WIDTH, HEIGHT * x.getY() / GAME_HEIGHT);
 	}
 
-	private Canvas canvas;
+	public Canvas canvas;
 
 	public Window(Game g) {
 		canvas = new Canvas();

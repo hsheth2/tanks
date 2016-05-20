@@ -61,9 +61,9 @@ public class KeyboardController extends Controller {
 	private void updateDirection() {
 		Vector dir = Vector.ZERO;
 		if (pressed[0])
-			dir = dir.add(Vector.UP);
-		if (pressed[1])
 			dir = dir.add(Vector.DOWN);
+		if (pressed[1])
+			dir = dir.add(Vector.UP);
 		if (pressed[2])
 			dir = dir.add(Vector.LEFT);
 		if (pressed[3])

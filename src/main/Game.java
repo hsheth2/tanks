@@ -3,6 +3,7 @@ import java.awt.Graphics;
 
 import javax.swing.SwingUtilities;
 
+import controller.KeyboardController;
 import map.*;
 import physics.*;
 
@@ -25,7 +26,9 @@ public class Game {
 	}
 	
 	public void init() {
-		map.addItem(new Tank(new Vector(10, 10), new Vector(2, 2)));
+		Tank t = new Tank(new Vector(10, 10), Vector.ZERO);
+		KeyboardController k = new KeyboardController(this.map, t, this.w.canvas);
+		map.addItem(t);
 	}
 	
 	public void draw() {
