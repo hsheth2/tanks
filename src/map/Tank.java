@@ -13,10 +13,6 @@ public class Tank extends MovableMapItem {
 		super(position, SIZE, velocity);
 		// TODO Auto-generated constructor stub
 	}
-
-	public void update() {
-		setPosition(position.add(velocity));
-	}
 	
 	public boolean shoot(Map m, Vector dir) {
 		Bullet b = new Bullet(this.position, dir);
