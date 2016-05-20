@@ -14,9 +14,8 @@ public class Tank extends MovableMapItem {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void update(Map m, CollisionHandler ch) {
-		// TODO Auto-generated method stub
-		
+	public void update() {
+		setPosition(position.add(velocity));
 	}
 	
 	public boolean shoot(Map m, Vector dir) {
@@ -32,4 +31,9 @@ public class Tank extends MovableMapItem {
 		g2d.fillRect(position.getX(), position.getY(), SIZE.getX(), size.getY());
 	}
 
+	@Override
+	public void interact(Map m, CollisionHandler ch) {
+		// TODO Auto-generated method stub
+		
+	}
 }
