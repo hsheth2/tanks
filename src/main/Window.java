@@ -48,4 +48,5 @@ public class Window extends JFrame {
 			game.map.draw(g2d);
 		}
 	}
+	
 }
