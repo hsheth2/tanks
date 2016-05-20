@@ -15,7 +15,7 @@ public class Bullet extends MovableMapItem {
 		this.position = position.add(velocity.multiply(2));
 	}
 
-	public void update(Map m, CollisionHandler ch) {
+	public void interact(Map m, CollisionHandler ch) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -24,5 +24,11 @@ public class Bullet extends MovableMapItem {
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.ORANGE);
 		g2d.fillRect(position.getX(), position.getY(), SIZE.getX(), SIZE.getY());
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }
