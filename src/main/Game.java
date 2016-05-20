@@ -19,13 +19,13 @@ public class Game {
 		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				w = new Window();
+				Game.this.w = new Window(Game.this);
 			}
 		});
 	}
 	
 	public void init() {
-		
+		map.addItem(new Tank(new Vector(10, 10), new Vector(2, 2)));
 	}
 	
 	public void draw() {
@@ -39,6 +39,8 @@ public class Game {
 	public static void main(String[] args) {
 		Game g = new Game();
 		boolean running = true;
+		
+		while (g.w == null);
 		
 		g.init();
 		

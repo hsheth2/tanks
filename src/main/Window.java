@@ -15,7 +15,7 @@ public class Window extends JFrame {
 	public static final int GAME_WIDTH = 1600;
 	public static final int GAME_HEIGHT = 1200;
 	
-	private Graphics2D g2d;
+	private Game game;
 	
 	public static Vector real2game(Point p) {
 		return new Vector(GAME_WIDTH * p.getX() / WIDTH, GAME_HEIGHT * p.getY() / HEIGHT);
@@ -27,7 +27,7 @@ public class Window extends JFrame {
 
 	private Canvas canvas;
 
-	public Window() {
+	public Window(Game g) {
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
@@ -37,17 +37,15 @@ public class Window extends JFrame {
 		pack();
 		setTitle("Tanks Game");
 		setVisible(true);
-
-		// FIXME remove this testing code
-		Map m = new Map();
-		Tank t = new Tank(new Vector(500, 500), Vector.ZERO);
-		m.addItem(t);
-		KeyboardController k = new KeyboardController(m, t, canvas);
+		
+		game = g;
 	}
 
 	private class Canvas extends JPanel {
 		public void paintComponent(Graphics g) {
-			Game.map.draw(g2d);
+			Graphics2D g2d = (Graphics2D) g;
+			
+			game.map.draw(g2d);
 		}
 	}
 }
