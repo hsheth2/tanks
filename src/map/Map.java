@@ -47,7 +47,13 @@ public class Map implements Drawable {
 	public void update() {
 		for (MapItem item : items) {
 			if (item instanceof Updatable) {
-				((Updatable) item).update(this, ch);
+				((Updatable) item).update();
+			}
+		}
+		
+		for (MapItem item : items) {
+			if (item instanceof Updatable) {
+				((Updatable) item).interact(this, ch);
 			}
 		}
 	}
