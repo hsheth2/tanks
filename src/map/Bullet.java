@@ -16,7 +16,6 @@ public class Bullet extends MovableMapItem {
 	}
 
 	public void update(Map m, CollisionHandler ch) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -9,12 +9,14 @@ import physics.*;
 import map.Map;
 
 public class Game {
-	public static Map map = new Map();
-	public static Tank tank = new Tank(new Vector(100, 100), new Vector(0, 0));
-	private Window w;
-	
+	public Window w;
+	public DeltaTimer dt;
+	public Map map;
 	
 	public Game() {
+		dt = new DeltaTimer();
+		map = new Map(dt);
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				w = new Window();
@@ -36,19 +38,18 @@ public class Game {
 	
 	public static void main(String[] args) {
 		Game g = new Game();
-		DeltaTimer dt = new DeltaTimer();
 		boolean running = true;
 		
 		g.init();
 		
 		
 		while (running) {
-			dt.startIter();
+			g.dt.startIter();
 			
 			g.update();
-			g.draw()
+			g.draw();
 			
-			dt.stopIter();
+			g.dt.stopIter();
 		}
 	}
 }
