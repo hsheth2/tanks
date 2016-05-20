@@ -47,7 +47,6 @@ public class Game {
 		
 		g.init();
 		
-		
 		while (running) {
 			g.dt.startIter();
 			

@@ -2,7 +2,9 @@ package map;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
+import main.Window;
 import physics.CollisionHandler;
 import physics.Vector;
 
@@ -24,7 +26,11 @@ public class Tank extends MovableMapItem {
 	@Override
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.RED);
-		g2d.fillRect(position.getX(), position.getY(), SIZE.getX(), size.getY());
+		
+		Point pos = Window.game2real(position);
+		Point sz = Window.game2real(size);
+		
+		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
 
 	@Override
