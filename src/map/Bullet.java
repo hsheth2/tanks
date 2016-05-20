@@ -15,6 +15,7 @@ public class Bullet extends MovableMapItem {
 		this.position = position.add(velocity.multiply(2));
 	}
 
+	@Override
 	public void interact(Map m, CollisionHandler ch) {
 		// TODO Auto-generated method stub
 	}
@@ -25,9 +26,5 @@ public class Bullet extends MovableMapItem {
 		g2d.fillRect(position.getX(), position.getY(), SIZE.getX(), SIZE.getY());
 	}
 
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
