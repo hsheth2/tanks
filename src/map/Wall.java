@@ -23,4 +23,16 @@ public class Wall extends StaticMapItem {
 		
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
+
+	@Override
+	public void hit(MapItem other) {
+		if (other instanceof Wall || other instanceof Hole) {
+			// nothing
+		} else if (other instanceof Tank) {
+			Tank o = (Tank) other;
+			o.setVelocity(Vector.ZERO);
+		}
+		// TODO hit method
+	}
+
 }
