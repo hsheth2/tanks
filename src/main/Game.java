@@ -29,6 +29,12 @@ public class Game {
 		Tank t = new Tank(new Vector(10, 10), Vector.ZERO);
 		KeyboardController k = new KeyboardController(this.map, t, this.w.canvas);
 		map.addItem(t);
+		
+		Wall w = new Wall(new Vector(100, 200));
+		map.addItem(w);
+		
+		Hole h = new Hole(new Vector(500, 400));
+		map.addItem(h);
 	}
 	
 	public void draw() {
