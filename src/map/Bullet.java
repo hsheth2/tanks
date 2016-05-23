@@ -9,7 +9,7 @@ import physics.CollisionHandler;
 import physics.Vector;
 
 public class Bullet extends MovableMapItem {
-	public static final Vector SIZE = new Vector(10, 10);
+	public static final Vector SIZE = new Vector(15, 15);
 	public static final int SPEED = 10;
 
 	public Bullet(Vector position, Vector direction) {

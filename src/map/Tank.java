@@ -9,7 +9,7 @@ import physics.CollisionHandler;
 import physics.Vector;
 
 public class Tank extends MovableMapItem {
-	public static final Vector SIZE = new Vector(20, 20);
+	public static final Vector SIZE = new Vector(40, 40);
 	
 	public Tank(Vector position, Vector velocity) {
 		super(position, SIZE, velocity);
@@ -37,5 +37,17 @@ public class Tank extends MovableMapItem {
 	public void interact(Map m, CollisionHandler ch) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void hit(MapItem other) {
+		if (other instanceof Tank) {
+			this.setVelocity(Vector.ZERO);
+			Tank o = (Tank) other;
+			o.setVelocity(Vector.ZERO);
+		} else if (other instanceof Wall || other instanceof Hole) {
+			other.hit(this);
+		}
+		// TODO hit method
 	}
 }

@@ -38,5 +38,7 @@ public abstract class MapItem implements Drawable {
 		return position.getX() <= v.getX() && v.getX() <= altCorner.getX() 
 				&& position.getY() <= v.getY() && v.getY() <= altCorner.getY();
 	}
+	
+	public abstract void hit(MapItem other);
 
 }

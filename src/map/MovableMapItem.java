@@ -3,19 +3,19 @@ package map;
 import physics.Vector;
 
 public abstract class MovableMapItem extends MapItem implements Updatable {
-	protected Vector velocity;
+	private Vector velocity;
 
 	public MovableMapItem(Vector position, Vector size, Vector velocity) {
 		super(position, size);
 		this.velocity = velocity;
 	}
 
-	public void setVelocity(Vector velocity) {
-		System.out.println("Tank velocity: " + velocity);
+	public synchronized void setVelocity(Vector velocity) {
+//		//System.out.println("Tank velocity: " + velocity);
 		this.velocity = velocity;
 	}
 
-	public Vector getVelocity() {
+	public synchronized Vector getVelocity() {
 		return velocity;
 	}
 	
