@@ -36,7 +36,7 @@ public class Map implements Drawable {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.CYAN);
+		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		for (MapItem item : items) {
