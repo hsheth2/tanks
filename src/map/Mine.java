@@ -11,12 +11,12 @@ import physics.DeltaTimer;
 
 public class Mine extends StaticMapItem implements Updatable {
 	public static final Vector SIZE = new Vector(100, 100);
-	
+
 	public static final int TIMER_END = 5 * DeltaTimer.FPS;
-	
+
 	private int timer = 0;
 	private Tank owner;
-	
+
 	public Mine(Vector position, Tank owner) {
 		super(position, SIZE);
 		this.owner = owner;
@@ -25,10 +25,10 @@ public class Mine extends StaticMapItem implements Updatable {
 	@Override
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.MAGENTA);
-		
+
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
-		
+
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
 
@@ -50,7 +50,7 @@ public class Mine extends StaticMapItem implements Updatable {
 		if (other instanceof Wall || other instanceof Hole || other instanceof Mine) {
 			// nothing
 		} else if (other instanceof Tank) {
-			Tank o = (Tank)other;
+			Tank o = (Tank) other;
 			if (o != this.owner) { // ignore parent Tank
 				// TODO blow up mine
 				System.out.println("SHOULD BLOW UP MINE HERE");

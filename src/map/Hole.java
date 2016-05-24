@@ -17,10 +17,10 @@ public class Hole extends StaticMapItem {
 	@Override
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.BLACK);
-		
+
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
-		
+
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
 

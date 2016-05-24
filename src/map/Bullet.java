@@ -10,7 +10,7 @@ import physics.Vector;
 public class Bullet extends MovableMapItem {
 	public static final Vector SIZE = new Vector(60, 60);
 	public static final int SPEED = 12;
-	
+
 	private static final double START_MULT = Bullet.SIZE.add(Tank.SIZE).magnitude() / 2.0;
 
 	public Bullet(Vector position, Vector direction) {
@@ -21,10 +21,10 @@ public class Bullet extends MovableMapItem {
 	@Override
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.ORANGE);
-		
+
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
-		
+
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
 
@@ -32,5 +32,5 @@ public class Bullet extends MovableMapItem {
 	public void hit(MapItem other, Map m) {
 		// TODO hit method
 	}
-	
+
 }
