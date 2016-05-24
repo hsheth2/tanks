@@ -24,4 +24,9 @@ public abstract class MovableMapItem extends MapItem implements Updatable {
 		this.position = position.add(velocity);
 	}
 	
+	@Override
+	public void unupdate() {
+		this.position = position.sub(velocity);
+	}
+	
 }

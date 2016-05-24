@@ -3,17 +3,14 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import controller.KeyboardController;
-import map.Map;
-import map.Tank;
 import physics.Vector;
 
 public class Window extends JFrame {
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 	
-	public static final int GAME_WIDTH = 1600;
-	public static final int GAME_HEIGHT = 1200;
+	public static final int GAME_WIDTH = 6400;
+	public static final int GAME_HEIGHT = 4800;
 	
 	private Game game;
 	

@@ -60,6 +60,10 @@ public class Vector {
 		return x == o.x && y == o.y;
 	}
 	
+	public Vector nearestInt() {
+		return new Vector((int)Math.round(x), (int)Math.round(y));
+	}
+	
 	public String toString() {
 		return String.format("Vector(%f, %f)", x, y);
 	}

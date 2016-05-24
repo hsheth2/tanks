@@ -8,7 +8,7 @@ import main.Window;
 import physics.Vector;
 
 public class Hole extends StaticMapItem {
-	public static final Vector SIZE = new Vector(40, 40);
+	public static final Vector SIZE = new Vector(160, 160);
 
 	public Hole(Vector position) {
 		super(position, SIZE);
@@ -26,13 +26,14 @@ public class Hole extends StaticMapItem {
 
 	@Override
 	public void hit(MapItem other, Map m) {
-		if (other instanceof Wall || other instanceof Hole) {
+		if (other instanceof Wall || other instanceof Hole || other instanceof Mine) {
 			// nothing
 		} else if (other instanceof Tank) {
 			Tank o = (Tank) other;
-			Vector push = pushDirection(o, this);
-			o.setPosition(o.getPosition().add(push));
+			o.unupdate();
 			o.setVelocity(Vector.ZERO);
+		} else {
+			throw new IllegalArgumentException("can't hit " + other.getClass());
 		}
 		// TODO hit method
 	}

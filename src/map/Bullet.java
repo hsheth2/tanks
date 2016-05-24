@@ -5,16 +5,17 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 import main.Window;
-import physics.CollisionHandler;
 import physics.Vector;
 
 public class Bullet extends MovableMapItem {
-	public static final Vector SIZE = new Vector(15, 15);
-	public static final int SPEED = 10;
+	public static final Vector SIZE = new Vector(60, 60);
+	public static final int SPEED = 12;
+	
+	private static final double START_MULT = Bullet.SIZE.add(Tank.SIZE).magnitude() / 2.0;
 
 	public Bullet(Vector position, Vector direction) {
 		super(position, SIZE, direction.scale(SPEED));
-		this.position = position.add(getVelocity().multiply(2));
+		this.position = position.add(getVelocity().unit().multiply(START_MULT));
 	}
 
 	@Override
@@ -31,6 +32,5 @@ public class Bullet extends MovableMapItem {
 	public void hit(MapItem other, Map m) {
 		// TODO hit method
 	}
-
 	
 }

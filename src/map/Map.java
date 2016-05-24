@@ -3,14 +3,13 @@ package map;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+
+import main.Window;
 import physics.*;
 
 import physics.DeltaTimer;
 
 public class Map implements Drawable {
-	public static final int WIDTH = 1600;
-	public static final int HEIGHT = 1200;
-	
 	private ArrayList<MapItem> items = new ArrayList<>();
 	private CollisionHandler ch = new CollisionHandler();
 	
@@ -45,7 +44,7 @@ public class Map implements Drawable {
 
 	public void draw(Graphics2D g) {
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.fillRect(0, 0, Window.GAME_WIDTH, Window.GAME_HEIGHT);
 		
 		for (MapItem item : items) {
 			item.draw(g);
@@ -53,6 +52,12 @@ public class Map implements Drawable {
 	}
 	
 	public void update() {
+		for (MapItem item : items) {
+			if (item instanceof Updatable) {
+				((Updatable) item).update();
+			}
+		}
+		
 		for (int i = 0; i < items.size(); i++) {
 			for (int j = i+1; j < items.size(); j++) {
 				// call collision handler
@@ -61,11 +66,5 @@ public class Map implements Drawable {
 			}
 		}
 		doRemoval();
-		
-		for (MapItem item : items) {
-			if (item instanceof Updatable) {
-				((Updatable) item).update();
-			}
-		}
 	}
 }
