@@ -39,6 +39,10 @@ public abstract class MapItem implements Drawable {
 				&& position.getY() <= v.getY() && v.getY() <= altCorner.getY();
 	}
 	
-	public abstract void hit(MapItem other);
+	public abstract void hit(MapItem other, Map m);
+	
+	public static Vector pushDirection(MapItem a, MapItem b) {
+		return a.getPosition().sub(b.getPosition()).unit();
+	}
 
 }

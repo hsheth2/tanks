@@ -17,7 +17,7 @@ public class Tank extends MovableMapItem {
 	}
 	
 	public boolean shoot(Map m, Vector dir) {
-		Bullet b = new Bullet(this.position, dir);
+		Bullet b = new Bullet(this.getCenter().sub(Bullet.SIZE.multiply(0.5)), dir);
 		m.addItem(b);
 		// TODO rate limiting
 		return false;
@@ -34,20 +34,16 @@ public class Tank extends MovableMapItem {
 	}
 
 	@Override
-	public void interact(Map m, CollisionHandler ch) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void hit(MapItem other) {
+	public void hit(MapItem other, Map m) {
 		if (other instanceof Tank) {
-			this.setVelocity(Vector.ZERO);
 			Tank o = (Tank) other;
+			Vector push = pushDirection(this, o);
+			this.setPosition(this.getPosition().add(push));
+			this.setVelocity(Vector.ZERO);
 			o.setVelocity(Vector.ZERO);
 		} else if (other instanceof Wall || other instanceof Hole) {
-			other.hit(this);
+			other.hit(this, m);
 		}
-		// TODO hit method
+		
 	}
 }

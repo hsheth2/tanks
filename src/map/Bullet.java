@@ -14,12 +14,7 @@ public class Bullet extends MovableMapItem {
 
 	public Bullet(Vector position, Vector direction) {
 		super(position, SIZE, direction.scale(SPEED));
-		this.position = position.add(velocity.multiply(2));
-	}
-
-	@Override
-	public void interact(Map m, CollisionHandler ch) {
-		// TODO Auto-generated method stub
+		this.position = position.add(getVelocity().multiply(2));
 	}
 
 	@Override
@@ -30,6 +25,11 @@ public class Bullet extends MovableMapItem {
 		Point sz = Window.game2real(size);
 		
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
+	}
+
+	@Override
+	public void hit(MapItem other, Map m) {
+		// TODO hit method
 	}
 
 	

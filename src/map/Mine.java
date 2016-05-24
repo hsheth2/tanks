@@ -17,12 +17,6 @@ public class Mine extends StaticMapItem implements Updatable {
 	}
 
 	@Override
-	public void interact(Map m, CollisionHandler ch) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void update() {
 		// TODO Auto-generated method stub
 		
