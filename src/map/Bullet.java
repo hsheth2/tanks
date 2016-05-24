@@ -27,9 +27,26 @@ public class Bullet extends MovableMapItem {
 
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
+	
+	private void destroy(Map m) {
+		m.removeItem(this);
+		// TODO destroy this bullet
+	}
 
 	@Override
 	public void hit(MapItem other, Map m) {
+		if (other instanceof Hole) {
+			// nothing
+		} else if (other instanceof Bullet) {
+			Bullet b = (Bullet) other;
+			this.destroy(m);
+			b.destroy(m);
+		} else if (other instanceof Wall) {
+			this.unupdate();
+			this.bounceOff(other);
+		} else {
+			throw new IllegalArgumentException("can't hit " + other.getClass());
+		}
 		// TODO hit method
 	}
 

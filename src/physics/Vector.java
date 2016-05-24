@@ -56,6 +56,11 @@ public class Vector {
 		return this.unit().multiply(mag);
 	}
 	
+	public double angle() {
+		double angle = Math.toDegrees(Math.atan2(y, x));
+		return (360.0 + angle) % 360.0;
+	}
+	
 	public boolean equals(Vector o) {
 		return x == o.x && y == o.y;
 	}

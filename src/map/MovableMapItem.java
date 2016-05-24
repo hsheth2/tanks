@@ -19,6 +19,15 @@ public abstract class MovableMapItem extends MapItem implements Updatable {
 		return velocity;
 	}
 	
+	public void bounceOff(MapItem other) {
+		Vector dir = this.getCenter().sub(other.getCenter());
+		
+		// find angle
+		double angle = dir.angle();
+		
+		// TODO finish bounce
+	}
+	
 	@Override
 	public void update() {
 		this.position = position.add(velocity);

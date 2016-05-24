@@ -12,7 +12,6 @@ public class Tank extends MovableMapItem {
 
 	public Tank(Vector position, Vector velocity) {
 		super(position, SIZE, velocity);
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean shoot(Map m, Vector dir) {
