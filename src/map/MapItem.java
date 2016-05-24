@@ -35,10 +35,10 @@ public abstract class MapItem implements Drawable {
 
 	public boolean containsPoint(Vector v) {
 		Vector altCorner = position.add(size);
-		return position.getX() <= v.getX() && v.getX() <= altCorner.getX() 
-				&& position.getY() <= v.getY() && v.getY() <= altCorner.getY();
+		return position.getX() < v.getX() && v.getX() < altCorner.getX() 
+				&& position.getY() < v.getY() && v.getY() < altCorner.getY();
 	}
 	
-	public abstract void hit(MapItem other);
+	public abstract void hit(MapItem other, Map m);
 
 }

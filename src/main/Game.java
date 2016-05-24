@@ -1,5 +1,4 @@
 package main;
-import java.awt.Graphics;
 
 import javax.swing.SwingUtilities;
 
@@ -37,7 +36,7 @@ public class Game {
 		Hole h = new Hole(new Vector(500, 400));
 		map.addItem(h);
 		
-		Mine m = new Mine(new Vector(300, 500));
+		Mine m = new Mine(new Vector(300, 500), t);
 		map.addItem(m);
 	}
 	
