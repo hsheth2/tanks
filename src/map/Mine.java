@@ -24,15 +24,21 @@ public class Mine extends StaticMapItem implements Updatable {
 		
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
-
+	
 	@Override
-	public void interact(Map m, CollisionHandler ch) {
+	public void update() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void update() {
+	public void hit(MapItem other) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void interact(Map m, CollisionHandler ch) {
 		// TODO Auto-generated method stub
 		
 	}

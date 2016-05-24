@@ -45,7 +45,11 @@ public class Window extends JFrame {
 		public void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g;
 			
-			game.map.draw(g2d);
+			if (game.menu != null) {
+				game.menu.draw(g2d);
+			} else {
+				game.map.draw(g2d);
+			}
 		}
 	}
 	

@@ -11,6 +11,7 @@ import map.Map;
 
 public class Game {
 	public Window w;
+	public Menu menu;
 	public DeltaTimer dt;
 	public Map map;
 	
@@ -35,6 +36,9 @@ public class Game {
 		
 		Hole h = new Hole(new Vector(500, 400));
 		map.addItem(h);
+		
+		Mine m = new Mine(new Vector(300, 500));
+		map.addItem(m);
 	}
 	
 	public void draw() {
