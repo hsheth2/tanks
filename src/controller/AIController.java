@@ -1,9 +1,18 @@
 package controller;
 
+import map.Map;
+import map.Tank;
+
 public class AIController extends Controller {
-
-	public AIController() {
-		// TODO Auto-generated constructor stub
+	private Tank enemy;
+	
+	public AIController(Map map, Tank tank, Tank enemy) {
+		super(map, tank);
+		
+		this.enemy = enemy;
 	}
-
+	
+	public void act() {
+		setDir(enemy.getPosition().sub(tank.getPosition()), 1);
+	}
 }

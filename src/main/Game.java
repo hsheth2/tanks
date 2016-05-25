@@ -2,17 +2,22 @@ package main;
 
 import javax.swing.SwingUtilities;
 
+import controller.AIController;
 import controller.KeyboardController;
-import map.*;
-import physics.*;
-
+import map.Hole;
 import map.Map;
+import map.Mine;
+import map.Tank;
+import map.Wall;
+import physics.DeltaTimer;
+import physics.Vector;
 
 public class Game {
 	public Window w;
 	public Menu menu;
 	public DeltaTimer dt;
 	public Map map;
+	private AIController ai;
 	
 	public Game() {
 		dt = new DeltaTimer();
@@ -30,6 +35,10 @@ public class Game {
 		KeyboardController k = new KeyboardController(this.map, t, this.w.canvas);
 		map.addItem(t);
 		
+		Tank e = new Tank(new Vector(800, 800), Vector.ZERO);
+		ai = new AIController(this.map, e, t);
+		map.addItem(e);
+		
 		Wall w = new Wall(new Vector(100, 200));
 		map.addItem(w);
 		
@@ -41,10 +50,12 @@ public class Game {
 	}
 	
 	public void draw() {
+		ai.act();
 		w.repaint();
 	}
 	
 	public void update() {
+		ai.act();
 		map.update();
 	}
 	
