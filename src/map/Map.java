@@ -36,10 +36,13 @@ public class Map implements Drawable {
 	}
 
 	private void doRemoval() {
-		for (int idx = removalQueue.size() - 1; idx >= 0; idx--) {
-			items.remove(removalQueue.get(idx));
+		if (!removalQueue.isEmpty()) {
+			System.out.println("Calling do removal");
+			for (int idx = removalQueue.size() - 1; idx >= 0; idx--) {
+				items.remove((int)removalQueue.get(idx));
+			}
+			removalQueue = new ArrayList<>();
 		}
-		removalQueue = new ArrayList<>();
 	}
 
 	public void draw(Graphics2D g) {
@@ -52,7 +55,8 @@ public class Map implements Drawable {
 	}
 
 	public void update() {
-		for (MapItem item : items) {
+		for (int i = 0; i < items.size(); i++) {
+			MapItem item = items.get(i);
 			if (item instanceof Updatable) {
 				((Updatable) item).update();
 			}

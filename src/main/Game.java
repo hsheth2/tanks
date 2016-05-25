@@ -33,6 +33,9 @@ public class Game {
 		Wall w = new Wall(new Vector(100, 200));
 		map.addItem(w);
 		
+		Wall w2 = new Wall(new Vector(3000, 200));
+		map.addItem(w2);
+		
 		Hole h = new Hole(new Vector(500, 400));
 		map.addItem(h);
 		

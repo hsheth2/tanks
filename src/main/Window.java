@@ -20,7 +20,7 @@ public class Window extends JFrame {
 	}
 
 	public static Point game2real(Vector x) {
-		return new Point(WIDTH * x.getX() / GAME_WIDTH, HEIGHT * x.getY() / GAME_HEIGHT);
+		return new Point( (int)(WIDTH * x.getX() / GAME_WIDTH), (int)(HEIGHT * x.getY() / GAME_HEIGHT));
 	}
 
 	public Canvas canvas;

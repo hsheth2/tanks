@@ -14,11 +14,19 @@ public class Vector {
 		this.y = y;
 	}
 	
-	public int getX() {
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public int intX() {
 		return (int)x;
 	}
 	
-	public int getY() {
+	public int intY() {
 		return (int)y;
 	}
 	

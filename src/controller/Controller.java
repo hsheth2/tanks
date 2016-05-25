@@ -5,8 +5,6 @@ import map.Tank;
 import physics.Vector;
 
 public abstract class Controller {
-	private static final int SPEED = 2;
-	
 	protected Map map;
 	protected Tank tank;
 
@@ -18,7 +16,7 @@ public abstract class Controller {
 	protected void setDir(Vector dir) {
 		if (dir.equals(Vector.ZERO))
 			tank.setVelocity(dir);
-		else tank.setVelocity(dir.scale(SPEED));
+		else tank.setVelocity(dir.scale(Tank.SPEED));
 	}
 	
 	protected boolean shoot(Vector where) {		
