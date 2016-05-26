@@ -27,7 +27,7 @@ public abstract class MovableMapItem extends MapItem implements Updatable {
 		
 		// find threshold
 		double thresh = other.size.angle();
-		System.out.println(thresh);
+//		System.out.println(thresh);
 		
 //		System.out.println("Bounce Angle: " + angle);
 		Vector v = this.getVelocity();

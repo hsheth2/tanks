@@ -23,6 +23,8 @@ public class Map implements Drawable {
 	}
 
 	public void addItem(MapItem item) {
+		if (item == null)
+			return;
 		items.add(item);
 	}
 
