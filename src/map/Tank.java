@@ -33,8 +33,11 @@ public class Tank extends MovableMapItem {
 	}
 	
 	public void destroy(Map m) {
+		System.out.println("tank has died");
 		m.removeItem(this);
-		// TODO destroy this bullet animation + sound
+		// TODO destroy this tank's animation + sound
+		// TODO stop game if this is me
+		System.exit(1);
 	}
 
 	@Override

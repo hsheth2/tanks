@@ -46,7 +46,7 @@ public class KeyboardController extends Controller {
 
 		canvas.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				System.out.println("Mouse pressed; # of clicks: " + e.getClickCount());
+//				System.out.println("Mouse pressed; # of clicks: " + e.getClickCount());
 				KeyboardController.this.mouseClicked(e.getPoint());
 			}
 		});
@@ -55,7 +55,7 @@ public class KeyboardController extends Controller {
 	private void mouseClicked(Point p) {
 //		System.out.println("Point:"+p.getX() + " " + p.getY());
 		Vector clickPos = Window.real2game(p);
-		this.shoot(clickPos); // TODO use its return value
+		this.shoot(clickPos);
 	}
 	
 	private void updateDirection() {

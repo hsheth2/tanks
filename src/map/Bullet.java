@@ -52,10 +52,13 @@ public class Bullet extends MovableMapItem {
 			} else {
 				this.destroy(m);
 			}
-		}  else if (other instanceof Tank) {
-			// TODO destroy bullet, tank
-			System.out.println("tank has died");
-			System.exit(0);
+		} else if (other instanceof Tank) {
+			Tank t = (Tank) other;
+			
+			this.destroy(m);
+			t.destroy(m);
+		} else if (other instanceof Mine) {
+			other.hit(this, m);
 		} else {
 			throw new IllegalArgumentException("can't hit " + other.getClass());
 		}

@@ -26,7 +26,7 @@ public class Game {
 	}
 	
 	public void init() {
-		Tank t = new Tank(new Vector(10, 10), Vector.ZERO);
+		Tank t = new Tank(new Vector(3000, 3000), Vector.ZERO);
 		KeyboardController k = new KeyboardController(this.map, t, this.w.canvas);
 		map.addItem(t);
 		
