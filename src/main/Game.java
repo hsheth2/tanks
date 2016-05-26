@@ -22,11 +22,11 @@ public class Game {
 		dt = new DeltaTimer();
 		map = new Map(dt);
 		
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
 				Game.this.w = new Window(Game.this);
-			}
-		});
+//			}
+//		});
 	}
 	
 	public void init() {
@@ -43,6 +43,7 @@ public class Game {
 		
 		Mine m = new Mine(new Vector(300, 500), t);
 		map.addItem(m);
+		m.hit(h, map);
 	}
 	
 	public void draw() {

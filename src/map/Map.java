@@ -63,7 +63,8 @@ public class Map implements Drawable {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, Window.GAME_WIDTH, Window.GAME_HEIGHT);
 
-		for (MapItem item : items) {
+		for (int i = 0; i < items.size(); i++) {
+			MapItem item = items.get(i);
 			item.draw(g);
 		}
 	}
