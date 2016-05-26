@@ -16,6 +16,8 @@ public class Mine extends StaticMapItem implements Updatable {
 
 	private int timer = 0;
 	private Tank owner;
+	
+	private Map map;
 
 	public Mine(Vector position, Tank owner) {
 		super(position, SIZE);
@@ -31,11 +33,19 @@ public class Mine extends StaticMapItem implements Updatable {
 
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
+	
+	public void destroy(Map m) {
+		System.out.println("SHOULD BLOW UP MINE HERE");
+		m.removeItem(this);
+		// TODO destroy this mine's animation + sound
+		// TODO destroy all in range
+	}
 
+	@Override
 	public void update() {
 		timer++;
 		if (timer >= TIMER_END) {
-			// TODO blow up mine
+			this.destroy(map);
 		}
 	}
 
@@ -46,14 +56,19 @@ public class Mine extends StaticMapItem implements Updatable {
 
 	@Override
 	public void hit(MapItem other, Map m) {
+		this.map = m;
 		if (other instanceof Wall || other instanceof Hole || other instanceof Mine) {
 			// nothing
 		} else if (other instanceof Tank) {
 			Tank o = (Tank) other;
 			if (o != this.owner) { // ignore parent Tank
-				// TODO blow up mine
-				System.out.println("SHOULD BLOW UP MINE HERE");
+				this.destroy(m);
 			}
+		} else if (other instanceof Bullet) {
+			Bullet b = (Bullet) other;
+			
+			b.destroy(m);
+			this.destroy(m);
 		} else {
 			throw new IllegalArgumentException("can't hit " + other.getClass());
 		}

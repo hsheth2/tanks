@@ -3,6 +3,7 @@ package map;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import main.Window;
 import physics.*;
@@ -37,6 +38,7 @@ public class Map implements Drawable {
 
 	private void doRemoval() {
 		if (!removalQueue.isEmpty()) {
+			Collections.sort(removalQueue);
 			System.out.println("Calling do removal");
 			for (int idx = removalQueue.size() - 1; idx >= 0; idx--) {
 				items.remove((int)removalQueue.get(idx));

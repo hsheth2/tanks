@@ -12,9 +12,6 @@ public class DeltaTimer {
 	private long lag = 0; // (nanoseconds)
 	private long lastTime;
 	
-	public DeltaTimer() {
-	}
-	
 	public void startIter() {
 	    lastTime = System.nanoTime();
 	    frameCount++;
