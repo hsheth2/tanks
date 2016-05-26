@@ -2,11 +2,15 @@ package main;
 
 import javax.swing.SwingUtilities;
 
+import controller.AIController;
 import controller.KeyboardController;
-import map.*;
-import physics.*;
-
+import map.Hole;
 import map.Map;
+import map.Mine;
+import map.Tank;
+import map.Wall;
+import physics.DeltaTimer;
+import physics.Vector;
 
 public class Game {
 	public Window w;
@@ -26,15 +30,11 @@ public class Game {
 	}
 	
 	public void init() {
-		Tank t = new Tank(new Vector(3000, 3000), Vector.ZERO);
+		map.makeRing();
+		
+		Tank t = new Tank(new Vector(4000, 4000), Vector.ZERO);
 		KeyboardController k = new KeyboardController(this.map, t, this.w.canvas);
 		map.addItem(t);
-		
-		Wall w = new Wall(new Vector(100, 200));
-		map.addItem(w);
-		
-		Wall w2 = new Wall(new Vector(3000, 200));
-		map.addItem(w2);
 		
 		Hole h = new Hole(new Vector(500, 400));
 		map.addItem(h);
