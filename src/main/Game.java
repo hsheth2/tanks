@@ -47,6 +47,7 @@ public class Game {
 	}
 	
 	public void draw() {
+		w.validate();
 		w.repaint();
 	}
 	

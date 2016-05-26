@@ -25,19 +25,23 @@ public abstract class MovableMapItem extends MapItem implements Updatable {
 		// find angle
 		double angle = dir.angle();
 		
+		// find threshold
+		double thresh = other.size.angle();
+		System.out.println(thresh);
+		
 //		System.out.println("Bounce Angle: " + angle);
 		Vector v = this.getVelocity();
 //		System.out.println("Current vel " + v);
-		if (45 < angle && angle < 135) {
+		if (thresh < angle && angle < 180-thresh) {
 			// negate y
 			this.setVelocity(new Vector(v.getX(), -v.getY()));
-		} else if (135 < angle && angle < 225) {
+		} else if (180-thresh < angle && angle < 180+thresh) {
 			// negate x
 			this.setVelocity(new Vector(-v.getX(), v.getY()));
-		} else if (225 < angle && angle < 315) {
+		} else if (180+thresh < angle && angle < 360-thresh) {
 			// negate y
 			this.setVelocity(new Vector(v.getX(), -v.getY()));
-		} else if (0 < angle && angle < 45 || 315 < angle && angle < 360) {
+		} else if (0 < angle && angle < thresh || 360-thresh < angle && angle < 360) {
 			// negate x
 			this.setVelocity(new Vector(-v.getX(), v.getY()));
 		} else {
