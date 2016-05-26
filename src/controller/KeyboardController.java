@@ -27,7 +27,7 @@ public class KeyboardController extends Controller {
 			public boolean dispatchKeyEvent(KeyEvent ke) {
 				synchronized (KeyboardController.class) {
 					for (int i = 0; i < keys.length; i++) {
-						if (ke.getKeyChar() == keys[i]) {
+						if (ke.getKeyChar() == keys[i] || ke.getKeyChar() == Character.toUpperCase(keys[i])) {
 							switch (ke.getID()) {
 							case KeyEvent.KEY_PRESSED:
 								pressed[i] = true;
