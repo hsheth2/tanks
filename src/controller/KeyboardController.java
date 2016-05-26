@@ -69,6 +69,6 @@ public class KeyboardController extends Controller {
 		if (pressed[3])
 			dir = dir.add(Vector.RIGHT);
 		
-		setDir(dir, Controller.SPEED);
+		setDir(dir);
 	}
 }

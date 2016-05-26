@@ -13,6 +13,6 @@ public class AIController extends Controller {
 	}
 	
 	public void act() {
-		setDir(enemy.getPosition().sub(tank.getPosition()), 1);
+		setDir(enemy.getPosition().sub(tank.getPosition()));
 	}
 }

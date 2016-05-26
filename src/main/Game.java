@@ -17,7 +17,6 @@ public class Game {
 	public Menu menu;
 	public DeltaTimer dt;
 	public Map map;
-	private AIController ai;
 	
 	public Game() {
 		dt = new DeltaTimer();
@@ -33,19 +32,9 @@ public class Game {
 	public void init() {
 		map.makeRing();
 		
-		Tank t = new Tank(new Vector(10, 10), Vector.ZERO);
+		Tank t = new Tank(new Vector(4000, 4000), Vector.ZERO);
 		KeyboardController k = new KeyboardController(this.map, t, this.w.canvas);
 		map.addItem(t);
-		
-		Tank e = new Tank(new Vector(800, 800), Vector.ZERO);
-		ai = new AIController(this.map, e, t);
-		map.addItem(e);
-		
-		Wall w = new Wall(new Vector(100, 200));
-		map.addItem(w);
-		
-		Wall w2 = new Wall(new Vector(3000, 200));
-		map.addItem(w2);
 		
 		Hole h = new Hole(new Vector(500, 400));
 		map.addItem(h);
@@ -55,12 +44,10 @@ public class Game {
 	}
 	
 	public void draw() {
-		ai.act();
 		w.repaint();
 	}
 	
 	public void update() {
-		ai.act();
 		map.update();
 	}
 	

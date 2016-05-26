@@ -9,7 +9,7 @@ import physics.Vector;
 
 public class Tank extends MovableMapItem {
 	public static final Vector SIZE = new Vector(160, 160);
-	public static int SPEED = 2;
+	public static int SPEED = 3;
 
 	public Tank(Vector position, Vector velocity) {
 		super(position, SIZE, velocity);
