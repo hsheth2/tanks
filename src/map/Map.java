@@ -16,7 +16,7 @@ public class Map implements Drawable {
 
 	public final DeltaTimer dt;
 
-	private ArrayList<Integer> removalQueue = new ArrayList<>();
+	private ArrayList<MapItem> removalQueue = new ArrayList<>();
 
 	public Map(DeltaTimer t) {
 		this.dt = t;
@@ -29,7 +29,7 @@ public class Map implements Drawable {
 	public boolean removeItem(MapItem item) {
 		for (int i = 0; i < items.size(); i++) {
 			if (items.get(i) == item) {
-				removalQueue.add(i);
+				removalQueue.add(items.get(i));
 				return true;
 			}
 		}
@@ -38,22 +38,23 @@ public class Map implements Drawable {
 
 	private void doRemoval() {
 		if (!removalQueue.isEmpty()) {
-			Collections.sort(removalQueue);
 			System.out.println("Calling do removal");
-			for (int idx = removalQueue.size() - 1; idx >= 0; idx--) {
-				items.remove((int)removalQueue.get(idx));
+			for (MapItem m : removalQueue) {
+				int indexOf = items.indexOf(m);
+				if (indexOf != -1)
+					items.remove(indexOf);
 			}
 			removalQueue = new ArrayList<>();
 		}
 	}
-	
+
 	public void makeRing() {
 		int s = Wall.SIZE.intX();
 		int w = Window.GAME_WIDTH;
 		int h = Window.GAME_HEIGHT;
-		
-		for (int r = 0; r < w; r += s*4) {
-			for (int c = 0; c < h; c += s*4) {
+
+		for (int r = 0; r < w; r += s * 4) {
+			for (int c = 0; c < h; c += s * 4) {
 				addItem(new Wall(new Vector(r, 0)));
 				addItem(new Wall(new Vector(r, h - s)));
 				addItem(new Wall(new Vector(0, c)));
