@@ -13,6 +13,10 @@ public class Wall extends StaticMapItem {
 	public Wall(Vector position) {
 		super(position, SIZE);
 	}
+	
+	public Wall(Vector position, Vector size) {
+		super(position, size);
+	}
 
 	@Override
 	public void draw(Graphics2D g2d) {
