@@ -53,14 +53,10 @@ public class Map implements Drawable {
 		int w = Window.GAME_WIDTH;
 		int h = Window.GAME_HEIGHT;
 
-		for (int r = 0; r < w; r += s * 4) {
-			for (int c = 0; c < h; c += s * 4) {
-				addItem(new Wall(new Vector(r, 0)));
-				addItem(new Wall(new Vector(r, h - s)));
-				addItem(new Wall(new Vector(0, c)));
-				addItem(new Wall(new Vector(w - s, c)));
-			}
-		}
+		addItem(new Wall(new Vector(0, 0), new Vector(w, s)));
+		addItem(new Wall(new Vector(0, h - s), new Vector(w, s)));
+		addItem(new Wall(new Vector(0, 0), new Vector(s, h)));
+		addItem(new Wall(new Vector(w - s, 0), new Vector(s, h)));
 	}
 
 	public void draw(Graphics2D g) {

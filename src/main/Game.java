@@ -36,6 +36,8 @@ public class Game {
 		KeyboardController k = new KeyboardController(this.map, t, this.w.canvas);
 		map.addItem(t);
 		
+		map.addItem(new Wall(new Vector(3000, 3000)));
+		
 		Hole h = new Hole(new Vector(500, 400));
 		map.addItem(h);
 		
