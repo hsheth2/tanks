@@ -31,10 +31,9 @@ public class Bullet extends MovableMapItem {
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
 
-	private void destroy(Map m) {
-		System.out.println("removing bullet");
-		System.out.println(m.removeItem(this));
-		// TODO destroy this bullet
+	public void destroy(Map m) {
+		m.removeItem(this);
+		// TODO destroy this bullet animation + sound
 	}
 
 	@Override
@@ -53,6 +52,10 @@ public class Bullet extends MovableMapItem {
 			} else {
 				this.destroy(m);
 			}
+		}  else if (other instanceof Tank) {
+			// TODO destroy bullet, tank
+			System.out.println("tank has died");
+			System.exit(0);
 		} else {
 			throw new IllegalArgumentException("can't hit " + other.getClass());
 		}

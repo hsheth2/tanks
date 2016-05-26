@@ -9,7 +9,7 @@ import physics.Vector;
 
 public class Tank extends MovableMapItem {
 	public static final Vector SIZE = new Vector(160, 160);
-	public static int SPEED = 2;
+	public static int SPEED = 3;
 
 	public Tank(Vector position, Vector velocity) {
 		super(position, SIZE, velocity);
@@ -31,6 +31,11 @@ public class Tank extends MovableMapItem {
 
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
+	
+	public void destroy(Map m) {
+		m.removeItem(this);
+		// TODO destroy this bullet animation + sound
+	}
 
 	@Override
 	public void hit(MapItem other, Map m) {
@@ -43,6 +48,8 @@ public class Tank extends MovableMapItem {
 		} else if (other instanceof Wall || other instanceof Hole) {
 			other.hit(this, m);
 		} else if (other instanceof Mine) {
+			other.hit(this, m);
+		} else if (other instanceof Bullet) {
 			other.hit(this, m);
 		} else {
 			throw new IllegalArgumentException("can't hit " + other.getClass());
