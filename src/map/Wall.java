@@ -32,6 +32,8 @@ public class Wall extends StaticMapItem {
 			Tank o = (Tank) other;
 			o.unupdate();
 			o.setVelocity(Vector.ZERO);
+		} else if (other instanceof Bullet) {
+			other.hit(this, m);
 		} else {
 			throw new IllegalArgumentException("can't hit " + other.getClass());
 		}

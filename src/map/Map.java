@@ -36,10 +36,28 @@ public class Map implements Drawable {
 	}
 
 	private void doRemoval() {
-		for (int idx = removalQueue.size() - 1; idx >= 0; idx--) {
-			items.remove(removalQueue.get(idx));
+		if (!removalQueue.isEmpty()) {
+			System.out.println("Calling do removal");
+			for (int idx = removalQueue.size() - 1; idx >= 0; idx--) {
+				items.remove((int)removalQueue.get(idx));
+			}
+			removalQueue = new ArrayList<>();
 		}
-		removalQueue = new ArrayList<>();
+	}
+	
+	public void makeRing() {
+		int s = Wall.SIZE.intX();
+		int w = Window.GAME_WIDTH;
+		int h = Window.GAME_HEIGHT;
+		
+		for (int r = 0; r < w; r += s) {
+			for (int c = 0; c < h; c += s) {
+				addItem(new Wall(new Vector(r, 0)));
+				addItem(new Wall(new Vector(r, h - s)));
+				addItem(new Wall(new Vector(0, c)));
+				addItem(new Wall(new Vector(w - s, c)));
+			}
+		}
 	}
 
 	public void draw(Graphics2D g) {
@@ -52,7 +70,8 @@ public class Map implements Drawable {
 	}
 
 	public void update() {
-		for (MapItem item : items) {
+		for (int i = 0; i < items.size(); i++) {
+			MapItem item = items.get(i);
 			if (item instanceof Updatable) {
 				((Updatable) item).update();
 			}

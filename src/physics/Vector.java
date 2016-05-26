@@ -14,11 +14,19 @@ public class Vector {
 		this.y = y;
 	}
 	
-	public int getX() {
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public int intX() {
 		return (int)x;
 	}
 	
-	public int getY() {
+	public int intY() {
 		return (int)y;
 	}
 	
@@ -54,6 +62,11 @@ public class Vector {
 	
 	public Vector scale(double mag) {
 		return this.unit().multiply(mag);
+	}
+	
+	public double angle() {
+		double angle = Math.toDegrees(Math.atan2(y, x));
+		return (360.0 + angle) % 360.0;
 	}
 	
 	public boolean equals(Vector o) {

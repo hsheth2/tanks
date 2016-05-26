@@ -31,6 +31,8 @@ public class Game {
 	}
 	
 	public void init() {
+		map.makeRing();
+		
 		Tank t = new Tank(new Vector(10, 10), Vector.ZERO);
 		KeyboardController k = new KeyboardController(this.map, t, this.w.canvas);
 		map.addItem(t);
@@ -41,6 +43,9 @@ public class Game {
 		
 		Wall w = new Wall(new Vector(100, 200));
 		map.addItem(w);
+		
+		Wall w2 = new Wall(new Vector(3000, 200));
+		map.addItem(w2);
 		
 		Hole h = new Hole(new Vector(500, 400));
 		map.addItem(h);

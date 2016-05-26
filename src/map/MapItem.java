@@ -1,5 +1,7 @@
 package map;
 
+import java.awt.Rectangle;
+
 import physics.Vector;
 
 public abstract class MapItem implements Drawable {
@@ -29,14 +31,18 @@ public abstract class MapItem implements Drawable {
 		return position.add(size.multiply(0.5));
 	}
 
-	public Vector[] getCorners() {
-		return new Vector[] { position, position.add(size.getI()), position.add(size), position.add(size.getJ()) };
-	}
+//	public Vector[] getCorners() {
+//		return new Vector[] { position, position.add(size.getI()), position.add(size), position.add(size.getJ()) };
+//	}
 
-	public boolean containsPoint(Vector v) {
-		Vector altCorner = position.add(size);
-		return position.getX() < v.getX() && v.getX() < altCorner.getX() 
-				&& position.getY() < v.getY() && v.getY() < altCorner.getY();
+//	public boolean containsPoint(Vector v) {
+//		Vector altCorner = position.add(size);
+//		return position.getX() < v.getX() && v.getX() < altCorner.getX() 
+//				&& position.getY() < v.getY() && v.getY() < altCorner.getY();
+//	}
+	
+	public Rectangle getRect() {
+		return new Rectangle(this.getPosition().intX(), this.getPosition().intY(), this.size.intX(), this.size.intY());
 	}
 	
 	public abstract void hit(MapItem other, Map m);

@@ -26,7 +26,7 @@ public class Hole extends StaticMapItem {
 
 	@Override
 	public void hit(MapItem other, Map m) {
-		if (other instanceof Wall || other instanceof Hole || other instanceof Mine) {
+		if (other instanceof Wall || other instanceof Hole || other instanceof Mine || other instanceof Bullet) {
 			// nothing
 		} else if (other instanceof Tank) {
 			Tank o = (Tank) other;
@@ -35,7 +35,6 @@ public class Hole extends StaticMapItem {
 		} else {
 			throw new IllegalArgumentException("can't hit " + other.getClass());
 		}
-		// TODO hit method
 	}
 
 }
