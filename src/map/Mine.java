@@ -14,6 +14,8 @@ public class Mine extends StaticMapItem implements Updatable {
 
 	public static final int TIMER_END = 5 * DeltaTimer.FPS;
 
+	private static final double MINE_RADIUS = 500;
+
 	private int timer = 0;
 	private Tank owner;
 	
@@ -36,7 +38,7 @@ public class Mine extends StaticMapItem implements Updatable {
 	
 	public void destroy(Map m) {
 		System.out.println("SHOULD BLOW UP MINE HERE");
-		m.removeItem(this);
+		m.removeAround(this, MINE_RADIUS);
 		// TODO destroy this mine's animation + sound
 		// TODO destroy all in range
 	}

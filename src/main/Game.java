@@ -43,6 +43,10 @@ public class Game {
 		
 		Mine m = new Mine(new Vector(300, 500), t);
 		map.addItem(m);
+		
+		Mine m2 = new Mine(new Vector(300, 900), t);
+		map.addItem(m2);
+		
 		m.hit(h, map);
 	}
 	
