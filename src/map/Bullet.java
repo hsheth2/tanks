@@ -62,7 +62,6 @@ public class Bullet extends MovableMapItem {
 		} else {
 			throw new IllegalArgumentException("can't hit " + other.getClass());
 		}
-		// TODO hit method
 	}
 
 }

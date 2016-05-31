@@ -37,10 +37,8 @@ public class Mine extends StaticMapItem implements Updatable {
 	}
 	
 	public void destroy(Map m) {
-		System.out.println("SHOULD BLOW UP MINE HERE");
 		m.removeAround(this, MINE_RADIUS);
 		// TODO destroy this mine's animation + sound
-		// TODO destroy all in range
 	}
 
 	@Override
@@ -74,7 +72,6 @@ public class Mine extends StaticMapItem implements Updatable {
 		} else {
 			throw new IllegalArgumentException("can't hit " + other.getClass());
 		}
-		// TODO hit method
 	}
 
 }
