@@ -21,9 +21,10 @@ public class Mine extends StaticMapItem implements Updatable {
 	
 	private Map map;
 
-	public Mine(Vector position, Tank owner) {
+	public Mine(Vector position, Tank owner, Map m) {
 		super(position, SIZE);
 		this.owner = owner;
+		this.map = m;
 	}
 
 	@Override

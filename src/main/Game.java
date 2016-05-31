@@ -41,13 +41,11 @@ public class Game {
 		Hole h = new Hole(new Vector(500, 400));
 		map.addItem(h);
 		
-		Mine m = new Mine(new Vector(300, 500), t);
+		Mine m = new Mine(new Vector(300, 500), t, map);
 		map.addItem(m);
 		
-		Mine m2 = new Mine(new Vector(300, 900), t);
+		Mine m2 = new Mine(new Vector(300, 900), t, map);
 		map.addItem(m2);
-		
-		m.hit(h, map);
 	}
 	
 	public void draw() {
