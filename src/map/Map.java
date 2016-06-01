@@ -39,18 +39,21 @@ public class Map implements Drawable {
 	public void removeAround(MapItem initial, double radius) {
 		ArrayList<MapItem> destroy = new ArrayList<>();
 		destroy.add(initial);
-		
+
 		int index = 0;
 		while (index < destroy.size()) {
 			MapItem item = destroy.get(index++);
-			
+
 			for (int i = 0; i < items.size(); i++) {
 				if (items.get(i) instanceof MovableMapItem || items.get(i) instanceof Mine) {
 					if (items.get(i).getCenter().sub(item.getCenter()).magnitude() <= radius) {
 						if (items.get(i) instanceof Mine && !destroy.contains(items.get(i)))
 							destroy.add(items.get(i));
-						else
-							removeItem(items.get(i));
+						else {
+							if (items.get(i) instanceof Tank) {
+								((Tank)items.get(i)).destroy(this);
+							} else removeItem(items.get(i));
+						}
 					}
 				}
 			}
