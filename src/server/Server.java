@@ -15,7 +15,10 @@ public class Server {
 
 	public Server() throws IOException {
 		listener = new ServerSocket(0, MAX_CLIENTS);
+		
+		System.out.println("IP: " + InetAddress.getLocalHost());
 		System.out.println("Listening on " + listener.getLocalPort());
+		System.out.println();
 
 		Thread accepter = new Thread(new Runnable() {
 			@Override
