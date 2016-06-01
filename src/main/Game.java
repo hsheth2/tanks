@@ -4,6 +4,7 @@ import javax.swing.SwingUtilities;
 
 import controller.AIController;
 import controller.KeyboardController;
+import controller.NetworkedController;
 import map.Hole;
 import map.Map;
 import map.Mine;
@@ -35,6 +36,9 @@ public class Game {
 		Tank t = new Tank(new Vector(4000, 4000), Vector.ZERO);
 		KeyboardController k = new KeyboardController(this.map, t, this.w.canvas);
 		map.addItem(t);
+		
+		Tank nt = new Tank(new Vector(6000, 2000), Vector.ZERO);
+		NetworkedController n = new NetworkedController(this.map, nt);
 		
 		map.addItem(new Wall(new Vector(3000, 3000)));
 		
