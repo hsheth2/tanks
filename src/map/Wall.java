@@ -41,7 +41,6 @@ public class Wall extends StaticMapItem {
 		} else {
 			throw new IllegalArgumentException("can't hit " + other.getClass());
 		}
-		// TODO hit method
 	}
 
 }

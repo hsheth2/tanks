@@ -5,7 +5,9 @@ tmp/
 *.tmp
 *.bak
 *.swp
+*.class
 *~.nib
+*.sh
 local.properties
 .settings/
 .loadpath
