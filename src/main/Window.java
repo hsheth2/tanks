@@ -45,7 +45,7 @@ public class Window extends JFrame {
 
 			if (game.state instanceof PlayState) {
 				game.map.draw(g2d);
-			} else {
+			} else if (game.state instanceof MainMenuState) {
 				game.menu.draw(g2d);
 			}
 		}

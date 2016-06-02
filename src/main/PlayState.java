@@ -12,6 +12,8 @@ public class PlayState extends GameState {
 	}
 
 	public void init() {
+		g.map = new Map(g.dt);
+		
 		Map map = g.map;
 		Window w = g.w;
 		
@@ -38,7 +40,6 @@ public class PlayState extends GameState {
 
 	@Override
 	public void draw() {
-		g.w.validate();
 		g.w.repaint();
 	}
 }

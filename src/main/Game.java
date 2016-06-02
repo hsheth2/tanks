@@ -14,7 +14,7 @@ import physics.DeltaTimer;
 import physics.Vector;
 
 public class Game {
-	public Window w;
+	public volatile Window w;
 	public GameState state;
 	public DeltaTimer dt;
 	public Map map;
@@ -22,7 +22,6 @@ public class Game {
 	
 	public Game() {
 		dt = new DeltaTimer();
-		map = new Map(dt);
 		
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -46,11 +45,12 @@ public class Game {
 	
 	public static void main(String[] args) throws Throwable {
 		Game g = new Game();
+		
 		boolean running = true;
 		
 		while (g.w == null);
 		
-		g.changeState(new MainMenuState(g));
+		g.changeState(new PlayState(g));
 		
 		while (running) {
 			g.dt.startIter();
