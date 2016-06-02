@@ -26,7 +26,7 @@ public class PlayState extends GameState {
 		Hole h = new Hole(new Vector(500, 400));
 		map.addItem(h);
 		
-		Mine m = new Mine(new Vector(300, 500), t);
+		Mine m = new Mine(new Vector(300, 500), t, map);
 		map.addItem(m);
 		m.hit(h, map);
 	}

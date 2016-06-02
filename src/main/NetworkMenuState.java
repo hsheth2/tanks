@@ -4,6 +4,11 @@ import java.awt.Graphics2D;
 
 public class NetworkMenuState extends GameState {
 
+	public NetworkMenuState(Game g) {
+		super(g);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void init() {
 		// TODO Auto-generated method stub
@@ -17,7 +22,7 @@ public class NetworkMenuState extends GameState {
 	}
 
 	@Override
-	public void draw(Graphics2D g2d) {
+	public void draw() {
 		// TODO Auto-generated method stub
 		
 	}
