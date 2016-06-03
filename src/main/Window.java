@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
@@ -43,12 +44,11 @@ public class Window extends JFrame {
 		public void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g;
 
-			if (game.state instanceof PlayState) {
+			if (game.state instanceof PlayState && game.map != null) {
 				game.map.draw(g2d);
-			} else if (game.state instanceof MainMenuState) {
+			} else if (game.state instanceof MainMenuState && game.menu != null) {
 				game.menu.draw(g2d);
 			}
 		}
 	}
-
 }

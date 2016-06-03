@@ -10,6 +10,7 @@ import map.Map;
 import map.Mine;
 import map.Tank;
 import map.Wall;
+import menu.Menu;
 import physics.DeltaTimer;
 import physics.Vector;
 
@@ -50,7 +51,7 @@ public class Game {
 		
 		while (g.w == null);
 		
-		g.changeState(new PlayState(g));
+		g.changeState(new MainMenuState(g));
 		
 		while (running) {
 			g.dt.startIter();
