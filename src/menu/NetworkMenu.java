@@ -3,22 +3,23 @@ package menu;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import main.Config;
-import main.FontHelper;
 import main.Game;
 import main.NetworkMenuState;
-import main.PlayState;
 
 public class NetworkMenu extends Menu {
 	private NetworkMenuState state;
 	private JPanel canvas;
 	private MouseListener ml;
+	private KeyListener kl;
 	
 	private Label addr, nick;
 	private Input addrIn, nickIn;
@@ -30,6 +31,7 @@ public class NetworkMenu extends Menu {
 		this.state = state;
 		this.canvas = canvas;
 		
+		canvas.setFocusable(true);
 		canvas.setBackground(Color.WHITE);
 		
 		addr = new Label("Address", 100, 200, Color.BLACK);
@@ -45,6 +47,8 @@ public class NetworkMenu extends Menu {
 				Point p = e.getPoint();
 				Game g = NetworkMenu.this.state.g;
 				
+				NetworkMenu.this.canvas.requestFocusInWindow();
+				
 				if (addrIn.isHit(p)) {
 					addrIn.focused = true;
 					nickIn.focused = false;
@@ -52,7 +56,9 @@ public class NetworkMenu extends Menu {
 					addrIn.focused = false;
 					nickIn.focused = true;
 				} else if (connect.isHit(p)) {
-					System.out.println("connect");
+					addrIn.focused = false;
+					nickIn.focused = false;
+					System.out.println("connect: " + nickIn.text + ", " + addrIn.text);
 				} else {
 					addrIn.focused = false;
 					nickIn.focused = false;
@@ -60,7 +66,34 @@ public class NetworkMenu extends Menu {
 			}
 		};
 		
+		kl = new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				boolean del = false;
+				
+				if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+					del = true;
+				}
+				
+				if (addrIn.focused) {
+					if (del) {
+						addrIn.backspace();
+					} else {
+						addrIn.text += e.getKeyChar();
+					}
+				}
+				
+				if (nickIn.focused) {
+					if (del) {
+						nickIn.backspace();
+					} else {
+						nickIn.text += e.getKeyChar();
+					}
+				}
+			}
+		};
+		
 		canvas.addMouseListener(ml);
+		canvas.addKeyListener(kl);
 	}
 	
 	@Override
@@ -75,6 +108,6 @@ public class NetworkMenu extends Menu {
 	@Override
 	public void cleanup() {
 		canvas.removeMouseListener(ml);
+		canvas.removeKeyListener(kl);
 	}
-
 }

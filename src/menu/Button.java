@@ -31,6 +31,6 @@ public class Button extends MenuItem implements Drawable {
 		
 		g2d.setFont(FONT);
 		g2d.setColor(tc);
-		g2d.drawString(text, box.x + FontHelper.centerStringX(text, box.width, FONT, g2d), box.y + FontHelper.centerStringY(box.height, FONT, g2d));
+		g2d.drawString(text, box.x + FontHelper.centerStringX(text, box.width, g2d), box.y + FontHelper.centerStringY(text, box.height, g2d));
 	}
 }

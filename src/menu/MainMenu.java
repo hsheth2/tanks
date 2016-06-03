@@ -32,7 +32,9 @@ public class MainMenu extends Menu {
 		
 		canvas.setBackground(Color.WHITE);
 		
-		title = new Heading("TANKS", FontHelper.centerStringX("TANKS", Config.WIDTH, Heading.FONT, g2d), 200, Color.BLACK);
+		g2d.setFont(Heading.FONT);
+		title = new Heading("TANKS", FontHelper.centerStringX("TANKS", Config.WIDTH, g2d), 200, Color.BLACK);
+		g2d.setFont(Button.FONT);
 		solo = new Button("Solo", MenuItem.centerX(200), 250, 200, 80, Color.blue, Color.WHITE);
 		multi = new Button("Multiplayer", MenuItem.centerX(200), 350, 200, 80, Color.blue, Color.WHITE);
 		

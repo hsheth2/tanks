@@ -30,6 +30,7 @@ public class Window extends JFrame {
 		pack();
 		setTitle("Tanks Game");
 		setVisible(true);
+		setResizable(true);
 
 		game = g;
 	}
