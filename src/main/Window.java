@@ -42,15 +42,11 @@ public class Window extends JFrame {
 	private class Canvas extends JPanel {
 		public void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g;
-			
-			Rectangle r = new Rectangle(400, 400, 10, 10);
-			g2d.setPaint(Color.BLACK);
-			g2d.draw(r);
 
-			if (game.menu != null) {
-				game.menu.draw(g2d);
-			} else {
+			if (game.state instanceof PlayState) {
 				game.map.draw(g2d);
+			} else if (game.state instanceof MainMenuState) {
+				game.menu.draw(g2d);
 			}
 		}
 	}
