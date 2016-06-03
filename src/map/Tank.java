@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import main.AudioPlayer;
 import main.Window;
 import physics.DeltaTimer;
 import physics.Vector;
@@ -23,6 +24,7 @@ public class Tank extends MovableMapItem {
 	public boolean shoot(Map m, Vector dir) {
 		Bullet b = new Bullet(this.getCenter().sub(Bullet.SIZE.multiply(0.5)), dir);
 		m.addItem(b);
+		AudioPlayer.play("shoot.wav");
 		// TODO rate limiting
 		return false;
 	}
