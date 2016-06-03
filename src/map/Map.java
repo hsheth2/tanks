@@ -3,12 +3,13 @@ package map;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Collections;
 
+import main.Config;
+import main.Drawable;
 import main.Window;
-import physics.*;
-
+import physics.CollisionHandler;
 import physics.DeltaTimer;
+import physics.Vector;
 
 public class Map implements Drawable {
 	private ArrayList<MapItem> items = new ArrayList<>();
@@ -74,8 +75,8 @@ public class Map implements Drawable {
 
 	public void makeRing() {
 		int s = Wall.SIZE.intX();
-		int w = Window.GAME_WIDTH;
-		int h = Window.GAME_HEIGHT;
+		int w = Config.GAME_WIDTH;
+		int h = Config.GAME_HEIGHT;
 
 		addItem(new Wall(new Vector(0, 0), new Vector(w, s)));
 		addItem(new Wall(new Vector(0, h - s), new Vector(w, s)));
@@ -85,7 +86,7 @@ public class Map implements Drawable {
 
 	public void draw(Graphics2D g) {
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, Window.GAME_WIDTH, Window.GAME_HEIGHT);
+		g.fillRect(0, 0, Config.GAME_WIDTH, Config.GAME_HEIGHT);
 
 		for (int i = 0; i < items.size(); i++) {
 			MapItem item = items.get(i);

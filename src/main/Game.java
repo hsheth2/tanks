@@ -32,6 +32,10 @@ public class Game {
 	}
 	
 	public void changeState(GameState state) {
+		if (this.state != null) {
+			this.state.cleanup();
+		}
+		
 		this.state = state;
 		state.init();
 	}

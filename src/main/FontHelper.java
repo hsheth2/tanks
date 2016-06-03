@@ -1,9 +1,9 @@
 package main;
 
 import java.awt.Font;
-import java.awt.FontFormatException;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.io.File;
-import java.io.IOException;
 
 public class FontHelper {
 	public static Font makeFont(String name, float size) {
@@ -14,5 +14,23 @@ public class FontHelper {
 		}
 		
 		return null;
+	}
+	
+	public static int stringWidth(String s, Font f, Graphics2D g2d) {
+		FontMetrics fm = g2d.getFontMetrics(f);
+		
+		return fm.stringWidth(s);
+	}
+	
+	public static int centerStringX(String s, int w, Font f, Graphics2D g2d) {
+		FontMetrics fm = g2d.getFontMetrics(f);
+		
+		return (w - fm.stringWidth(s)) / 2;
+	}
+	
+	public static int centerStringY(int h, Font f, Graphics2D g2d) {
+		FontMetrics fm = g2d.getFontMetrics(f);
+		
+		return (h - fm.getHeight()) / 2 + fm.getAscent();
 	}
 }

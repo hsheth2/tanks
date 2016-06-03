@@ -1,20 +1,20 @@
 package menu;
 
 import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.util.HashMap;
 
+import main.Config;
+import main.Drawable;
 import main.FontHelper;
-import map.Drawable;
 
 public abstract class Menu implements Drawable {
-	public static final HashMap<String, Font> fonts;
+	public Graphics2D g2d;
 	
-	static {
-		fonts = new HashMap<String, Font>();
-		
-		fonts.put("Heading", FontHelper.makeFont("Bebas.ttf", 96f));
-		fonts.put("Label", new Font("Sans Serif", Font.BOLD, 48));
-		fonts.put("Button", new Font("Monospace", Font.BOLD, 24));
-		fonts.put("Text", new Font("Sans Serif", Font.PLAIN, 18));
+	public Menu(Graphics2D g2d) {
+		this.g2d = g2d;
 	}
+	
+	public abstract void cleanup();
 }

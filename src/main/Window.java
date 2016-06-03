@@ -11,7 +11,7 @@ public class Window extends JFrame {
 	private Game game;
 
 	public static Vector real2game(Point p) {
-		return new Vector(Config.GAME_WIDTH * p.getX() / WIDTH, Config.GAME_HEIGHT * p.getY() / HEIGHT);
+		return new Vector(Config.GAME_WIDTH * p.getX() / Config.WIDTH, Config.GAME_HEIGHT * p.getY() / Config.HEIGHT);
 	}
 
 	public static Point game2real(Vector x) {
@@ -36,11 +36,15 @@ public class Window extends JFrame {
 
 	private class Canvas extends JPanel {
 		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			
 			Graphics2D g2d = (Graphics2D) g;
+			
+			g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 			if (game.state instanceof PlayState && game.map != null) {
 				game.map.draw(g2d);
-			} else if (game.state instanceof MainMenuState && game.menu != null) {
+			} else if ((game.state instanceof MainMenuState || game.state instanceof NetworkMenuState) && game.menu != null) {
 				game.menu.draw(g2d);
 			}
 		}

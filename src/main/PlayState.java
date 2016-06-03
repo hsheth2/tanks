@@ -35,11 +35,19 @@ public class PlayState extends GameState {
 
 	@Override
 	public void update() {
-		g.map.update();
+		if (g.map != null) {
+			g.map.update();
+		}
 	}
 
 	@Override
 	public void draw() {
 		g.w.repaint();
+	}
+
+	@Override
+	public void cleanup() {
+		// TODO Auto-generated method stub
+		
 	}
 }

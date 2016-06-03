@@ -1,18 +1,15 @@
 package main;
 
-import java.awt.Graphics2D;
+import menu.NetworkMenu;
 
 public class NetworkMenuState extends GameState {
-
 	public NetworkMenuState(Game g) {
 		super(g);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
+		g.menu = new NetworkMenu(this, g.w.canvas);
 	}
 
 	@Override
@@ -23,8 +20,13 @@ public class NetworkMenuState extends GameState {
 
 	@Override
 	public void draw() {
-		// TODO Auto-generated method stub
-		
+		g.w.validate();
+		g.w.repaint();
 	}
 
+	@Override
+	public void cleanup() {
+		g.menu.cleanup();
+		g.menu = null;
+	}
 }

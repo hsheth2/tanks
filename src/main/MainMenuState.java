@@ -9,7 +9,7 @@ public class MainMenuState extends GameState {
 
 	@Override
 	public void init() {
-		g.menu = new MainMenu(g.w.canvas);
+		g.menu = new MainMenu(this, g.w.canvas);
 	}
 
 	@Override
@@ -22,5 +22,11 @@ public class MainMenuState extends GameState {
 	public void draw() {
 		g.w.validate();
 		g.w.repaint();
+	}
+
+	@Override
+	public void cleanup() {
+		g.menu.cleanup();
+		g.menu = null;
 	}
 }

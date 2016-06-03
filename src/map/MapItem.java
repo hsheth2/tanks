@@ -2,6 +2,7 @@ package map;
 
 import java.awt.Rectangle;
 
+import main.Drawable;
 import physics.Vector;
 
 public abstract class MapItem implements Drawable {
