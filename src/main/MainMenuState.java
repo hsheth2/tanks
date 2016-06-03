@@ -2,6 +2,8 @@ package main;
 
 import java.awt.Graphics2D;
 
+import menu.MainMenu;
+
 public class MainMenuState extends GameState {
 	public MainMenuState(Game g) {
 		super(g);
