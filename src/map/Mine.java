@@ -23,6 +23,7 @@ public class Mine extends StaticMapItem implements Updatable {
 
 	public Mine(Vector position, Tank owner, Map m) {
 		super(position, SIZE);
+		setCenter(position);
 		this.owner = owner;
 		this.map = m;
 	}

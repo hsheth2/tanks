@@ -26,5 +26,9 @@ public abstract class Controller {
 		
 		return tank.shoot(map, dir);
 	}
+	
+	protected void mine() {
+		tank.mine(map);
+	}
 
 }

@@ -5,6 +5,8 @@ import physics.Vector;
 public abstract class MovableMapItem extends MapItem implements Updatable {
 	private Vector velocity;
 
+	protected int frameCounter = 0;
+	
 	public MovableMapItem(Vector position, Vector size, Vector velocity) {
 		super(position, size);
 		this.velocity = velocity;
@@ -53,6 +55,7 @@ public abstract class MovableMapItem extends MapItem implements Updatable {
 	
 	@Override
 	public void update() {
+		frameCounter++;
 		this.position = position.add(velocity);
 	}
 	

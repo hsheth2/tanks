@@ -15,19 +15,19 @@ import map.Tank;
 import physics.Vector;
 
 public class KeyboardController extends Controller {
-	private static final char[] keys = { 'w', 's', 'a', 'd' };
+	private static final int[] keys = { KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_SPACE };
 
-	private boolean[] pressed = { false, false, false, false };
+	private boolean[] pressed = { false, false, false, false, false };
 
 	public KeyboardController(Map map, Tank tank, JPanel canvas) {
 		super(map, tank);
-		
+
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent ke) {
 				synchronized (KeyboardController.class) {
 					for (int i = 0; i < keys.length; i++) {
-						if (ke.getKeyChar() == keys[i] || ke.getKeyChar() == Character.toUpperCase(keys[i])) {
+						if (ke.getKeyCode() == keys[i] || ke.getKeyChar() == Character.toUpperCase(keys[i])) {
 							switch (ke.getID()) {
 							case KeyEvent.KEY_PRESSED:
 								pressed[i] = true;
@@ -46,18 +46,19 @@ public class KeyboardController extends Controller {
 
 		canvas.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-//				System.out.println("Mouse pressed; # of clicks: " + e.getClickCount());
+				// System.out.println("Mouse pressed; # of clicks: " +
+				// e.getClickCount());
 				KeyboardController.this.mouseClicked(e.getPoint());
 			}
 		});
 	}
-	
+
 	private void mouseClicked(Point p) {
-//		System.out.println("Point:"+p.getX() + " " + p.getY());
+		// System.out.println("Point:"+p.getX() + " " + p.getY());
 		Vector clickPos = Window.real2game(p);
 		this.shoot(clickPos);
 	}
-	
+
 	private void updateDirection() {
 		Vector dir = Vector.ZERO;
 		if (pressed[0])
@@ -68,7 +69,11 @@ public class KeyboardController extends Controller {
 			dir = dir.add(Vector.LEFT);
 		if (pressed[3])
 			dir = dir.add(Vector.RIGHT);
-		
+
 		setDir(dir);
+
+		if (pressed[4]) { // space
+			mine();
+		}
 	}
 }

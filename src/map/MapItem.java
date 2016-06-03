@@ -7,7 +7,7 @@ import physics.Vector;
 public abstract class MapItem implements Drawable {
 	protected Vector position;
 	protected Vector size;
-
+	
 	public MapItem(Vector position, Vector size) {
 		this.position = position;
 		if (size.getX() < 0 || size.getY() < 0)
@@ -17,6 +17,11 @@ public abstract class MapItem implements Drawable {
 
 	public Vector getPosition() {
 		return position;
+	}
+	
+	public void setCenter(Vector center) {
+		Vector pos = center.sub(size.multiply(0.5));
+		setPosition(pos);
 	}
 
 	public void setPosition(Vector position) {

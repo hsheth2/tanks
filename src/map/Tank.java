@@ -5,11 +5,16 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 import main.Window;
+import physics.DeltaTimer;
 import physics.Vector;
 
 public class Tank extends MovableMapItem {
 	public static final Vector SIZE = new Vector(160, 160);
-	public static int SPEED = 3;
+	public static final int SPEED = 3;
+
+	private static final int MINE_DELAY = DeltaTimer.FPS * 1;
+
+	private int lastMineLayed = -10000;
 
 	public Tank(Vector position, Vector velocity) {
 		super(position, SIZE, velocity);
@@ -22,6 +27,15 @@ public class Tank extends MovableMapItem {
 		return false;
 	}
 
+	public void mine(Map m) {
+		if (lastMineLayed + MINE_DELAY <= frameCounter) {
+			System.out.println("laying mine");
+			Mine mine = new Mine(this.getCenter(), this, m);
+			m.addItem(mine);
+			lastMineLayed = frameCounter;
+		}
+	}
+
 	@Override
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.RED);
@@ -31,7 +45,7 @@ public class Tank extends MovableMapItem {
 
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
-	
+
 	public void destroy(Map m) {
 		System.out.println("tank has died");
 		m.removeItem(this);
@@ -58,4 +72,5 @@ public class Tank extends MovableMapItem {
 			throw new IllegalArgumentException("can't hit " + other.getClass());
 		}
 	}
+
 }
