@@ -22,7 +22,7 @@ public class Server extends GBFrame {
 	private ServerSocket listener;
 	private ArrayList<Socket> sockets = new ArrayList<>();
 
-	private JButton start = addButton("Start", 1, 1, 1, 1);
+	private JButton start = addButton("Start Game", 1, 1, 1, 1);
 	private JButton stop = addButton("Exit", 1, 2, 1, 1);
 	private JTextArea log = addTextArea("", 2, 1, 2, 1);
 
