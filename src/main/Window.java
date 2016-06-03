@@ -8,27 +8,21 @@ import javax.swing.*;
 import physics.Vector;
 
 public class Window extends JFrame {
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
-
-	public static final int GAME_WIDTH = 6400;
-	public static final int GAME_HEIGHT = 4800;
-
 	private Game game;
 
 	public static Vector real2game(Point p) {
-		return new Vector(GAME_WIDTH * p.getX() / WIDTH, GAME_HEIGHT * p.getY() / HEIGHT);
+		return new Vector(Config.GAME_WIDTH * p.getX() / WIDTH, Config.GAME_HEIGHT * p.getY() / HEIGHT);
 	}
 
 	public static Point game2real(Vector x) {
-		return new Point( (int)(WIDTH * x.getX() / GAME_WIDTH), (int)(HEIGHT * x.getY() / GAME_HEIGHT));
+		return new Point( (int)(Config.WIDTH * x.getX() / Config.GAME_WIDTH), (int)(Config.HEIGHT * x.getY() / Config.GAME_HEIGHT));
 	}
 
 	public Canvas canvas;
 
 	public Window(Game g) {
 		canvas = new Canvas();
-		canvas.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		canvas.setPreferredSize(new Dimension(Config.WIDTH, Config.HEIGHT));
 
 		getContentPane().add(canvas);
 

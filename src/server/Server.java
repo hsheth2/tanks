@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,8 +12,6 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
-
-import BreezySwing.GBFrame;
 
 public class Server extends GBFrame {
 	public static final int MAX_CLIENTS = 10;
