@@ -12,7 +12,7 @@ public class NetworkedController extends Controller {
 		super(map, tank);
 		
 		try {
-			Socket s = new Socket("127.0.0.1", 53257);
+			Socket s = new Socket("127.0.0.1", 53437);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
