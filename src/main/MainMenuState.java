@@ -1,7 +1,5 @@
 package main;
 
-import java.awt.Graphics2D;
-
 import menu.MainMenu;
 
 public class MainMenuState extends GameState {
@@ -11,7 +9,7 @@ public class MainMenuState extends GameState {
 
 	@Override
 	public void init() {
-		g.menu = new MainMenu();
+		g.menu = new MainMenu(g.w.canvas);
 	}
 
 	@Override
