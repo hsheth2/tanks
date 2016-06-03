@@ -57,7 +57,6 @@ public class Game {
 		
 		g.changeState(new MainMenuState(g));
 		
-		
 		while (running) {
 			g.dt.startIter();
 			

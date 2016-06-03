@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import main.AudioPlayer;
 import main.Window;
 import physics.Vector;
 
@@ -49,6 +50,7 @@ public class Bullet extends MovableMapItem {
 				this.unupdate();
 				this.bounceOff(other);
 				bounceCount++;
+				AudioPlayer.play("bounce.wav");
 			} else {
 				this.destroy(m);
 			}
