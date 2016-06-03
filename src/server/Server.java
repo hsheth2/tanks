@@ -49,7 +49,6 @@ public class Server extends GBFrame {
 		this.setSize(400, 200);
 
 		start.setEnabled(false);
-		stop.setEnabled(false);
 		log.setEditable(false);
 
 		listener = new ServerSocket(0, MAX_CLIENTS);
@@ -95,14 +94,14 @@ public class Server extends GBFrame {
 
 	private class ThreadServer implements Runnable {
 		private int id;
-		// private Socket s;
+		private Socket s;
 
 		private BufferedReader r;
 		public BufferedWriter w;
 
 		public ThreadServer(int id, Socket s) throws IOException {
 			this.id = id;
-			// this.s = s;
+			this.s = s;
 
 			r = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			w = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
@@ -151,7 +150,6 @@ public class Server extends GBFrame {
 
 				sysout("started");
 
-				stop.setEnabled(true);
 				start.setEnabled(false);
 			} catch (IOException e) {
 				sysout("error on starting");
@@ -159,6 +157,35 @@ public class Server extends GBFrame {
 				System.exit(1);
 			}
 		} else if (button == stop) {
+			if (accepter != null)
+				accepter.stop();
+
+			for (Thread x : pool) {
+				x.stop();
+			}
+
+			for (ThreadServer x : servers) {
+				try {
+					x.r = null;
+					x.w = null;
+					x.s.close();
+					x.s = null;
+				} catch (IOException e) {
+					e.printStackTrace();
+					System.exit(1);
+				}
+			}
+
+			if (listener != null) {
+				try {
+					listener.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					System.exit(1);
+				}
+				listener = null;
+			}
+
 			System.exit(0);
 		}
 
