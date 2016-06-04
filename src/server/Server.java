@@ -87,6 +87,7 @@ public class Server extends GBFrame {
 		synchronized (servers) {
 			for (ThreadServer s : servers) {
 				s.w.write(text + "\n");
+				s.w.flush();
 			}
 		}
 	}
@@ -111,6 +112,8 @@ public class Server extends GBFrame {
 			try {
 				synchronized (servers) {
 					w.write(id + "\n");
+					w.write(servers.size() + "\n");
+					w.flush();
 				}
 
 				String line;
@@ -147,9 +150,8 @@ public class Server extends GBFrame {
 					pool.get(i).start();
 				}
 
-				sysout("started");
-
 				start.setEnabled(false);
+				sysout("started");
 			} catch (IOException e) {
 				sysout("error on starting");
 				e.printStackTrace();
