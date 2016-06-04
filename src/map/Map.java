@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import main.Config;
 import main.Drawable;
-import main.Window;
 import physics.CollisionHandler;
 import physics.DeltaTimer;
 import physics.Vector;

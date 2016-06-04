@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
+import BreezySwing.GBFrame;
+
 public class Server extends GBFrame {
 	public static final int MAX_CLIENTS = 10;
 
