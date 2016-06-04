@@ -118,7 +118,8 @@ public class Server extends GBFrame {
 
 				String line;
 				while ((line = r.readLine()) != null) {
-					line = this.id + " " + line.trim();
+					line = line.trim();
+//					line = this.id + " " + line;
 					sysout("Got message: " + line);
 					sendOnAll(line);
 				}

@@ -17,6 +17,10 @@ public class Tank extends MovableMapItem {
 
 	private int lastMineLayed = -10000;
 
+	public Tank(Vector position) {
+		super(position, SIZE, Vector.ZERO);
+	}
+	
 	public Tank(Vector position, Vector velocity) {
 		super(position, SIZE, velocity);
 	}
