@@ -10,7 +10,7 @@ import physics.DeltaTimer;
 import physics.Vector;
 
 public class Tank extends MovableMapItem {
-	public static final Vector SIZE = new Vector(160, 160);
+	public static final Vector SIZE = new Vector(16, 16);
 	public static final int SPEED = 3;
 
 	private static final int MINE_DELAY = DeltaTimer.FPS * 1;

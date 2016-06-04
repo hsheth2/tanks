@@ -9,7 +9,7 @@ import main.Window;
 import physics.Vector;
 
 public class Bullet extends MovableMapItem {
-	public static final Vector SIZE = new Vector(60, 60);
+	public static final Vector SIZE = new Vector(8, 8ww);
 	public static final int SPEED = 8;
 
 	private static final double START_MULT = Bullet.SIZE.add(Tank.SIZE).magnitude() / 2.0;

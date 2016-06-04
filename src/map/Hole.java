@@ -4,11 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import main.Config;
 import main.Window;
 import physics.Vector;
 
 public class Hole extends StaticMapItem {
-	public static final Vector SIZE = new Vector(160, 160);
+	public static final Vector SIZE = new Vector(Config.GAME_WIDTH / Config.GRID_WIDTH, Config.GAME_HEIGHT / Config.GRID_HEIGHT);
 
 	public Hole(Vector position) {
 		super(position, SIZE);
