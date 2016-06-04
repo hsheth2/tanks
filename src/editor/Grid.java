@@ -4,6 +4,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,15 +18,20 @@ public class Grid extends JPanel {
 	public Tile[][] tiles;
 	public MouseListener ml;
 	public MouseMotionListener mml;
-	public boolean drag = false;
+	public KeyListener kl;
+	
+	public char mode = 'g';
 	
 	public Grid(int w, int h) {
 		tiles = new Tile[w][h];
 		
 		init();
 		
+		setFocusable(true);
+		
 		ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				requestFocusInWindow();
 				handle(e);
 			}
 		};
@@ -34,8 +42,20 @@ public class Grid extends JPanel {
 			}
 		};
 		
+		kl = new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				System.out.println(e.getKeyChar());
+				char c = e.getKeyChar();
+				
+				if (c == 'g' || c == 'w' || c == 'h') {
+					mode = c;
+				}
+			}
+		};
+		
 		addMouseListener(ml);
 		addMouseMotionListener(mml);
+		addKeyListener(kl);
 	}
 	
 	public void init() {
@@ -52,7 +72,7 @@ public class Grid extends JPanel {
 		int y = p.y / Tile.SIZE;
 		
 		if (x < tiles.length && y < tiles[0].length) {
-			tiles[p.x / Tile.SIZE][p.y / Tile.SIZE].type = 'w';
+			tiles[p.x / Tile.SIZE][p.y / Tile.SIZE].type = mode;
 			repaint();
 		}
 	}
