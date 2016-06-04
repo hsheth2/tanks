@@ -63,7 +63,7 @@ public class Map implements Drawable {
 
 	private void doRemoval() {
 		if (!removalQueue.isEmpty()) {
-			System.out.println("Calling do removal");
+//			System.out.println("Calling do removal");
 			for (MapItem m : removalQueue) {
 				int indexOf = items.indexOf(m);
 				if (indexOf != -1)
