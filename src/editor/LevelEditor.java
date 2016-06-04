@@ -65,7 +65,7 @@ public class LevelEditor extends JFrame {
 					g.load(Level.load(path));
 					JOptionPane.showMessageDialog(null, "Level loaded from assets/levels/" + path + ".");
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Cannot load assets/levels/" + path + ".");
 				}
 				
 				g.repaint();

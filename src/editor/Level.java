@@ -2,6 +2,7 @@ package editor;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -25,7 +26,7 @@ public class Level implements Serializable {
 		}
 	}
 	
-	public static Level load(String name) {
+	public static Level load(String name) throws Exception {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("assets/levels/" + name)));
 			
@@ -33,10 +34,8 @@ public class Level implements Serializable {
 			ois.close();
 			
 			return loaded;
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			throw e;
 		}
-		
-		return null;
 	}
 }
