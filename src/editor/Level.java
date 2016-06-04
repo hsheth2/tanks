@@ -1,15 +1,17 @@
 package editor;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Level implements Serializable {
 	public char[][] grid;
 	
-	public Level(int w, int h) {
-		grid = new char[w][h];
+	public Level(char[][] grid) {
+		this.grid = grid;
 	}
 	
 	public void save(String name) {
@@ -21,5 +23,20 @@ public class Level implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static Level load(String name) {
+		try {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("assets/levels/" + name)));
+			
+			Level loaded = (Level) ois.readObject();
+			ois.close();
+			
+			return loaded;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }

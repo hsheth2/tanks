@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Grid extends JPanel {
@@ -19,11 +20,13 @@ public class Grid extends JPanel {
 	public MouseListener ml;
 	public MouseMotionListener mml;
 	public KeyListener kl;
+	public LevelEditor le;
 	
 	public char mode = 'g';
 	
-	public Grid(int w, int h) {
+	public Grid(int w, int h, LevelEditor le) {
 		tiles = new Tile[w][h];
+		this.le = le;
 		
 		init();
 		
@@ -44,11 +47,22 @@ public class Grid extends JPanel {
 		
 		kl = new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				System.out.println(e.getKeyChar());
 				char c = e.getKeyChar();
 				
 				if (c == 'g' || c == 'w' || c == 'h') {
 					mode = c;
+					
+					switch (c) {
+					case 'g':
+						Grid.this.le.mode.setText("Mode: Ground");
+						break;
+					case 'w':
+						Grid.this.le.mode.setText("Mode: Wall");
+						break;
+					case 'h':
+						Grid.this.le.mode.setText("Mode: Hole");
+						break;
+					}
 				}
 			}
 		};
@@ -75,6 +89,28 @@ public class Grid extends JPanel {
 			tiles[p.x / Tile.SIZE][p.y / Tile.SIZE].type = mode;
 			repaint();
 		}
+	}
+	
+	public Level toLevel() {
+		char[][] level = new char[tiles.length][tiles[0].length];
+		
+		for (int x = 0; x < tiles.length; x++) {
+			for (int y = 0; y < tiles[0].length; y++) {
+				level[x][y] = tiles[x][y].type;
+			}
+		}
+		
+		return new Level(level);
+	}
+	
+	public void load(Level l) {
+		for (int x = 0; x < tiles.length; x++) {
+			for (int y = 0; y < tiles[0].length; y++) {
+				 tiles[x][y].type = l.grid[x][y];
+			}
+		}
+		
+		repaint();
 	}
 	
 	public void paintComponent(Graphics g) {
