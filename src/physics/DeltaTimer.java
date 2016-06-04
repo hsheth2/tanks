@@ -3,7 +3,7 @@ package physics;
 import java.util.concurrent.TimeUnit;
 
 public class DeltaTimer {
-	public static final int FPS = 600;
+	public static final int FPS = 60;
 	
 	private static final long NS_PER_FRAME = (long)1e9 / FPS;
 	
