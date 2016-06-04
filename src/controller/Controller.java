@@ -22,7 +22,7 @@ public abstract class Controller {
 	protected boolean shoot(Vector where) {		
 //		System.out.println("Shoot vec: " + where);
 		Vector dir = where.sub(tank.getCenter());
-		System.out.println("Shoot dir: " + dir.unit());
+//		System.out.println("Shoot dir: " + dir.unit());
 		
 		return tank.shoot(map, dir);
 	}
