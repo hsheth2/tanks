@@ -41,7 +41,7 @@ public class NetworkManager {
 			for (int i = 0; i < peerCount; i++) {
 				if (i == id) {
 					// my turn
-					Vector position = Vector.ZERO; // TODO generate valid location
+					Vector position = map.getValidPosition(Tank.SIZE);
 					Tank me = new Tank(position);
 					KeyboardController control_me = new KeyboardController(map, me, canvas);
 					map.addItem(me);

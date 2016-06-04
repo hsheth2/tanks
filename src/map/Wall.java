@@ -11,7 +11,7 @@ public class Wall extends StaticMapItem {
 	public static final Vector SIZE = new Vector(160, 160);
 
 	public Wall(Vector position) {
-		super(position, SIZE);
+		this(position, SIZE);
 	}
 	
 	public Wall(Vector position, Vector size) {
