@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import editor.Level;
 import main.Config;
 import main.Drawable;
 import physics.CollisionHandler;
@@ -21,6 +22,25 @@ public class Map implements Drawable {
 
 	public Map(DeltaTimer t) {
 		this.dt = t;
+	}
+	
+	public Map(DeltaTimer t, Level l) {
+		this.dt = t;
+		
+		for (int x = 0; x < l.grid.length; x++) {
+			for (int y = 0; y < l.grid[0].length; y++) {
+				char c = l.grid[x][y];
+				
+				switch (c) {
+				case 'w':
+					addItem(new Wall(new Vector(x * Wall.SIZE.x, y * Wall.SIZE.y)));
+					break;
+				case 'h':
+					addItem(new Hole(new Vector(x * Hole.SIZE.x, y * Hole.SIZE.y)));
+					break;
+				}
+			}
+		}
 	}
 
 	public void addItem(MapItem item) {
