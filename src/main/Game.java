@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 
 import controller.AIController;
 import controller.KeyboardController;
-import controller.NetworkedController;
+import controller.NetworkManager;
 import map.Hole;
 import map.Map;
 import map.Mine;

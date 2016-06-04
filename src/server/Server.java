@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
+import BreezySwing.GBFrame;
+
 public class Server extends GBFrame {
 	public static final int MAX_CLIENTS = 10;
 
@@ -85,6 +87,7 @@ public class Server extends GBFrame {
 		synchronized (servers) {
 			for (ThreadServer s : servers) {
 				s.w.write(text + "\n");
+				s.w.flush();
 			}
 		}
 	}
@@ -109,11 +112,14 @@ public class Server extends GBFrame {
 			try {
 				synchronized (servers) {
 					w.write(id + "\n");
+					w.write(servers.size() + "\n");
+					w.flush();
 				}
 
 				String line;
 				while ((line = r.readLine()) != null) {
-					line = this.id + " " + line.trim();
+					line = line.trim();
+//					line = this.id + " " + line;
 					sysout("Got message: " + line);
 					sendOnAll(line);
 				}
@@ -145,9 +151,8 @@ public class Server extends GBFrame {
 					pool.get(i).start();
 				}
 
-				sysout("started");
-
 				start.setEnabled(false);
+				sysout("started");
 			} catch (IOException e) {
 				sysout("error on starting");
 				e.printStackTrace();

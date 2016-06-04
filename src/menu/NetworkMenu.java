@@ -59,6 +59,7 @@ public class NetworkMenu extends Menu {
 					addrIn.focused = false;
 					nickIn.focused = false;
 					System.out.println("connect: " + nickIn.text + ", " + addrIn.text);
+					// TODO needs port number as well
 				} else {
 					addrIn.focused = false;
 					nickIn.focused = false;

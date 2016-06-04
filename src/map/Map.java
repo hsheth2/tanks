@@ -3,10 +3,10 @@ package map;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 import main.Config;
 import main.Drawable;
-import main.Window;
 import physics.CollisionHandler;
 import physics.DeltaTimer;
 import physics.Vector;
@@ -110,5 +110,24 @@ public class Map implements Drawable {
 			}
 		}
 		doRemoval();
+	}
+	
+	public Vector getValidPosition(Vector size) {
+		Vector position;
+		do {
+			int x = ThreadLocalRandom.current().nextInt(0, Config.GAME_WIDTH);
+			int y = ThreadLocalRandom.current().nextInt(0, Config.GAME_HEIGHT);
+			position = new Vector(x, y);
+		} while (!isEmpty(position, size));
+		return position;
+	}
+	
+	public boolean isEmpty(Vector pos, Vector size) {
+		MapItem input = new Wall(pos, size);
+		for (MapItem item : items) {
+			if (ch.overlapping(item, input))
+				return false;
+		}
+		return true;
 	}
 }
