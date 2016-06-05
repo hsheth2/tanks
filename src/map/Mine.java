@@ -10,11 +10,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import physics.DeltaTimer;
 
 public class Mine extends StaticMapItem implements Updatable {
-	public static final Vector SIZE = new Vector(100, 100);
+	public static final Vector SIZE = new Vector(16, 16);
 
 	public static final int TIMER_END = 5 * DeltaTimer.FPS;
 
-	private static final double MINE_RADIUS = 500;
+	private static final double MINE_RADIUS = 32;
 
 	private int timer = 0;
 	private Tank owner;
