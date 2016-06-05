@@ -43,8 +43,7 @@ public class NetworkManager {
 					// my turn
 					Vector position = map.getValidPosition(Tank.SIZE);
 					Tank me = new Tank(position);
-					KeyboardController control_me = new KeyboardController(map, me,
-							canvas);
+					KeyboardController control_me = new KeyboardController(map, me, canvas);
 					map.addItem(me);
 					peers.add(control_me);
 					sendUpdate(position.toComputerString());
@@ -72,8 +71,7 @@ public class NetworkManager {
 
 							if (peerId != NetworkManager.this.id) {
 								// not me
-								NetworkedController ctl = (NetworkedController) peers
-										.get(peerId);
+								NetworkedController ctl = (NetworkedController) peers.get(peerId);
 								ctl.handleAction(cmd);
 							} else {
 								// ignore my own sends

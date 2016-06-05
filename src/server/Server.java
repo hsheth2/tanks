@@ -119,7 +119,7 @@ public class Server extends GBFrame {
 				String line;
 				while ((line = r.readLine()) != null) {
 					line = line.trim();
-//					line = this.id + " " + line;
+					// line = this.id + " " + line;
 					sysout("Got message: " + line);
 					sendOnAll(line);
 				}
@@ -131,6 +131,7 @@ public class Server extends GBFrame {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void buttonClicked(JButton button) {
 		if (button == start) {

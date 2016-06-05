@@ -20,11 +20,11 @@ public class KeyboardController extends Controller {
 	private boolean[] pressed = { false, false, false, false, false };
 
 	private NetworkManager manager;
-	
+
 	public KeyboardController(Map map, Tank tank, JPanel canvas) {
 		this(map, tank, canvas, null);
 	}
-	
+
 	public KeyboardController(Map map, Tank tank, JPanel canvas, NetworkManager manager) {
 		super(map, tank);
 		this.manager = manager;
