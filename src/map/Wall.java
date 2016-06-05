@@ -21,7 +21,7 @@ public class Wall extends StaticMapItem {
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		g2d.setColor(Color.LIGHT_GRAY);
+		g2d.setColor(Color.BLACK);
 
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
