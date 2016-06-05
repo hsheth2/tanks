@@ -33,10 +33,10 @@ public class Map implements Drawable {
 				
 				switch (c) {
 				case 'w':
-					addItem(new Wall(new Vector(x * Wall.SIZE.x, y * Wall.SIZE.y)));
+					addItem(new Wall(new Vector(x * Wall.SIZE.getX(), y * Wall.SIZE.getY())));
 					break;
 				case 'h':
-					addItem(new Hole(new Vector(x * Hole.SIZE.x, y * Hole.SIZE.y)));
+					addItem(new Hole(new Vector(x * Hole.SIZE.getX(), y * Hole.SIZE.getY())));
 					break;
 				}
 			}

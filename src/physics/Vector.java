@@ -7,7 +7,7 @@ public class Vector {
 	public static final Vector LEFT = new Vector(-1, 0);
 	public static final Vector RIGHT = new Vector(1, 0);
 
-	public double x, y;
+	private final double x, y;
 
 	public Vector(double x, double y) {
 		this.x = x;
