@@ -1,16 +1,16 @@
 package menu;
 
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.util.HashMap;
 
-import main.Config;
+import javax.swing.JPanel;
+
 import main.Drawable;
-import main.FontHelper;
+import main.GameState;
 
 public abstract class Menu implements Drawable {
 	public Graphics2D g2d;
+	private GameState state;
+	private JPanel canvas;
 	
 	public Menu(Graphics2D g2d) {
 		this.g2d = g2d;
