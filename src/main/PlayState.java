@@ -14,7 +14,11 @@ public class PlayState extends GameState {
 	public void init() {
 		boolean dev = true;
 
-		g.map = new Map(g.dt, Level.load("ring"));
+		try {
+			g.map = new Map(g.dt, Level.load("ring"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		Tank t = new Tank(new Vector(400, 400), Vector.ZERO);
 		KeyboardController k = new KeyboardController(g.map, t, g.w.canvas);
