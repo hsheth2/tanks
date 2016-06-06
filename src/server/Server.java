@@ -28,6 +28,9 @@ public class Server extends GBFrame {
 	private Thread accepter;
 	private ArrayList<Thread> pool = new ArrayList<>();
 	private ArrayList<ThreadServer> servers = new ArrayList<>();
+	
+	public static final String[] MAPS = {"test", "ring", "circles"};
+	public int mapIndex;
 
 	private void sysout(String s) {
 		sysout(s, true);
@@ -54,6 +57,8 @@ public class Server extends GBFrame {
 
 		sysout("IP: " + InetAddress.getLocalHost());
 		sysout("Port: " + listener.getLocalPort());
+		
+		pickMap();
 
 		accepter = new Thread(new Runnable() {
 			@Override
@@ -113,6 +118,7 @@ public class Server extends GBFrame {
 				synchronized (servers) {
 					w.write(id + "\n");
 					w.write(servers.size() + "\n");
+					w.write(MAPS[mapIndex] + "\n");
 					w.flush();
 				}
 
@@ -192,6 +198,10 @@ public class Server extends GBFrame {
 			System.exit(0);
 		}
 
+	}
+	
+	private void pickMap() {
+		mapIndex = (int) (Math.random() * MAPS.length);
 	}
 
 	public static void main(String[] args) throws Throwable {

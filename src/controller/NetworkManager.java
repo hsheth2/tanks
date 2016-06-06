@@ -35,8 +35,6 @@ public class NetworkManager {
 			int peerCount = Integer.parseInt(r.readLine().trim());
 			peers = new ArrayList<>(peerCount);
 
-			// TODO generate map
-
 			// each one will take turns getting a random tank placement
 			for (int i = 0; i < peerCount; i++) {
 				if (i == id) {
@@ -58,6 +56,11 @@ public class NetworkManager {
 					peers.add(control_them);
 				}
 			}
+			
+			if (this.id == 0) {
+				sendUpdate("STARTING\n");
+			}
+			r.readLine();
 
 			// start server thread
 			new Thread(new Runnable() {
