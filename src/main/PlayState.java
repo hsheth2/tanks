@@ -15,7 +15,7 @@ public class PlayState extends GameState {
 		boolean dev = true;
 
 		try {
-			g.map = new Map(g.dt, Level.load("ring"));
+			g.map = new Map(g.dt, Level.load("zack"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -23,24 +23,6 @@ public class PlayState extends GameState {
 		Tank t = new Tank(new Vector(400, 400), Vector.ZERO);
 		KeyboardController k = new KeyboardController(g.map, t, g.w.canvas);
 		g.map.addItem(t);
-
-		// Map map = g.map;
-		// Window w = g.w;
-		//
-		// map.makeRing();
-		//
-		// Tank t = new Tank(new Vector(4000, 4000), Vector.ZERO);
-		// KeyboardController k = new KeyboardController(map, t, w.canvas);
-		// map.addItem(t);
-		//
-		// map.addItem(new Wall(new Vector(3000, 3000)));
-		//
-		// Hole h = new Hole(new Vector(500, 400));
-		// map.addItem(h);
-		//
-		// Mine m = new Mine(new Vector(300, 500), t, map);
-		// map.addItem(m);
-		// m.hit(h, map);
 	}
 
 	@Override

@@ -22,10 +22,10 @@ public class Tile {
 
 		switch (type) {
 		case 'w':
-			g2d.setColor(Color.BLACK);
+			g2d.setColor(Color.LIGHT_GRAY);
 			break;
 		case 'h':
-			g2d.setColor(Color.LIGHT_GRAY);
+			g2d.setColor(Color.BLACK);
 			break;
 		case 'g':
 			g2d.setColor(Color.WHITE);
