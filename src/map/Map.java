@@ -23,14 +23,14 @@ public class Map implements Drawable {
 	public Map(DeltaTimer t) {
 		this.dt = t;
 	}
-	
+
 	public Map(DeltaTimer t, Level l) {
 		this.dt = t;
-		
+
 		for (int x = 0; x < l.grid.length; x++) {
 			for (int y = 0; y < l.grid[0].length; y++) {
 				char c = l.grid[x][y];
-				
+
 				switch (c) {
 				case 'w':
 					addItem(new Wall(new Vector(x * Wall.SIZE.getX(), y * Wall.SIZE.getY())));
@@ -72,8 +72,9 @@ public class Map implements Drawable {
 							destroy.add(items.get(i));
 						else {
 							if (items.get(i) instanceof Tank) {
-								((Tank)items.get(i)).destroy(this);
-							} else removeItem(items.get(i));
+								((Tank) items.get(i)).destroy(this);
+							} else
+								removeItem(items.get(i));
 						}
 					}
 				}
@@ -83,7 +84,7 @@ public class Map implements Drawable {
 
 	private void doRemoval() {
 		if (!removalQueue.isEmpty()) {
-//			System.out.println("Calling do removal");
+			// System.out.println("Calling do removal");
 			for (MapItem m : removalQueue) {
 				int indexOf = items.indexOf(m);
 				if (indexOf != -1)
@@ -114,16 +115,26 @@ public class Map implements Drawable {
 		}
 	}
 
+	public static boolean isUpdatable(MapItem m) {
+		if (m instanceof Updatable)
+			return true;
+		else
+			return false;
+	}
+
 	public void update() {
 		for (int i = 0; i < items.size(); i++) {
 			MapItem item = items.get(i);
-			if (item instanceof Updatable) {
+			if (isUpdatable(item)) {
 				((Updatable) item).update();
 			}
 		}
 
 		for (int i = 0; i < items.size(); i++) {
 			for (int j = i + 1; j < items.size(); j++) {
+				if (!isUpdatable(items.get(i)) && !isUpdatable(items.get(j)))
+					continue;
+
 				// call collision handler
 				if (ch.overlapping(items.get(i), items.get(j)))
 					items.get(i).hit(items.get(j), this);
@@ -131,7 +142,7 @@ public class Map implements Drawable {
 		}
 		doRemoval();
 	}
-	
+
 	public Vector getValidPosition(Vector size) {
 		Vector position;
 		do {
@@ -141,7 +152,7 @@ public class Map implements Drawable {
 		} while (!isEmpty(position, size));
 		return position;
 	}
-	
+
 	public boolean isEmpty(Vector pos, Vector size) {
 		MapItem input = new Wall(pos, size);
 		for (MapItem item : items) {

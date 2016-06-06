@@ -9,7 +9,8 @@ import main.Window;
 import physics.Vector;
 
 public class Hole extends StaticMapItem {
-	public static final Vector SIZE = new Vector(Config.GAME_WIDTH / Config.GRID_WIDTH, Config.GAME_HEIGHT / Config.GRID_HEIGHT);
+	public static final Vector SIZE = new Vector(Config.GAME_WIDTH / Config.GRID_WIDTH,
+			Config.GAME_HEIGHT / Config.GRID_HEIGHT);
 
 	public Hole(Vector position) {
 		super(position, SIZE);
@@ -32,7 +33,7 @@ public class Hole extends StaticMapItem {
 		} else if (other instanceof Tank) {
 			Tank o = (Tank) other;
 			o.unupdate();
-			o.setVelocity(Vector.ZERO);
+			o.setVelocity(o.getVelocity().multiply(MOVE_DIVIDER));
 		} else {
 			throw new IllegalArgumentException("can't hit " + other.getClass());
 		}

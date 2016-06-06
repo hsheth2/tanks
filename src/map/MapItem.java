@@ -6,6 +6,8 @@ import main.Drawable;
 import physics.Vector;
 
 public abstract class MapItem implements Drawable {
+	public static final double MOVE_DIVIDER = 0.25;
+	
 	protected Vector position;
 	protected Vector size;
 	
