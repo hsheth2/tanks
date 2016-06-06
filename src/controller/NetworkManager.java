@@ -57,7 +57,8 @@ public class NetworkManager {
 					peers.add(control_them);
 				}
 			}
-			
+
+			// send start message and wait to sync
 			if (this.id == 0) {
 				sendUpdate("STARTING\n");
 			}
@@ -85,6 +86,7 @@ public class NetworkManager {
 							System.exit(1);
 						} catch (Exception e) {
 							e.printStackTrace();
+							System.exit(1);
 						}
 					}
 				}
