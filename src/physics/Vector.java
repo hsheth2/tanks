@@ -16,7 +16,7 @@ public class Vector {
 
 	public static Vector parseLine(String line) {
 		line = line.trim();
-		String[] tokens = line.split("[\\s]+", 1);
+		String[] tokens = line.split(",", 1);
 		double x = Double.parseDouble(tokens[0]);
 		double y = Double.parseDouble(tokens[1]);
 		Vector ans = new Vector(x, y);
@@ -91,6 +91,6 @@ public class Vector {
 	}
 
 	public String toComputerString() {
-		return String.format("%f %f", x, y);
+		return String.format("%f,%f", x, y);
 	}
 }

@@ -15,6 +15,7 @@ import map.Tank;
 import physics.Vector;
 
 public class NetworkManager {
+	public static final int PORT = 6840;
 
 	private Socket s;
 	private BufferedReader r;
@@ -91,10 +92,16 @@ public class NetworkManager {
 		}
 	}
 
-	public void sendUpdate(String data) throws IOException {
+	public void sendUpdate(String data) {
 		synchronized (s) {
-			w.write(id + " " + data + "\n");
-			w.flush();
+			try {
+				w.write(id + " " + data + "\n");
+				w.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("failed to send on socket");
+				System.exit(1);
+			}
 		}
 	}
 
