@@ -56,8 +56,8 @@ public class NetworkManager {
 				} else {
 					// their turn
 					String[] line = r.readLine().trim().split("[\\s]+");
-					Vector position = Vector.parseLine(line[0]);
-					Tank them = new Tank(position, line[1]);
+					Vector position = Vector.parseLine(line[1]);
+					Tank them = new Tank(position, line[2]);
 					NetworkedController control_them = new NetworkedController(g.map, them);
 					g.map.addItem(them);
 					peers.add(control_them);

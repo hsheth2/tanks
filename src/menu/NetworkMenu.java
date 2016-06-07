@@ -61,7 +61,7 @@ public class NetworkMenu extends Menu {
 					addrIn.focused = false;
 					nickIn.focused = false;
 					
-					new NetworkManager(state.g.map, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
+					new NetworkManager(state.g, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
 					
 					while (g.map == null);
 					
