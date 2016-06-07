@@ -9,6 +9,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.UnknownHostException;
 
 import javax.swing.JPanel;
 
@@ -45,8 +48,8 @@ public class NetworkMenu extends Menu {
 		connect = new Button("Connect", MenuItem.centerX(200), 400, 200, 80, Color.BLUE, Color.WHITE);
 		
 		ml = new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				Point p = e.getPoint();
+			public void mousePressed(MouseEvent event) {
+				Point p = event.getPoint();
 				Game g = NetworkMenu.this.state.g;
 				
 				NetworkMenu.this.canvas.requestFocusInWindow();
@@ -61,11 +64,21 @@ public class NetworkMenu extends Menu {
 					addrIn.focused = false;
 					nickIn.focused = false;
 					
-					new NetworkManager(state.g, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
+					NetworkManager nm;
 					
-					while (g.map == null);
-					
-					state.g.changeState(new PlayState(state.g));
+					try {
+						nm = new NetworkManager(state.g, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
+						nm.waitForStart();
+						
+						while (g.map == null);
+						
+						state.g.changeState(new PlayState(state.g));
+					} catch (UnknownHostException | ConnectException e) {
+						// TODO create message box showing that it was unable to connect
+					} catch (IOException e) {
+						e.printStackTrace();
+						System.exit(1); // FIXME fail gracefully
+					}
 				} else {
 					addrIn.focused = false;
 					nickIn.focused = false;

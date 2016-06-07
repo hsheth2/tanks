@@ -19,20 +19,29 @@ import physics.Vector;
 public class NetworkManager {
 	public static final int PORT = 6840;
 
+	private Game g;
+	private JPanel canvas;
+	private String nickname;
 	private Socket s;
 	private BufferedReader r;
-	public BufferedWriter w;
+	private BufferedWriter w;
 
 	private int id;
 	private ArrayList<Controller> peers;
 
-	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port) {
+	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port) throws IOException {
+		this.s = new Socket(ip, port);
+
+		this.r = new BufferedReader(new InputStreamReader(s.getInputStream()));
+		this.w = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+
+		this.g = g;
+		this.canvas = canvas;
+		this.nickname = nickname;
+	}
+
+	public void waitForStart() {
 		try {
-			s = new Socket(ip, port);
-
-			r = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			w = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
-
 			// wait for starting signal
 			id = Integer.parseInt(r.readLine().trim());
 			int peerCount = Integer.parseInt(r.readLine().trim());
@@ -89,17 +98,18 @@ public class NetworkManager {
 							}
 						} catch (IOException e) {
 							e.printStackTrace();
-							System.exit(1);
+							System.exit(1); // FIXME fail gracefully
 						} catch (Exception e) {
 							e.printStackTrace();
-							System.exit(1);
+							System.exit(1); // FIXME fail gracefully
 						}
 					}
 				}
 			}).start();
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.exit(1);
+			System.out.println("Something went wrong with server or socket");
+			System.exit(1); // FIXME fail gracefully
 		}
 	}
 
@@ -111,7 +121,7 @@ public class NetworkManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.out.println("failed to send on socket");
-				System.exit(1);
+				System.exit(1); // FIXME fail gracefully
 			}
 		}
 	}
