@@ -18,7 +18,7 @@ public class Vector {
 
 	public static Vector parseLine(String line) {
 		line = line.trim();
-		String[] tokens = line.split(Pattern.quote("X"));
+		String[] tokens = line.split(Pattern.quote("X"), 2);
 		double x = Double.parseDouble(tokens[0]);
 		double y = Double.parseDouble(tokens[1]);
 		Vector ans = new Vector(x, y);

@@ -63,9 +63,9 @@ public class KeyboardController extends Controller {
 	private void mouseClicked(Point p) {
 		// System.out.println("Point:"+p.getX() + " " + p.getY());
 		Vector clickPos = Window.real2game(p);
-		this.shoot(clickPos);
 		if (manager != null)
 			manager.sendUpdate("shoot " + clickPos.toComputerString());
+		this.shoot(clickPos);
 	}
 
 	private void updateDirection() {
@@ -81,7 +81,7 @@ public class KeyboardController extends Controller {
 
 		setDir(dir);
 		if (manager != null)
-			manager.sendUpdate("move " + this.tank.getVelocity().toComputerString());
+			manager.sendUpdate("move " + dir.toComputerString());
 
 		if (pressed[4]) { // space
 			mine();

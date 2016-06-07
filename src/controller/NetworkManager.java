@@ -48,7 +48,7 @@ public class NetworkManager {
 					// my turn
 					Vector position = g.map.getValidPosition(Tank.SIZE);
 					Tank me = new Tank(position, nickname);
-					KeyboardController control_me = new KeyboardController(g.map, me, canvas);
+					KeyboardController control_me = new KeyboardController(g.map, me, canvas, this);
 					g.map.addItem(me);
 					peers.add(control_me);
 					sendUpdate(position.toComputerString() + " " + nickname);
@@ -76,7 +76,7 @@ public class NetworkManager {
 				public void run() {
 					while (true) {
 						try {
-							String[] lineTokens = r.readLine().trim().split("[\\s]+", 1);
+							String[] lineTokens = r.readLine().trim().split("[\\s]+", 2);
 							int peerId = Integer.parseInt(lineTokens[0]);
 							String cmd = lineTokens[1];
 
