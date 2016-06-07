@@ -66,7 +66,7 @@ public class NetworkManager {
 
 			// send start message and wait to sync
 			if (this.id == 0) {
-				sendUpdate("STARTING\n");
+				sendUpdate("STARTING");
 			}
 			r.readLine();
 
