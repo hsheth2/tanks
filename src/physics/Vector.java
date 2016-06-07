@@ -1,5 +1,7 @@
 package physics;
 
+import java.util.regex.Pattern;
+
 public class Vector {
 	public static final Vector ZERO = new Vector(0, 0);
 	public static final Vector UP = new Vector(0, -1);
@@ -16,7 +18,7 @@ public class Vector {
 
 	public static Vector parseLine(String line) {
 		line = line.trim();
-		String[] tokens = line.split("X");
+		String[] tokens = line.split(Pattern.quote("X"));
 		double x = Double.parseDouble(tokens[0]);
 		double y = Double.parseDouble(tokens[1]);
 		Vector ans = new Vector(x, y);
