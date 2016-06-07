@@ -53,6 +53,8 @@ public class Tank extends MovableMapItem {
 		Point sz = Window.game2real(size);
 
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
+		g2d.setColor(Color.BLACK);
+		g2d.drawString(name, (int) pos.getX(), (int) pos.getY());
 	}
 
 	public void destroy(Map m) {
