@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 import BreezySwing.GBFrame;
+import controller.NetworkManager;
 
 public class Server extends GBFrame {
 	public static final int MAX_CLIENTS = 10;
@@ -53,7 +54,7 @@ public class Server extends GBFrame {
 		start.setEnabled(false);
 		log.setEditable(false);
 
-		listener = new ServerSocket(0, MAX_CLIENTS);
+		listener = new ServerSocket(NetworkManager.PORT, MAX_CLIENTS);
 
 		sysout("IP: " + InetAddress.getLocalHost());
 		sysout("Port: " + listener.getLocalPort());

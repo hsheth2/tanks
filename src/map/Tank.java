@@ -66,8 +66,8 @@ public class Tank extends MovableMapItem {
 			Tank o = (Tank) other;
 			this.unupdate();
 			o.unupdate();
-			this.setVelocity(Vector.ZERO);
-			o.setVelocity(Vector.ZERO);
+			this.setVelocity(this.getVelocity().multiply(MOVE_DIVIDER));
+			o.setVelocity(o.getVelocity().multiply(MOVE_DIVIDER));
 		} else if (other instanceof Wall || other instanceof Hole) {
 			other.hit(this, m);
 		} else if (other instanceof Mine) {

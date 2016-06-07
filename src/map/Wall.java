@@ -36,7 +36,7 @@ public class Wall extends StaticMapItem {
 		} else if (other instanceof Tank) {
 			Tank o = (Tank) other;
 			o.unupdate();
-			o.setVelocity(Vector.ZERO);
+			o.setVelocity(o.getVelocity().multiply(MOVE_DIVIDER));
 		} else if (other instanceof Bullet) {
 			other.hit(this, m);
 		} else {
