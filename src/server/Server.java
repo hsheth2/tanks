@@ -61,6 +61,7 @@ public class Server extends GBFrame {
 		sysout("Port: " + listener.getLocalPort());
 
 		pickMap();
+		sysout("Map: " + MAPS[mapIndex]);
 
 		accepter = new Thread(new Runnable() {
 			@Override

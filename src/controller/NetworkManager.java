@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -97,9 +98,6 @@ public class NetworkManager {
 								// ignore my own sends
 							}
 						} catch (IOException e) {
-							e.printStackTrace();
-							System.exit(1); // FIXME fail gracefully
-						} catch (Exception e) {
 							e.printStackTrace();
 							System.exit(1); // FIXME fail gracefully
 						}
