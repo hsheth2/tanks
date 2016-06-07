@@ -24,7 +24,7 @@ public class NetworkManager {
 	private int id;
 	private ArrayList<Controller> peers;
 
-	public NetworkManager(Map map, JPanel canvas, String ip, int port) {
+	public NetworkManager(Map map, JPanel canvas, String nickname, String ip, int port) {
 		try {
 			s = new Socket(ip, port);
 
