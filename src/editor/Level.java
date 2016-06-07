@@ -11,31 +11,34 @@ import java.io.Serializable;
 
 public class Level implements Serializable {
 	public char[][] grid;
-	
+
 	public Level(char[][] grid) {
 		this.grid = grid;
 	}
-	
+
 	public void save(String name) {
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("assets/levels/" + name)));
-			
+
 			oos.writeObject(this);
 			oos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static Level load(String name) throws Exception {
+
+	public static Level load(String name) throws IOException {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("assets/levels/" + name)));
-			
+
 			Level loaded = (Level) ois.readObject();
 			ois.close();
-			
+
 			return loaded;
-		} catch (Exception  e) {
+		} catch (ClassNotFoundException | NullPointerException e) {
+			// eat it
+			return null;
+		} catch (IOException e) {
 			throw e;
 		}
 	}

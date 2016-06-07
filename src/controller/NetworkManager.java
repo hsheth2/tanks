@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import editor.Level;
+import main.Game;
 import map.Map;
 import map.Tank;
 import physics.Vector;
@@ -24,7 +26,7 @@ public class NetworkManager {
 	private int id;
 	private ArrayList<Controller> peers;
 
-	public NetworkManager(Map map, JPanel canvas, String nickname, String ip, int port) {
+	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port) {
 		try {
 			s = new Socket(ip, port);
 
@@ -36,14 +38,18 @@ public class NetworkManager {
 			int peerCount = Integer.parseInt(r.readLine().trim());
 			peers = new ArrayList<>(peerCount);
 
+			// get map
+			String mapName = r.readLine().trim();
+			g.map = new Map(g.dt, Level.load(mapName));
+
 			// each one will take turns getting a random tank placement
 			for (int i = 0; i < peerCount; i++) {
 				if (i == id) {
 					// my turn
-					Vector position = map.getValidPosition(Tank.SIZE);
+					Vector position = g.map.getValidPosition(Tank.SIZE);
 					Tank me = new Tank(position, nickname);
-					KeyboardController control_me = new KeyboardController(map, me, canvas);
-					map.addItem(me);
+					KeyboardController control_me = new KeyboardController(g.map, me, canvas);
+					g.map.addItem(me);
 					peers.add(control_me);
 					sendUpdate(position.toComputerString() + " " + nickname);
 					r.readLine(); // read my own send
@@ -52,8 +58,8 @@ public class NetworkManager {
 					String[] line = r.readLine().trim().split("[\\s]+");
 					Vector position = Vector.parseLine(line[0]);
 					Tank them = new Tank(position, line[1]);
-					NetworkedController control_them = new NetworkedController(map, them);
-					map.addItem(them);
+					NetworkedController control_them = new NetworkedController(g.map, them);
+					g.map.addItem(them);
 					peers.add(control_them);
 				}
 			}
