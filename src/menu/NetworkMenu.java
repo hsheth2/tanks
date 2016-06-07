@@ -3,17 +3,19 @@ package menu;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.KeyListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+import controller.NetworkManager;
 import main.Game;
 import main.NetworkMenuState;
+import main.PlayState;
 
 public class NetworkMenu extends Menu {
 	private NetworkMenuState state;
@@ -58,8 +60,12 @@ public class NetworkMenu extends Menu {
 				} else if (connect.isHit(p)) {
 					addrIn.focused = false;
 					nickIn.focused = false;
-					System.out.println("connect: " + nickIn.text + ", " + addrIn.text);
-					// TODO needs port number as well
+					
+					new NetworkManager(state.g.map, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
+					
+					while (g.map == null);
+					
+					state.g.changeState(new PlayState(state.g));
 				} else {
 					addrIn.focused = false;
 					nickIn.focused = false;

@@ -10,7 +10,7 @@ public class Game {
 	public volatile Window w;
 	public GameState state;
 	public DeltaTimer dt;
-	public Map map;
+	public volatile Map map;
 	public Menu menu;
 
 	public Game() {
