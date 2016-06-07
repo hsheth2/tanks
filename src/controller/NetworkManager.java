@@ -5,8 +5,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.ConnectException;
 import java.net.Socket;
-import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -30,15 +31,21 @@ public class NetworkManager {
 	private int id;
 	private ArrayList<Controller> peers;
 
-	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port) throws IOException {
-		this.s = new Socket(ip, port);
+	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port) throws UnknownHostException, ConnectException, NetworkingException {
+		try {
+			this.s = new Socket(ip, port);
 
-		this.r = new BufferedReader(new InputStreamReader(s.getInputStream()));
-		this.w = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+			this.r = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			this.w = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 
-		this.g = g;
-		this.canvas = canvas;
-		this.nickname = nickname;
+			this.g = g;
+			this.canvas = canvas;
+			this.nickname = nickname;
+		} catch (UnknownHostException | ConnectException e) {
+			throw e;
+		} catch (IOException e) {
+			throw new NetworkingException(e);
+		}
 	}
 
 	public void waitForStart() {
@@ -98,28 +105,23 @@ public class NetworkManager {
 								// ignore my own sends
 							}
 						} catch (IOException e) {
-							e.printStackTrace();
-							System.exit(1); // FIXME fail gracefully
+							throw new NetworkingException(e);
 						}
 					}
 				}
 			}).start();
 		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Something went wrong with server or socket");
-			System.exit(1); // FIXME fail gracefully
+			throw new NetworkingException("Something went wrong with server or socket", e);
 		}
 	}
 
-	public void sendUpdate(String data) {
+	public void sendUpdate(String data) throws NetworkingException {
 		synchronized (s) {
 			try {
 				w.write(id + " " + data + "\n");
 				w.flush();
 			} catch (IOException e) {
-				e.printStackTrace();
-				System.out.println("failed to send on socket");
-				System.exit(1); // FIXME fail gracefully
+				throw new NetworkingException("failed to send update on socket", e);
 			}
 		}
 	}
