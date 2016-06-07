@@ -1,11 +1,5 @@
 package main;
 
-import controller.KeyboardController;
-import editor.Level;
-import map.Map;
-import map.Tank;
-import physics.Vector;
-
 public class PlayState extends GameState {
 	public PlayState(Game g) {
 		super(g);
