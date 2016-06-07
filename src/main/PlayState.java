@@ -20,7 +20,7 @@ public class PlayState extends GameState {
 			e.printStackTrace();
 		}
 
-		Tank t = new Tank(new Vector(400, 400), Vector.ZERO);
+		Tank t = new Tank(new Vector(400, 400), "me");
 		KeyboardController k = new KeyboardController(g.map, t, g.w.canvas);
 		g.map.addItem(t);
 	}

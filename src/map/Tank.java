@@ -17,12 +17,15 @@ public class Tank extends MovableMapItem {
 
 	private int lastMineLayed = -10000;
 
-	public Tank(Vector position) {
-		super(position, SIZE, Vector.ZERO);
+	private String name;
+
+	public Tank(Vector position, String name) {
+		this(position, Vector.ZERO, name);
 	}
-	
-	public Tank(Vector position, Vector velocity) {
+
+	public Tank(Vector position, Vector velocity, String name) {
 		super(position, SIZE, velocity);
+		this.name = name;
 	}
 
 	public boolean shoot(Map m, Vector dir) {

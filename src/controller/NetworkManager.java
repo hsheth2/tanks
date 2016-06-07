@@ -41,17 +41,17 @@ public class NetworkManager {
 				if (i == id) {
 					// my turn
 					Vector position = map.getValidPosition(Tank.SIZE);
-					Tank me = new Tank(position);
+					Tank me = new Tank(position, nickname);
 					KeyboardController control_me = new KeyboardController(map, me, canvas);
 					map.addItem(me);
 					peers.add(control_me);
-					sendUpdate(position.toComputerString());
+					sendUpdate(position.toComputerString() + " " + nickname);
 					r.readLine(); // read my own send
 				} else {
 					// their turn
-					String line = r.readLine();
-					Vector position = Vector.parseLine(line);
-					Tank them = new Tank(position);
+					String[] line = r.readLine().trim().split("[\\s]+");
+					Vector position = Vector.parseLine(line[0]);
+					Tank them = new Tank(position, line[1]);
 					NetworkedController control_them = new NetworkedController(map, them);
 					map.addItem(them);
 					peers.add(control_them);
