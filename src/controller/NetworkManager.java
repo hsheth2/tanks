@@ -30,6 +30,7 @@ public class NetworkManager {
 
 	private int id;
 	private ArrayList<Controller> peers;
+	private Thread serverThread;
 
 	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port)
 			throws UnknownHostException, ConnectException, NetworkingException {
@@ -89,7 +90,7 @@ public class NetworkManager {
 			r.readLine();
 
 			// start server thread
-			new Thread(new Runnable() {
+			serverThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					while (true) {
@@ -110,7 +111,8 @@ public class NetworkManager {
 						}
 					}
 				}
-			}).start();
+			});
+			serverThread.start();
 		} catch (IOException e) {
 			throw new NetworkingException("Something went wrong with server or socket", e);
 		}
@@ -124,6 +126,27 @@ public class NetworkManager {
 			} catch (IOException e) {
 				throw new NetworkingException("failed to send update on socket", e);
 			}
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public void stop() {
+		try {
+			serverThread.stop();
+			serverThread = null;
+
+			r.close();
+			r = null;
+			w.close();
+			w = null;
+
+			s.close();
+			s = null;
+			
+			for (Controller c : peers)
+				c.stop();
+		} catch (IOException e) {
+			throw new NetworkingException("failed to close network manager properly", e);
 		}
 	}
 

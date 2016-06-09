@@ -40,4 +40,9 @@ public abstract class Controller {
 	public void locationUpdate(Vector loc) {
 	}
 
+	public void stop() {
+		map.removeItem(tank);
+		// TODO stop controller's listeners
+	}
+
 }
