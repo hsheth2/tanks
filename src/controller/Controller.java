@@ -11,6 +11,7 @@ public abstract class Controller {
 	public Controller(Map map, Tank tank) {
 		this.map = map;
 		this.tank = tank;
+		this.tank.setController(this);
 	}
 
 	protected void setDir(Vector dir) {
@@ -18,6 +19,10 @@ public abstract class Controller {
 			tank.setVelocity(dir);
 		else
 			tank.setVelocity(dir.scale(Tank.SPEED));
+	}
+
+	protected void setLoc(Vector loc) {
+		tank.setPosition(loc);
 	}
 
 	protected boolean shoot(Vector where) {
@@ -30,6 +35,9 @@ public abstract class Controller {
 
 	protected void mine() {
 		tank.mine(map);
+	}
+
+	public void locationUpdate(Vector loc) {
 	}
 
 }

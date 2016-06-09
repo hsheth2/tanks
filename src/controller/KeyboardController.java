@@ -89,4 +89,12 @@ public class KeyboardController extends Controller {
 				manager.sendUpdate("mine x");
 		}
 	}
+
+	@Override
+	public void locationUpdate(Vector loc) {
+		if (manager != null) {
+			if (Math.random() < 0.05)
+				manager.sendUpdate("loc " + loc.toComputerString());
+		}
+	}
 }

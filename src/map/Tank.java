@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import controller.Controller;
 import main.AudioPlayer;
 import main.Window;
 import physics.DeltaTimer;
@@ -18,6 +19,7 @@ public class Tank extends MovableMapItem {
 	private int lastMineLayed = -10000;
 
 	private String name;
+	private Controller control;
 
 	public Tank(Vector position, String name) {
 		this(position, Vector.ZERO, name);
@@ -26,6 +28,10 @@ public class Tank extends MovableMapItem {
 	public Tank(Vector position, Vector velocity, String name) {
 		super(position, SIZE, velocity);
 		this.name = name;
+	}
+
+	public void setController(Controller c) {
+		this.control = c;
 	}
 
 	public boolean shoot(Map m, Vector dir) {
@@ -44,6 +50,13 @@ public class Tank extends MovableMapItem {
 			lastMineLayed = frameCounter;
 		}
 	}
+
+	@Override
+	public void update() {
+		super.update();
+		if (control != null)
+			control.locationUpdate(this.getPosition());
+	};
 
 	@Override
 	public void draw(Graphics2D g2d) {

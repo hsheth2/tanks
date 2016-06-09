@@ -31,7 +31,8 @@ public class NetworkManager {
 	private int id;
 	private ArrayList<Controller> peers;
 
-	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port) throws UnknownHostException, ConnectException, NetworkingException {
+	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port)
+			throws UnknownHostException, ConnectException, NetworkingException {
 		try {
 			this.s = new Socket(ip, port);
 

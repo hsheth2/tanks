@@ -18,6 +18,9 @@ public class NetworkedController extends Controller {
 		} else if (input[0].equals("move")) {
 			Vector dir = Vector.parseLine(input[1]);
 			setDir(dir);
+		} else if (input[0].equals("loc")) {
+			Vector loc = Vector.parseLine(input[1]);
+			this.setLoc(loc);
 		} else if (input[0].equals("mine")) {
 			mine();
 		} else {
