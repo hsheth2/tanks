@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.NetworkManager;
@@ -75,8 +76,8 @@ public class NetworkMenu extends Menu {
 
 						state.g.changeState(new PlayState(state.g));
 					} catch (UnknownHostException | ConnectException e) {
-						// TODO create message box showing that it was unable to connect
 						System.out.println("Invalid host address");
+						JOptionPane.showMessageDialog(null, "Invalid host address");
 					} catch (NetworkingException e) {
 						e.printStackTrace();
 						System.exit(1); // FIXME fail gracefully

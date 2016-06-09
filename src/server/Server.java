@@ -39,21 +39,21 @@ public class Server extends GBFrame {
 		sysout(s, true);
 	}
 
-	
 	private int lines = 0;
+
 	private void removeLine() {
 		String s = log.getText();
-		s = s.substring(s.indexOf('\n')+1);
+		s = s.substring(s.indexOf('\n') + 1);
 		log.setText(s);
 		lines--;
 	}
-	
+
 	private synchronized void sysout(String s, boolean newline) {
 		lines++;
 		if (lines >= LINE_LIMIT) {
 			removeLine();
 		}
-		
+
 		if (newline) {
 			System.out.println(s);
 			log.setText(log.getText() + s + '\n');
@@ -189,7 +189,7 @@ public class Server extends GBFrame {
 					accepter.stop();
 					accepter = null;
 				}
-				
+
 				if (listener != null) {
 					listener.close();
 					listener = null;

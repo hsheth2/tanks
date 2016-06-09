@@ -75,7 +75,7 @@ public class Tank extends MovableMapItem {
 		m.removeItem(this);
 		// TODO destroy this tank's animation + sound
 		// TODO stop game if this is me
-		System.exit(1);
+		System.exit(1); // FIXME: DONT FAIL HERE
 	}
 
 	@Override

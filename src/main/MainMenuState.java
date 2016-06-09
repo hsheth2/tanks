@@ -14,8 +14,6 @@ public class MainMenuState extends GameState {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
