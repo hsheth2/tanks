@@ -18,7 +18,7 @@ import controller.NetworkManager;
 
 public class Server extends GBFrame {
 	public static final int MAX_CLIENTS = 10;
-	public static final int MIN_CLIENTS = 2;
+	public static final int MIN_CLIENTS = 1;
 
 	private ServerSocket listener;
 	private ArrayList<Socket> sockets = new ArrayList<>();
@@ -32,13 +32,28 @@ public class Server extends GBFrame {
 	private ArrayList<ThreadServer> servers = new ArrayList<>();
 
 	public static final String[] MAPS = { "test", "ring", "circles" };
+	private static final int LINE_LIMIT = 500;
 	public int mapIndex;
 
 	private void sysout(String s) {
 		sysout(s, true);
 	}
 
-	private void sysout(String s, boolean newline) {
+	
+	private int lines = 0;
+	private void removeLine() {
+		String s = log.getText();
+		s = s.substring(s.indexOf('\n')+1);
+		log.setText(s);
+		lines--;
+	}
+	
+	private synchronized void sysout(String s, boolean newline) {
+		lines++;
+		if (lines >= LINE_LIMIT) {
+			removeLine();
+		}
+		
 		if (newline) {
 			System.out.println(s);
 			log.setText(log.getText() + s + '\n');
