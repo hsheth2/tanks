@@ -30,7 +30,7 @@ public class NetworkMenu extends Menu {
 	private Input addrIn, nickIn;
 	private Button connect;
 
-	public NetworkMenu(NetworkMenuState state, JPanel canvas) {
+	public NetworkMenu(final NetworkMenuState state, final JPanel canvas) {
 		super((Graphics2D) canvas.getGraphics());
 
 		this.state = state;
