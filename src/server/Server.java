@@ -2,6 +2,7 @@ package server;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -9,6 +10,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -31,7 +33,12 @@ public class Server extends GBFrame {
 	private ArrayList<Thread> pool = new ArrayList<>();
 	private ArrayList<ThreadServer> servers = new ArrayList<>();
 
-	public static final String[] MAPS = { "test", "ring", "circles" };
+	public static final ArrayList<String> MAPS;
+	static {
+		File f = new File("assets/levels/");
+		MAPS = new ArrayList<String>(Arrays.asList(f.list()));
+	}
+	
 	private static final int LINE_LIMIT = 500;
 	public int mapIndex;
 
@@ -76,7 +83,7 @@ public class Server extends GBFrame {
 		sysout("Port: " + listener.getLocalPort());
 
 		pickMap();
-		sysout("Map: " + MAPS[mapIndex]);
+		sysout("Map: " + MAPS.get(mapIndex));
 
 		accepter = new Thread(new Runnable() {
 			@Override
@@ -136,7 +143,7 @@ public class Server extends GBFrame {
 				synchronized (servers) {
 					w.write(id + "\n");
 					w.write(servers.size() + "\n");
-					w.write(MAPS[mapIndex] + "\n");
+					w.write(MAPS.get(mapIndex) + "\n");
 					w.flush();
 				}
 
@@ -218,7 +225,7 @@ public class Server extends GBFrame {
 	}
 
 	private void pickMap() {
-		mapIndex = (int) (Math.random() * MAPS.length);
+		mapIndex = (int) (Math.random() * MAPS.size());
 	}
 
 	public static void main(String[] args) throws Throwable {
