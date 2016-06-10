@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import main.Window;
 import map.Map;
 import map.Tank;
+import physics.DeltaTimer;
 import physics.Vector;
 
 public class KeyboardController extends Controller {
@@ -100,7 +101,7 @@ public class KeyboardController extends Controller {
 	@Override
 	public void locationUpdate(Vector loc) {
 		if (manager != null) {
-			if (Math.random() < 0.05)
+			if (Math.random() < 10.0 / DeltaTimer.FPS) // 10 times per second
 				manager.sendUpdate("loc " + loc.toComputerString());
 		}
 	}
