@@ -38,12 +38,19 @@ public class Server extends GBFrame {
 		File f = new File("assets/levels/");
 		MAPS = new ArrayList<String>(Arrays.asList(f.list()));
 	}
-	
+
 	private static final int LINE_LIMIT = 500;
 	public int mapIndex;
 
+	private volatile boolean running = true;
+
 	private void sysout(String s) {
 		sysout(s, true);
+	}
+	
+	private void error_msg(String s) {
+		sysout(s);
+		messageBox(s);
 	}
 
 	private int lines = 0;
@@ -71,7 +78,7 @@ public class Server extends GBFrame {
 	}
 
 	public Server() throws IOException {
-		this.setTitle("Tanks Server");
+		this.setTitle("Tanks Game Server");
 		this.setSize(400, 200);
 
 		start.setEnabled(false);
@@ -101,9 +108,10 @@ public class Server extends GBFrame {
 								start.setEnabled(true);
 						}
 					} catch (Exception e) {
-						sysout("error in listener");
 						e.printStackTrace();
-						System.exit(1);
+						error_msg("error in listener");
+						Server.this.running = false;
+						Server.this.dispose();
 					}
 				}
 			}
@@ -155,9 +163,10 @@ public class Server extends GBFrame {
 					sendOnAll(line);
 				}
 			} catch (IOException e) {
-				sysout("error on socket " + id);
 				e.printStackTrace();
-				System.exit(1); // FIXME fail gracefully
+				error_msg("error on socket " + id);
+				Server.this.running = false;
+				Server.this.dispose();
 			}
 		}
 	}
@@ -186,9 +195,10 @@ public class Server extends GBFrame {
 				start.setEnabled(false);
 				sysout("started");
 			} catch (IOException e) {
-				sysout("error on starting");
+				error_msg("error on starting");
 				e.printStackTrace();
-				System.exit(1);
+				Server.this.running = false;
+				Server.this.dispose();
 			}
 		} else if (button == stop) {
 			try {
@@ -215,10 +225,14 @@ public class Server extends GBFrame {
 					x.s = null;
 				}
 
-				System.exit(0);
+				this.running = false;
+				this.setVisible(false);
+				this.dispose();
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.exit(1); // FIXME fail gracefully
+				error_msg("Something went wrong when stopping the server...");
+				Server.this.running = false;
+				Server.this.dispose();
 			}
 		}
 
@@ -228,8 +242,48 @@ public class Server extends GBFrame {
 		mapIndex = (int) (Math.random() * MAPS.size());
 	}
 
+	private static class MainServer extends GBFrame {
+		private JButton newGame = addButton("Start a new Game", 1, 1, 1, 1);
+		private JButton exit = addButton("Exit", 2, 1, 1, 1);
+
+		public MainServer() {
+			this.setTitle("Tanks Server");
+			this.setSize(200, 200);
+
+			this.setVisible(true);
+		}
+
+		@Override
+		public void buttonClicked(JButton button) {
+			if (button == newGame) {
+				try {
+					Server s = new Server();
+					newGame.setEnabled(false);
+					exit.setEnabled(false);
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							Server runner = s;
+							while (runner.running == true)
+								;
+							newGame.setEnabled(true);
+							exit.setEnabled(true);
+						}
+					}).start();
+				} catch (IOException e) {
+					e.printStackTrace();
+					System.out.println("Error in starting game server");
+					messageBox("Error in starting game server");
+				}
+			} else {
+				System.out.println("Tanks for playing!");
+				System.exit(0);
+			}
+		}
+	}
+
 	public static void main(String[] args) throws Throwable {
-		new Server();
+		new MainServer();
 	}
 
 }
