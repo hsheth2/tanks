@@ -24,40 +24,47 @@ public class KeyboardController extends Controller {
 	public KeyboardController(Map map, Tank tank, JPanel canvas) {
 		this(map, tank, canvas, null);
 	}
+	
+	private KeyEventDispatcher keyevent = new KeyEventDispatcher() {
+		@Override
+		public boolean dispatchKeyEvent(KeyEvent ke) {
+			synchronized (KeyboardController.class) {
+				for (int i = 0; i < keys.length; i++) {
+					if (ke.getKeyCode() == keys[i] || ke.getKeyChar() == Character.toUpperCase(keys[i])) {
+						switch (ke.getID()) {
+						case KeyEvent.KEY_PRESSED:
+							pressed[i] = true;
+							break;
+						case KeyEvent.KEY_RELEASED:
+							pressed[i] = false;
+							break;
+						}
+					}
+				}
+			}
+			updateDirection();
+			return false;
+		}
+	};
+	
+	private MouseAdapter mouselistener = new MouseAdapter() {
+		public void mousePressed(MouseEvent e) {
+			// System.out.println("Mouse pressed; # of clicks: " +
+			// e.getClickCount());
+			KeyboardController.this.mouseClicked(e.getPoint());
+		}
+	};
+	
+	private JPanel canvas;
 
 	public KeyboardController(Map map, Tank tank, JPanel canvas, NetworkManager manager) {
 		super(map, tank);
 		this.manager = manager;
+		this.canvas = canvas;
 
-		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
-			@Override
-			public boolean dispatchKeyEvent(KeyEvent ke) {
-				synchronized (KeyboardController.class) {
-					for (int i = 0; i < keys.length; i++) {
-						if (ke.getKeyCode() == keys[i] || ke.getKeyChar() == Character.toUpperCase(keys[i])) {
-							switch (ke.getID()) {
-							case KeyEvent.KEY_PRESSED:
-								pressed[i] = true;
-								break;
-							case KeyEvent.KEY_RELEASED:
-								pressed[i] = false;
-								break;
-							}
-						}
-					}
-				}
-				updateDirection();
-				return false;
-			}
-		});
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyevent);
 
-		canvas.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				// System.out.println("Mouse pressed; # of clicks: " +
-				// e.getClickCount());
-				KeyboardController.this.mouseClicked(e.getPoint());
-			}
-		});
+		canvas.addMouseListener(mouselistener);
 	}
 
 	private void mouseClicked(Point p) {
@@ -96,5 +103,13 @@ public class KeyboardController extends Controller {
 			if (Math.random() < 0.05)
 				manager.sendUpdate("loc " + loc.toComputerString());
 		}
+	}
+
+	@Override
+	public void stop() {
+		super.stop();
+		
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyevent);
+		this.canvas.addMouseListener(mouselistener);
 	}
 }

@@ -42,7 +42,6 @@ public abstract class Controller {
 
 	public void stop() {
 		map.removeItem(tank);
-		// TODO stop controller's listeners
 	}
 
 }
