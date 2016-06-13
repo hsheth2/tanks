@@ -24,6 +24,12 @@ public class FontHelper {
 
 		return fm.stringWidth(s);
 	}
+	
+	public static int stringHeight(Graphics2D g2d) {
+		FontMetrics fm = g2d.getFontMetrics(g2d.getFont());
+
+		return fm.getHeight();
+	}
 
 	public static int centerStringX(String s, int w, Graphics2D g2d) {
 		FontMetrics fm = g2d.getFontMetrics(g2d.getFont());

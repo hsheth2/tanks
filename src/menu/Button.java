@@ -11,6 +11,7 @@ public class Button extends MenuItem implements Drawable {
 	private String text;
 	public static final Font FONT = FontHelper.makeFont("Bebas.ttf", 30f);
 	public Color fill, tc;
+	public boolean active = true;
 	
 	public Button(String text, int px, int py, int sx, int sy, Color fill, Color tc) {
 		super(px, py, sx, sy);

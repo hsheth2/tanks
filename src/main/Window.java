@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import physics.Vector;
 import states.EndState;
+import states.HelpState;
 import states.MainMenuState;
 import states.NetworkMenuState;
 import states.PlayState;
@@ -53,7 +54,7 @@ public class Window extends JFrame {
 
 			if (game.state instanceof PlayState && game.map != null) {
 				game.map.draw(g2d);
-			} else if ((game.state instanceof MainMenuState || game.state instanceof NetworkMenuState || game.state instanceof EndState) && game.menu != null) {
+			} else if ((game.state instanceof MainMenuState || game.state instanceof NetworkMenuState || game.state instanceof EndState || game.state instanceof HelpState) && game.menu != null) {
 				game.menu.draw(g2d);
 			}
 		}

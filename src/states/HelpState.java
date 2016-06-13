@@ -1,6 +1,7 @@
 package states;
 
 import main.Game;
+import menu.HelpMenu;
 
 public class HelpState extends GameState {
 	public HelpState(Game g) {
@@ -9,25 +10,23 @@ public class HelpState extends GameState {
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
+		g.menu = new HelpMenu(this, g.w.canvas);
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+				
 	}
 
 	@Override
 	public void draw() {
-		// TODO Auto-generated method stub
-		
+		g.w.validate();
+		g.w.repaint();
 	}
 
 	@Override
 	public void cleanup() {
-		// TODO Auto-generated method stub
-		
+		g.menu.cleanup();
+		g.menu = null;
 	}
 }

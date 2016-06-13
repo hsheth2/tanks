@@ -30,7 +30,7 @@ public class NetworkMenu extends Menu {
 
 	private Label addr, nick;
 	private Input addrIn, nickIn;
-	private Button connect;
+	private Button connect, back;
 	private Label msg;
 	
 	public boolean waiting = false;
@@ -50,19 +50,22 @@ public class NetworkMenu extends Menu {
 		addrIn = new Input(320, 140, 400, 80);
 		nickIn = new Input(320, 240, 400, 80);
 		
-		connect = new Button("Connect", MenuItem.centerX(200), 400, 200, 80, Color.BLUE, Color.WHITE);
+		connect = new Button("Connect", MenuItem.centerX(200), 400, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
+		back = new Button("Back", 20, 20, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
 
 		g2d.setFont(Label.FONT);
 		msg = new Label("Waiting for game to begin...", FontHelper.centerStringX("Waiting for game to begin...", Config.WIDTH, g2d), FontHelper.centerStringY("Waiting for game to begin...", Config.HEIGHT, g2d), Color.DARK_GRAY);
 		
 		ml = new MouseAdapter() {
-			public synchronized void mousePressed(MouseEvent event) {
+			public void mousePressed(MouseEvent event) {
 				Point p = event.getPoint();
 				Game g = NetworkMenu.this.state.g;
 
 				NetworkMenu.this.canvas.requestFocusInWindow();
 
-				if (addrIn.isHit(p)) {
+				if (back.isHit(p)) {
+					g.changeState(new MainMenuState(g));
+				} else if (addrIn.isHit(p)) {
 					addrIn.focused = true;
 					nickIn.focused = false;
 				} else if (nickIn.isHit(p)) {
@@ -126,6 +129,7 @@ public class NetworkMenu extends Menu {
 	@Override
 	public void draw(Graphics2D g2d) {
 		if (!waiting) {
+			back.draw(g2d);
 			addr.draw(g2d);
 			nick.draw(g2d);
 			addrIn.draw(g2d);
