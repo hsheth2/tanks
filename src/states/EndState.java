@@ -1,21 +1,21 @@
 package states;
 
 import main.Game;
+import menu.EndMenu;
 
-public class PlayState extends GameState {
-	public PlayState(Game g) {
+public class EndState extends GameState {
+	public EndState(Game g) {
 		super(g);
 	}
 
+	@Override
 	public void init() {
-		System.out.println("playing");
+		g.menu = new EndMenu(this, g.w.canvas);
 	}
 
 	@Override
 	public void update() {
-		if (g.map != null) {
-			g.map.update();
-		}
+		
 	}
 
 	@Override
@@ -26,8 +26,7 @@ public class PlayState extends GameState {
 
 	@Override
 	public void cleanup() {
-		g.map = null;
-		g.nm.stop();
-		g.nm = null;
+		g.menu.cleanup();
+		g.menu = null;
 	}
 }

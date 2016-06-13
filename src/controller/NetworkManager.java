@@ -23,11 +23,12 @@ public class NetworkManager {
 
 	private Game g;
 	private JPanel canvas;
-	private String nickname;
+	public String nickname;
 	private Socket s;
 	private BufferedReader r;
 	private BufferedWriter w;
-
+	public KeyboardController controlMe;
+	
 	private int id;
 	private ArrayList<Controller> peers;
 	private Thread serverThread;
@@ -59,7 +60,7 @@ public class NetworkManager {
 
 			// get map
 			String mapName = r.readLine().trim();
-			g.map = new Map(g.dt, Level.load(mapName));
+			g.map = new Map(g.dt, Level.load(mapName), g);
 
 			// each one will take turns getting a random tank placement
 			for (int i = 0; i < peerCount; i++) {
@@ -67,9 +68,9 @@ public class NetworkManager {
 					// my turn
 					Vector position = g.map.getValidPosition(Tank.SIZE);
 					Tank me = new Tank(position, nickname);
-					KeyboardController control_me = new KeyboardController(g.map, me, canvas, this);
+					controlMe = new KeyboardController(g.map, me, canvas, this);
 					g.map.addItem(me);
-					peers.add(control_me);
+					peers.add(controlMe);
 					sendUpdate(position.toComputerString() + " " + nickname);
 					r.readLine(); // read my own send
 				} else {
@@ -143,8 +144,14 @@ public class NetworkManager {
 			s.close();
 			s = null;
 			
-			for (Controller c : peers)
-				c.stop();
+			if (controlMe != null) {
+				controlMe.stop();
+				controlMe = null;
+			}
+			
+			for (Controller c : peers) {
+				c = null;
+			}
 		} catch (IOException e) {
 			throw new NetworkingException("failed to close network manager properly", e);
 		}

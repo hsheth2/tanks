@@ -4,6 +4,7 @@ import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -106,11 +107,14 @@ public class KeyboardController extends Controller {
 		}
 	}
 
-	@Override
 	public void stop() {
-		super.stop();
-		
+		canvas.removeMouseListener(mouselistener);
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyevent);
-		this.canvas.addMouseListener(mouselistener);
 	}
+
+//	@Override
+//	public void stop() {
+//		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyevent);
+//		this.canvas.addMouseListener(mouselistener);
+//	}
 }

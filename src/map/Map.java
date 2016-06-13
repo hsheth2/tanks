@@ -8,24 +8,29 @@ import java.util.concurrent.ThreadLocalRandom;
 import editor.Level;
 import main.Config;
 import main.Drawable;
+import main.Game;
 import physics.CollisionHandler;
 import physics.DeltaTimer;
 import physics.Vector;
+import states.EndState;
 
 public class Map implements Drawable {
 	private ArrayList<MapItem> items = new ArrayList<>();
 	private CollisionHandler ch = new CollisionHandler();
 
 	public final DeltaTimer dt;
-
+	public final Game g;
+	
 	private ArrayList<MapItem> removalQueue = new ArrayList<>();
 
-	public Map(DeltaTimer t) {
+	public Map(DeltaTimer t, Game g) {
 		this.dt = t;
+		this.g = g;
 	}
 
-	public Map(DeltaTimer t, Level l) {
+	public Map(DeltaTimer t, Level l, Game g) {
 		this.dt = t;
+		this.g = g;
 
 		for (int x = 0; x < l.grid.length; x++) {
 			for (int y = 0; y < l.grid[0].length; y++) {
@@ -54,6 +59,21 @@ public class Map implements Drawable {
 			if (!removalQueue.contains(item))
 				removalQueue.add(item);
 		}
+		
+		if (item instanceof Tank) {
+			int tanks = 0;
+			
+			for (MapItem mi : items) {
+				if (mi instanceof Tank) {
+					tanks++;
+				}
+			}
+			
+			if (tanks == 2) {
+				g.changeState(new EndState(g));
+			}
+		}
+		
 		return false;
 	}
 

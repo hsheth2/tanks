@@ -2,6 +2,7 @@ package main;
 
 import javax.swing.SwingUtilities;
 
+import controller.NetworkManager;
 import map.Map;
 import menu.Menu;
 import physics.DeltaTimer;
@@ -13,6 +14,7 @@ public class Game {
 	public GameState state;
 	public DeltaTimer dt;
 	public volatile Map map;
+	public volatile NetworkManager nm;
 	public Menu menu;
 
 	public Game() {

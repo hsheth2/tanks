@@ -23,7 +23,6 @@ import main.Game;
 import states.MainMenuState;
 import states.NetworkMenuState;
 import states.PlayState;
-import states.WaitState;
 
 public class NetworkMenu extends Menu {
 	private MouseListener ml;
@@ -72,18 +71,16 @@ public class NetworkMenu extends Menu {
 				} else if (connect.isHit(p)) {
 					addrIn.focused = false;
 					nickIn.focused = false;
-					
-					NetworkManager nm;
 
 					try {
-//						nm = new NetworkManager(state.g, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
+						g.nm = new NetworkManager(state.g, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
 						waiting = true;
-//						nm.waitForStart();
+						g.nm.waitForStart();
 
-//						state.g.changeState(new PlayState(state.g));
-//					} catch (UnknownHostException | ConnectException e) {
-//						System.out.println("Invalid host address");
-//						JOptionPane.showMessageDialog(null, "Invalid host address");
+						state.g.changeState(new PlayState(state.g));
+					} catch (UnknownHostException | ConnectException e) {
+						System.out.println("Invalid host address");
+						JOptionPane.showMessageDialog(null, "Invalid host address");
 					} catch (NetworkingException e) {
 						e.printStackTrace();
 						System.exit(1); // FIXME fail gracefully

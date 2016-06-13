@@ -6,9 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import physics.Vector;
+import states.EndState;
 import states.MainMenuState;
 import states.NetworkMenuState;
 import states.PlayState;
@@ -51,7 +53,7 @@ public class Window extends JFrame {
 
 			if (game.state instanceof PlayState && game.map != null) {
 				game.map.draw(g2d);
-			} else if ((game.state instanceof MainMenuState || game.state instanceof NetworkMenuState) && game.menu != null) {
+			} else if ((game.state instanceof MainMenuState || game.state instanceof NetworkMenuState || game.state instanceof EndState) && game.menu != null) {
 				game.menu.draw(g2d);
 			}
 		}
