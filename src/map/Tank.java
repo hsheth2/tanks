@@ -74,6 +74,7 @@ public class Tank extends MovableMapItem {
 		System.out.println("tank has died");
 		
 		if (name.equals(m.g.nm.nickname)) {
+			// TODO should use this.control instead of m.g.nm.controlMe
 			m.g.nm.controlMe.stop();
 			m.g.nm.controlMe = null;
 		}

@@ -14,7 +14,6 @@ import main.FontHelper;
 import main.Game;
 import states.GameState;
 import states.HelpState;
-import states.MainMenuState;
 import states.NetworkMenuState;
 
 public class MainMenu extends Menu {

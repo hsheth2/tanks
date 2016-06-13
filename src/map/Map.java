@@ -65,14 +65,16 @@ public class Map implements Drawable {
 		if (item instanceof Tank) {
 			int tanks = 0;
 			
+			// FIXME this logic doesn't exactly work because the tank isn't removed instantly
 			for (MapItem mi : items) {
 				if (mi instanceof Tank) {
 					tanks++;
 				}
 			}
 			
-			if (tanks == 2) {
-				g.changeState(new EndState(g));
+			if (tanks == g.nm.peerCount) {
+				// TODO call g.nm.stop()
+				g.changeState(new EndState(g)); // FIXME this really shouldn't be in map...
 			}
 		}
 		

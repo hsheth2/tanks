@@ -29,7 +29,8 @@ public class NetworkManager {
 	private BufferedWriter w;
 	public KeyboardController controlMe;
 	
-	private int id;
+	public int id;
+	public int peerCount;
 	private ArrayList<Controller> peers;
 	private Thread serverThread;
 
@@ -55,7 +56,7 @@ public class NetworkManager {
 		try {
 			// wait for starting signal
 			id = Integer.parseInt(r.readLine().trim());
-			int peerCount = Integer.parseInt(r.readLine().trim());
+			peerCount = Integer.parseInt(r.readLine().trim());
 			peers = new ArrayList<>(peerCount);
 
 			// get map
@@ -150,7 +151,8 @@ public class NetworkManager {
 			}
 			
 			for (Controller c : peers) {
-				c = null;
+				// TODO shouldn't this call c.stop()
+				c = null; // FIXME this doesn't do anything because its a local variable
 			}
 		} catch (IOException e) {
 			throw new NetworkingException("failed to close network manager properly", e);
