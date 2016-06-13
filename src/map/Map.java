@@ -137,9 +137,8 @@ public class Map implements Drawable {
 		}
 		
 		if (this.g.nm.controlMe == null) {
-			Heading msg = new Heading("Spectating", FontHelper.centerStringX("Spectating", Config.WIDTH, g), FontHelper.centerStringY("Spectating", Config.HEIGHT, g), Color.LIGHT_GRAY);
-		
 			g.setFont(Heading.FONT);
+			Heading msg = new Heading("Spectating", FontHelper.centerStringX("Spectating", Config.WIDTH, g), FontHelper.centerStringY("Spectating", Config.HEIGHT, g), Color.LIGHT_GRAY);
 			msg.draw(g);
 		}
 	}
