@@ -8,7 +8,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import editor.Level;
 import main.Config;
 import main.Drawable;
+import main.FontHelper;
 import main.Game;
+import menu.Heading;
 import physics.CollisionHandler;
 import physics.DeltaTimer;
 import physics.Vector;
@@ -132,6 +134,13 @@ public class Map implements Drawable {
 		for (int i = 0; i < items.size(); i++) {
 			MapItem item = items.get(i);
 			item.draw(g);
+		}
+		
+		if (this.g.nm.controlMe == null) {
+			Heading msg = new Heading("Spectating", FontHelper.centerStringX("Spectating", Config.WIDTH, g), FontHelper.centerStringY("Spectating", Config.HEIGHT, g), Color.LIGHT_GRAY);
+		
+			g.setFont(Heading.FONT);
+			msg.draw(g);
 		}
 	}
 
