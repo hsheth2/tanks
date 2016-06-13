@@ -19,7 +19,7 @@ import BreezySwing.GBFrame;
 import controller.NetworkManager;
 
 public class Server extends GBFrame {
-	public static final int MAX_CLIENTS = 10;
+	public static final int MAX_CLIENTS = 1;
 	public static final int MIN_CLIENTS = 1;
 
 	private ServerSocket listener;
@@ -257,7 +257,7 @@ public class Server extends GBFrame {
 		public void buttonClicked(JButton button) {
 			if (button == newGame) {
 				try {
-					Server s = new Server();
+					final Server s = new Server();
 					newGame.setEnabled(false);
 					exit.setEnabled(false);
 					new Thread(new Runnable() {

@@ -1,4 +1,6 @@
-package main;
+package states;
+
+import main.Game;
 
 public abstract class GameState {
 	public Game g;

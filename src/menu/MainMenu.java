@@ -12,41 +12,37 @@ import javax.swing.JPanel;
 import main.Config;
 import main.FontHelper;
 import main.Game;
-import main.MainMenuState;
-import main.NetworkMenuState;
-import main.PlayState;
+import states.GameState;
+import states.HelpState;
+import states.MainMenuState;
+import states.NetworkMenuState;
 
 public class MainMenu extends Menu {
-	private MainMenuState state;
-	private JPanel canvas;
 	private MouseListener ml;
 	
 	private Heading title;
-	private Button solo, multi;
+	private Button play, help;
 	
-	public MainMenu(MainMenuState state, JPanel canvas) {
-		super((Graphics2D) canvas.getGraphics());
-		
-		this.state = state;
-		this.canvas = canvas;
+	public MainMenu(GameState state, JPanel canvas) {
+		super(state, canvas);
 		
 		canvas.setBackground(Color.WHITE);
 		
 		g2d.setFont(Heading.FONT);
-		title = new Heading("TANKS", FontHelper.centerStringX("TANKS", Config.WIDTH, g2d), 200, Color.BLACK);
+		title = new Heading("TANKS", FontHelper.centerStringX("TANKS", Config.WIDTH, g2d), 200, Color.DARK_GRAY);
 		g2d.setFont(Button.FONT);
-		solo = new Button("Solo", MenuItem.centerX(200), 250, 200, 80, Color.blue, Color.WHITE);
-		multi = new Button("Multiplayer", MenuItem.centerX(200), 350, 200, 80, Color.blue, Color.WHITE);
+		play = new Button("Play", MenuItem.centerX(200), 250, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
+		help = new Button("Help", MenuItem.centerX(200), 350, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
 		
 		ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				Point p = e.getPoint();
 				Game g = MainMenu.this.state.g;
 				
-				if (solo.isHit(p)) {
-					g.changeState(new PlayState(g));
-				} else if (multi.isHit(p)) {
+				if (play.isHit(p)) {
 					g.changeState(new NetworkMenuState(g));
+				} else if (help.isHit(p)) {
+					g.changeState(new HelpState(g));
 				}
 			}
 		};
@@ -56,8 +52,8 @@ public class MainMenu extends Menu {
 	
 	public void draw(Graphics2D g2d) {		
 		title.draw(g2d);
-		solo.draw(g2d);
-		multi.draw(g2d);
+		play.draw(g2d);
+		help.draw(g2d);
 	}
 	
 	public void cleanup() {

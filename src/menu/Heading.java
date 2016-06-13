@@ -9,7 +9,7 @@ import main.FontHelper;
 
 public class Heading extends MenuItem implements Drawable {
 	private String text;
-	public static final Font FONT = FontHelper.makeFont("Bebas.ttf", 96f);
+	public static final Font FONT = FontHelper.makeFont("Oswald-Stencil.ttf", 96f);
 	public Color color;
 	
 	public Heading(String text, int px, int py, Color color) {

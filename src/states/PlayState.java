@@ -1,4 +1,6 @@
-package main;
+package states;
+
+import main.Game;
 
 public class PlayState extends GameState {
 	public PlayState(Game g) {
@@ -18,12 +20,13 @@ public class PlayState extends GameState {
 
 	@Override
 	public void draw() {
+		g.w.validate();
 		g.w.repaint();
 	}
 
 	@Override
 	public void cleanup() {
-		// TODO Auto-generated method stub
-
+		g.map = null;
+		g.
 	}
 }

@@ -1,19 +1,22 @@
-package main;
+package states;
 
-import menu.WaitMenu;
+import main.Game;
 
-public class WaitState extends GameState {
-	public WaitState(Game g) {
+public class HelpState extends GameState {
+	public HelpState(Game g) {
 		super(g);
 	}
 
 	@Override
 	public void init() {
-		g.menu = new WaitMenu(this, g.w.canvas);
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

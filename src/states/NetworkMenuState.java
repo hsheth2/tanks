@@ -1,15 +1,16 @@
-package main;
+package states;
 
-import menu.MainMenu;
+import main.Game;
+import menu.NetworkMenu;
 
-public class MainMenuState extends GameState {
-	public MainMenuState(Game g) {
+public class NetworkMenuState extends GameState {
+	public NetworkMenuState(Game g) {
 		super(g);
 	}
 
 	@Override
 	public void init() {
-		g.menu = new MainMenu(this, g.w.canvas);
+		g.menu = new NetworkMenu(this, g.w.canvas);
 	}
 
 	@Override

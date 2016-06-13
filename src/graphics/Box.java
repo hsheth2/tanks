@@ -1,10 +1,11 @@
 package graphics;
 
+import java.awt.Rectangle;
+
 public class Box {
-	public Face front, top;
+	public Face front, back, left, right, top;
 	
-	public Box(Face front, Face top) {
-		this.front = front;
-		this.top = top;
+	public Box(Rectangle r, int height) {
+		
 	}
 }

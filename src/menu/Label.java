@@ -9,7 +9,7 @@ import main.FontHelper;
 
 public class Label extends MenuItem implements Drawable {
 	private String text;
-	public static final Font FONT = FontHelper.makeFont("Bebas.ttf", 48f);
+	public static final Font FONT = FontHelper.makeFont("Oswald-Regular.ttf", 60f);
 	public Color color;
 	
 	public Label(String text, int px, int py, Color color) {

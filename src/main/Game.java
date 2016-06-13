@@ -5,6 +5,8 @@ import javax.swing.SwingUtilities;
 import map.Map;
 import menu.Menu;
 import physics.DeltaTimer;
+import states.GameState;
+import states.MainMenuState;
 
 public class Game {
 	public volatile Window w;

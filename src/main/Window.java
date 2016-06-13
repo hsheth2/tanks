@@ -9,6 +9,9 @@ import java.awt.RenderingHints;
 import javax.swing.*;
 
 import physics.Vector;
+import states.MainMenuState;
+import states.NetworkMenuState;
+import states.PlayState;
 
 public class Window extends JFrame {
 	private Game game;

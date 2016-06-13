@@ -5,15 +5,17 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import main.Drawable;
-import main.GameState;
+import states.GameState;
 
 public abstract class Menu implements Drawable {
+	public GameState state;
+	public JPanel canvas;
 	public Graphics2D g2d;
-	private GameState state;
-	private JPanel canvas;
 	
-	public Menu(Graphics2D g2d) {
-		this.g2d = g2d;
+	public Menu(GameState state, JPanel canvas) {
+		this.state = state;
+		this.canvas = canvas;
+		g2d = (Graphics2D) canvas.getGraphics();
 	}
 	
 	public abstract void cleanup();

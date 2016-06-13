@@ -17,22 +17,27 @@ import javax.swing.JPanel;
 
 import controller.NetworkManager;
 import controller.NetworkingException;
+import main.Config;
+import main.FontHelper;
 import main.Game;
-import main.NetworkMenuState;
-import main.PlayState;
+import states.MainMenuState;
+import states.NetworkMenuState;
+import states.PlayState;
+import states.WaitState;
 
 public class NetworkMenu extends Menu {
-	private NetworkMenuState state;
-	private JPanel canvas;
 	private MouseListener ml;
 	private KeyListener kl;
 
 	private Label addr, nick;
 	private Input addrIn, nickIn;
 	private Button connect;
+	private Label msg;
+	
+	public boolean waiting = false;
 
 	public NetworkMenu(final NetworkMenuState state, final JPanel canvas) {
-		super((Graphics2D) canvas.getGraphics());
+		super(state, canvas);
 
 		this.state = state;
 		this.canvas = canvas;
@@ -40,16 +45,19 @@ public class NetworkMenu extends Menu {
 		canvas.setFocusable(true);
 		canvas.setBackground(Color.WHITE);
 
-		addr = new Label("Address", 100, 200, Color.BLACK);
-		nick = new Label("Nickname", 100, 300, Color.BLACK);
+		addr = new Label("Address", 80, 200, Color.BLACK);
+		nick = new Label("Nickname", 80, 300, Color.BLACK);
 
-		addrIn = new Input(400, 140, 300, 80);
-		nickIn = new Input(400, 240, 300, 80);
-
+		addrIn = new Input(320, 140, 400, 80);
+		nickIn = new Input(320, 240, 400, 80);
+		
 		connect = new Button("Connect", MenuItem.centerX(200), 400, 200, 80, Color.BLUE, Color.WHITE);
 
+		g2d.setFont(Label.FONT);
+		msg = new Label("Waiting for game to begin...", FontHelper.centerStringX("Waiting for game to begin...", Config.WIDTH, g2d), FontHelper.centerStringY("Waiting for game to begin...", Config.HEIGHT, g2d), Color.DARK_GRAY);
+		
 		ml = new MouseAdapter() {
-			public void mousePressed(MouseEvent event) {
+			public synchronized void mousePressed(MouseEvent event) {
 				Point p = event.getPoint();
 				Game g = NetworkMenu.this.state.g;
 
@@ -64,20 +72,18 @@ public class NetworkMenu extends Menu {
 				} else if (connect.isHit(p)) {
 					addrIn.focused = false;
 					nickIn.focused = false;
-
+					
 					NetworkManager nm;
 
 					try {
-						nm = new NetworkManager(state.g, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
-						nm.waitForStart();
+//						nm = new NetworkManager(state.g, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
+						waiting = true;
+//						nm.waitForStart();
 
-						while (g.map == null)
-							;
-
-						state.g.changeState(new PlayState(state.g));
-					} catch (UnknownHostException | ConnectException e) {
-						System.out.println("Invalid host address");
-						JOptionPane.showMessageDialog(null, "Invalid host address");
+//						state.g.changeState(new PlayState(state.g));
+//					} catch (UnknownHostException | ConnectException e) {
+//						System.out.println("Invalid host address");
+//						JOptionPane.showMessageDialog(null, "Invalid host address");
 					} catch (NetworkingException e) {
 						e.printStackTrace();
 						System.exit(1); // FIXME fail gracefully
@@ -92,8 +98,9 @@ public class NetworkMenu extends Menu {
 		kl = new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				boolean del = false;
+				char c = e.getKeyChar();
 
-				if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+				if (c == KeyEvent.VK_BACK_SPACE) {
 					del = true;
 				}
 
@@ -101,7 +108,7 @@ public class NetworkMenu extends Menu {
 					if (del) {
 						addrIn.backspace();
 					} else {
-						addrIn.text += e.getKeyChar();
+						addrIn.append(c);
 					}
 				}
 
@@ -109,7 +116,7 @@ public class NetworkMenu extends Menu {
 					if (del) {
 						nickIn.backspace();
 					} else {
-						nickIn.text += e.getKeyChar();
+						nickIn.append(c);
 					}
 				}
 			}
@@ -121,11 +128,15 @@ public class NetworkMenu extends Menu {
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		addr.draw(g2d);
-		nick.draw(g2d);
-		addrIn.draw(g2d);
-		nickIn.draw(g2d);
-		connect.draw(g2d);
+		if (!waiting) {
+			addr.draw(g2d);
+			nick.draw(g2d);
+			addrIn.draw(g2d);
+			nickIn.draw(g2d);
+			connect.draw(g2d);
+		} else {
+			msg.draw(g2d);
+		}
 	}
 
 	@Override
