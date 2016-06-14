@@ -17,7 +17,7 @@ import physics.DeltaTimer;
 import physics.Vector;
 
 public class Tank extends MovableMapItem {
-	public static final Vector SIZE = new Vector(28, 21);
+	public static final Vector SIZE = new Vector(24, 18);
 	public static final int SPEED = 3;
 
 	private static final int MINE_DELAY = DeltaTimer.FPS * 1;
@@ -91,34 +91,44 @@ public class Tank extends MovableMapItem {
 		Point sz = Window.game2real(size);
 		Point center = Window.game2real(getCenter());
 
-		Path2D.Double path = new Path2D.Double();
-
-		path.append(new Rectangle(pos.x, pos.y, sz.x, sz.y), false);
+		Path2D.Double body = new Path2D.Double();
+		
+		body.append(new Rectangle(pos.x, pos.y, sz.x, sz.y), false);
 
 		AffineTransform at = new AffineTransform();
 
 		at.rotate(Math.toRadians(velocity.angle()), center.x, center.y);
-		path.transform(at);
+		body.transform(at);
 		g2d.setColor(Color.RED);
-		g2d.fill(path);
+		g2d.fill(body);
 
 		g2d.setColor(Color.BLACK);
 		g2d.setStroke(new BasicStroke(4));
-		g2d.draw(path);
+		g2d.draw(body);
 
-		Path2D.Double path2 = new Path2D.Double();
-		
-		path2.append(new Rectangle(center.x,  center.y - 2, 20, 4), false);
-		
 		AffineTransform at2 = new AffineTransform();
 		
+		Path2D.Double turret = new Path2D.Double();
+		
+		turret.append(new Rectangle(center.x - 6,  center.y - 6, 12, 12), false);
+		
 		at2.rotate(Math.toRadians(dir.angle()), center.x, center.y);
-		path2.transform(at2);
+		turret.transform(at2);
 		g2d.setColor(Color.DARK_GRAY);
-		g2d.fill(path2);
+		g2d.fill(turret);
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke(4));
+		g2d.draw(turret);
+		
+		Path2D.Double barrel = new Path2D.Double();
+		
+		barrel.append(new Rectangle(center.x + 8,  center.y - 2, 16, 4), false);
+		barrel.transform(at2);
+		g2d.setColor(Color.LIGHT_GRAY);
+		g2d.fill(barrel);
 		g2d.setColor(Color.BLACK);
 		g2d.setStroke(new BasicStroke(2));
-		g2d.draw(path2);
+		g2d.draw(barrel);
 	}
 
 	public void actuallyDestroy(Map m) {
