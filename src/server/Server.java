@@ -125,12 +125,12 @@ public class Server extends GBFrame {
 
 	private void sendOnAll(String text) {
 		try {
-		synchronized (servers) {
-			for (ThreadServer s : servers) {
-				s.w.write(text + "\n");
-				s.w.flush();
+			synchronized (servers) {
+				for (ThreadServer s : servers) {
+					s.w.write(text + "\n");
+					s.w.flush();
+				}
 			}
-		}
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 			this.stop();
@@ -191,7 +191,7 @@ public class Server extends GBFrame {
 			}
 		}
 	}
-	
+
 	private void dispatchStop() {
 		new Thread(new Runnable() {
 			@Override
