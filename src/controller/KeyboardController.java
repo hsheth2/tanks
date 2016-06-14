@@ -109,11 +109,11 @@ public class KeyboardController extends Controller {
 				sendLocationUpdate();
 		}
 	}
-	
+
 	private void sendLocationUpdate() {
 		manager.sendUpdate("loc " + this.tank.getPosition().toComputerString());
 	}
-	
+
 	public void died() {
 		manager.sendUpdate("die now");
 	}

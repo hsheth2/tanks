@@ -110,8 +110,9 @@ public class NetworkManager {
 								}).start();
 
 								Thread.sleep(1000);
-//								System.err.println("Should have died by now");
-//								System.exit(1); // FIXME don't die like this
+								// System.err.println("Should have died by
+								// now");
+								// System.exit(1); // FIXME don't die like this
 								System.out.println("serverThread exiting");
 								return;
 							}
@@ -158,7 +159,7 @@ public class NetworkManager {
 		}
 	}
 
-//	@SuppressWarnings("deprecation")
+	// @SuppressWarnings("deprecation")
 	public void stop() {
 		if (this.running) {
 			this.running = false;
@@ -167,7 +168,7 @@ public class NetworkManager {
 				System.out.println("closing network manager");
 
 				if (serverThread.isAlive()) {
-//					serverThread.stop();
+					// serverThread.stop();
 					serverThread.interrupt();
 					serverThread = null;
 				}
@@ -185,11 +186,12 @@ public class NetworkManager {
 						w.write(TERMINATER + "\n");
 						w.flush();
 					}
-//					String line;
-//					do {
-//						line = r.readLine();
-//						System.out.println("READ: " + line);
-//					} while (!(line == null || line.trim().equals(TERMINATER)));
+					// String line;
+					// do {
+					// line = r.readLine();
+					// System.out.println("READ: " + line);
+					// } while (!(line == null ||
+					// line.trim().equals(TERMINATER)));
 
 					// r.close();
 					// r = null;
