@@ -23,7 +23,7 @@ public class Tank extends MovableMapItem {
 	public static final int SPEED = 2;
 
 	private static final int MINE_DELAY = DeltaTimer.FPS * 1;
-	private static final int SHOOT_DELAY = (int) (DeltaTimer.FPS * 0.5);
+	private static final int SHOOT_DELAY = (int) (DeltaTimer.FPS * 0.3);
 
 	private int lastMineLayed = -2 * MINE_DELAY;
 
