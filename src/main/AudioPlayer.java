@@ -27,6 +27,7 @@ public class AudioPlayer {
 				public void update(LineEvent event) {
 					if (event.getType() == Type.STOP) {
 						try {
+							System.out.println("closing sound file/thread");
 							c.close();
 							ais.close();
 						} catch (IOException e) {

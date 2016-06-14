@@ -21,8 +21,9 @@ public class Tank extends MovableMapItem {
 	public static final int SPEED = 3;
 
 	private static final int MINE_DELAY = DeltaTimer.FPS * 1;
+	private static final int SHOOT_DELAY = (int) (DeltaTimer.FPS * 0.5);
 
-	private int lastMineLayed = -10000;
+	private int lastMineLayed = -2 * MINE_DELAY;
 
 	private String name;
 	private Controller control;
@@ -41,27 +42,42 @@ public class Tank extends MovableMapItem {
 		this.control = c;
 	}
 
-	public boolean shoot(Map m, Vector dir) {
+	public void actuallyShoot(Map m, Vector dir) {
 		Bullet b = new Bullet(this.getCenter().sub(Bullet.SIZE.multiply(0.5)), dir);
 		m.addItem(b);
 		AudioPlayer.play("shoot.wav");
-		// TODO rate limiting
-		return false;
 	}
 
-	public void mine(Map m) {
+	private int lastShot = -2 * SHOOT_DELAY;
+
+	public boolean shoot(Map m, Vector dir) {
+		if (lastShot + SHOOT_DELAY <= frameCounter) {
+			lastShot = frameCounter;
+			actuallyShoot(m, dir);
+			return true;
+		} else
+			return false;
+	}
+	
+	public void actuallyMine(Map m) {
+		System.out.println("laying mine");
+		Mine mine = new Mine(this.getCenter(), this, m);
+		m.addItem(mine);
+	}
+
+	public boolean mine(Map m) {
 		if (lastMineLayed + MINE_DELAY <= frameCounter) {
-			System.out.println("laying mine");
-			Mine mine = new Mine(this.getCenter(), this, m);
-			m.addItem(mine);
+			actuallyMine(m);
 			lastMineLayed = frameCounter;
-		}
+			return true;
+		} else 
+			return false;
 	}
 
 	@Override
 	public void update() {
 		super.update();
-		if (control != null)
+		if (control != null && !getVelocity().equals(Vector.ZERO))
 			control.locationUpdate();
 	};
 
@@ -75,22 +91,23 @@ public class Tank extends MovableMapItem {
 		Point center = Window.game2real(getCenter());
 
 		Path2D.Double path = new Path2D.Double();
-		
+
 		path.append(new Rectangle(pos.x, pos.y, sz.x, sz.y), false);
-		
+
 		AffineTransform at = new AffineTransform();
-		
+
 		at.rotate(Math.toRadians(velocity.angle()), center.x, center.y);
 		path.transform(at);
 		g2d.setStroke(new BasicStroke(4));
 		g2d.draw(path);
 		g2d.setColor(Color.RED);
 		g2d.fill(path);
-//		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
-//		g2d.setColor(Color.BLACK);
-//		g2d.drawString(name, (int) pos.getX(), (int) pos.getY());
+		// g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(),
+		// (int) sz.getY());
+		// g2d.setColor(Color.BLACK);
+		// g2d.drawString(name, (int) pos.getX(), (int) pos.getY());
 	}
-	
+
 	public void actuallyDestroy(Map m) {
 		if (alive) {
 			this.alive = false;

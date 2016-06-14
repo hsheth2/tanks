@@ -31,18 +31,6 @@ public abstract class Controller {
 		tank.setPosition(loc);
 	}
 
-	protected boolean shoot(Vector where) {
-		// System.out.println("Shoot vec: " + where);
-		Vector dir = where.sub(tank.getCenter());
-		// System.out.println("Shoot dir: " + dir.unit());
-
-		return tank.shoot(map, dir);
-	}
-
-	protected void mine() {
-		tank.mine(map);
-	}
-
 	public void stop() {
 		if (this.running) {
 			this.running = false;
