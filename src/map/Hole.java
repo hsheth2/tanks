@@ -1,5 +1,6 @@
 package map;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -23,6 +24,9 @@ public class Hole extends StaticMapItem {
 		Point sz = Window.game2real(size);
 
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke(4));
+		g2d.drawRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
@@ -12,13 +13,14 @@ import java.awt.geom.Path2D;
 import controller.Controller;
 import controller.KeyboardController;
 import main.AudioPlayer;
+import main.FontHelper;
 import main.Window;
 import physics.DeltaTimer;
 import physics.Vector;
 
 public class Tank extends MovableMapItem {
 	public static final Vector SIZE = new Vector(24, 18);
-	public static final int SPEED = 3;
+	public static final int SPEED = 2;
 
 	private static final int MINE_DELAY = DeltaTimer.FPS * 1;
 	private static final int SHOOT_DELAY = (int) (DeltaTimer.FPS * 0.5);
@@ -108,11 +110,25 @@ public class Tank extends MovableMapItem {
 
 		AffineTransform at2 = new AffineTransform();
 		
-		Path2D.Double turret = new Path2D.Double();
-		
-		turret.append(new Rectangle(center.x - 6,  center.y - 6, 12, 12), false);
+		Path2D.Double barrel = new Path2D.Double();
+
+		sz = Window.game2real(new Vector(12, 4));
 		
 		at2.rotate(Math.toRadians(dir.angle()), center.x, center.y);
+		barrel.append(new Rectangle(center.x + sz.x/3,  center.y - sz.y/2, sz.x, sz.y), false);
+		barrel.transform(at2);
+		g2d.setColor(Color.LIGHT_GRAY);
+		g2d.fill(barrel);
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke(4));
+		g2d.draw(barrel);
+		
+		Path2D.Double turret = new Path2D.Double();
+		
+		sz = Window.game2real(new Vector(12, 12));
+		
+		turret.append(new Rectangle(center.x - sz.x/2,  center.y - sz.y/2, sz.x, sz.x), false);
+		
 		turret.transform(at2);
 		g2d.setColor(Color.DARK_GRAY);
 		g2d.fill(turret);
@@ -120,15 +136,16 @@ public class Tank extends MovableMapItem {
 		g2d.setStroke(new BasicStroke(4));
 		g2d.draw(turret);
 		
-		Path2D.Double barrel = new Path2D.Double();
+		Polygon arrow = new Polygon(new int[] {center.x, center.x - 12, center.x + 12}, new int[] {center.y - 24, center.y - 36,  center.y - 36}, 3);
 		
-		barrel.append(new Rectangle(center.x + 8,  center.y - 2, 16, 4), false);
-		barrel.transform(at2);
-		g2d.setColor(Color.LIGHT_GRAY);
-		g2d.fill(barrel);
+		g2d.setColor(Color.RED);
+		g2d.fillPolygon(arrow);
 		g2d.setColor(Color.BLACK);
-		g2d.setStroke(new BasicStroke(2));
-		g2d.draw(barrel);
+		g2d.setStroke(new BasicStroke(4));
+		g2d.drawPolygon(arrow);
+		
+		g2d.setFont(FontHelper.makeFont("RobotoCondensed-Bold.ttf", 24f));
+		g2d.drawString(name, center.x - FontHelper.stringWidth(name, g2d)/2, center.y - 48);
 	}
 
 	public void actuallyDestroy(Map m) {
