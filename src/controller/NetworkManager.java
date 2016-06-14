@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ConnectException;
+import java.net.NoRouteToHostException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class NetworkManager {
 	private Thread serverThread;
 
 	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port)
-			throws UnknownHostException, ConnectException, NetworkingException {
+			throws UnknownHostException, ConnectException, NoRouteToHostException, NetworkingException {
 		try {
 			this.s = new Socket(ip, port);
 
@@ -45,7 +46,7 @@ public class NetworkManager {
 			this.g = g;
 			this.canvas = canvas;
 			this.nickname = nickname;
-		} catch (UnknownHostException | ConnectException e) {
+		} catch (UnknownHostException | ConnectException | NoRouteToHostException e) {
 			throw e;
 		} catch (IOException e) {
 			throw new NetworkingException(e);

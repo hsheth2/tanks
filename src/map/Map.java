@@ -66,6 +66,7 @@ public class Map implements Drawable {
 			int tanks = 0;
 			
 			// FIXME this logic doesn't exactly work because the tank isn't removed instantly
+			// should instead use a local instance variable to track the number of tanks remaining
 			for (MapItem mi : items) {
 				if (mi instanceof Tank) {
 					tanks++;
