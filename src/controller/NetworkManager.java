@@ -36,7 +36,7 @@ public class NetworkManager {
 	private ArrayList<Controller> peers;
 	private Thread serverThread;
 
-	private boolean running = true;
+	private volatile boolean running = true;
 
 	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port) throws UnknownHostException, ConnectException, NoRouteToHostException, NetworkingException {
 		try {
@@ -98,21 +98,24 @@ public class NetworkManager {
 			serverThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					while (true) {
-						try {
-							String line = r.readLine().trim();
-							if (line.equals(TERMINATER)) {
+					try {
+						while (NetworkManager.this.running) {
+							String line = r.readLine();
+							if (line == null || line.trim().equals(TERMINATER)) {
 								new Thread(new Runnable() {
 									@Override
 									public void run() {
 										NetworkManager.this.stop();
 									}
 								}).start();
-								
-								while (true)
-									Thread.sleep(10);
+
+								Thread.sleep(1000);
+								System.err.println("Should have died by now");
+								System.exit(1); // FIXME don't die like this
+								return;
 							}
-							
+							line = line.trim();
+
 							String[] lineTokens = line.split("[\\s]+", 2);
 							int peerId = Integer.parseInt(lineTokens[0]);
 							String cmd = lineTokens[1];
@@ -124,16 +127,19 @@ public class NetworkManager {
 							} else {
 								// ignore my own sends
 							}
-						} catch (IOException e) {
-							throw new NetworkingException(e);
-						} catch (InterruptedException e) {
-							System.out.println("thread crashed (stopped) while sleeping");
 						}
+					} catch (IOException e) {
+						throw new NetworkingException(e);
+					} catch (InterruptedException e) {
+						System.out.println("thread crashed (stopped) while sleeping");
+						return;
 					}
 				}
 			});
 			serverThread.start();
-		} catch (IOException e) {
+		} catch (
+
+		IOException e) {
 			throw new NetworkingException("Something went wrong with server or socket", e);
 		}
 	}
@@ -145,7 +151,7 @@ public class NetworkManager {
 				w.flush();
 			} catch (IOException e) {
 				NetworkingException crash = new NetworkingException("failed to send update on socket", e);
-				crash.printStackTrace();
+				System.err.println(crash.getMessage());
 				System.err.println("silently ignoring above error");
 			}
 		}
@@ -155,12 +161,14 @@ public class NetworkManager {
 	public void stop() {
 		if (this.running) {
 			this.running = false;
-			
+
 			try {
 				System.out.println("closing network manager");
 
-				serverThread.stop();
-				serverThread = null;
+				if (serverThread.isAlive()) {
+					serverThread.stop();
+					serverThread = null;
+				}
 				System.out.println("stopped the thread server");
 
 				for (Controller c : peers) {
