@@ -17,7 +17,7 @@ import physics.DeltaTimer;
 import physics.Vector;
 
 public class Tank extends MovableMapItem {
-	public static final Vector SIZE = new Vector(24, 24);
+	public static final Vector SIZE = new Vector(28, 21);
 	public static final int SPEED = 3;
 
 	private static final int MINE_DELAY = DeltaTimer.FPS * 1;
@@ -27,6 +27,7 @@ public class Tank extends MovableMapItem {
 	private String name;
 	private Controller control;
 	private boolean alive = true;
+	private Vector dir = Vector.LEFT;
 
 	public Tank(Vector position, String name) {
 		this(position, Vector.ZERO, name);
@@ -42,6 +43,7 @@ public class Tank extends MovableMapItem {
 	}
 
 	public boolean shoot(Map m, Vector dir) {
+		this.dir = dir;
 		Bullet b = new Bullet(this.getCenter().sub(Bullet.SIZE.multiply(0.5)), dir);
 		m.addItem(b);
 		AudioPlayer.play("shoot.wav");
@@ -68,8 +70,7 @@ public class Tank extends MovableMapItem {
 	@Override
 	public void draw(Graphics2D g2d) {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setColor(Color.BLACK);
-
+		
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
 		Point center = Window.game2real(getCenter());
@@ -82,13 +83,25 @@ public class Tank extends MovableMapItem {
 		
 		at.rotate(Math.toRadians(velocity.angle()), center.x, center.y);
 		path.transform(at);
-		g2d.setStroke(new BasicStroke(4));
-		g2d.draw(path);
 		g2d.setColor(Color.RED);
 		g2d.fill(path);
-//		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
-//		g2d.setColor(Color.BLACK);
-//		g2d.drawString(name, (int) pos.getX(), (int) pos.getY());
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke(4));
+		g2d.draw(path);
+
+		Path2D.Double path2 = new Path2D.Double();
+		
+		path2.append(new Rectangle(center.x,  center.y - 2, 20, 4), false);
+		
+		AffineTransform at2 = new AffineTransform();
+		
+		at2.rotate(Math.toRadians(dir.angle()), center.x, center.y);
+		path2.transform(at2);
+		g2d.setColor(Color.DARK_GRAY);
+		g2d.fill(path2);
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke(2));
+		g2d.draw(path2);
 	}
 	
 	public void actuallyDestroy(Map m) {
