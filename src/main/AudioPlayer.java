@@ -30,7 +30,7 @@ public class AudioPlayer {
 				public void update(LineEvent event) {
 					if (event.getType() == Type.STOP) {
 						try {
-							System.out.println("closing sound file/thread");
+							// System.out.println("closing sound file/thread");
 							ais.close();
 							c.close();
 						} catch (IOException e) {

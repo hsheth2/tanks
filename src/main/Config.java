@@ -9,4 +9,6 @@ public class Config {
 
 	public static final int GRID_WIDTH = 20;
 	public static final int GRID_HEIGHT = 15;
+	
+	public static final int NO_DEATH_DELAY = 3;
 }
