@@ -13,8 +13,8 @@ public class NetworkedController extends Controller {
 	public void handleAction(String action) {
 		String[] input = action.split("[\\s]+", 2);
 		if (input[0].equals("shoot")) {
-			Vector where = Vector.parseLine(input[1]);
-			this.shoot(where);
+			Vector dir = Vector.parseLine(input[1]);
+			this.tank.actuallyShoot(this.map, dir);
 		} else if (input[0].equals("move")) {
 			Vector dir = Vector.parseLine(input[1]);
 			setDir(dir);
@@ -22,7 +22,7 @@ public class NetworkedController extends Controller {
 			Vector loc = Vector.parseLine(input[1]);
 			this.setLoc(loc);
 		} else if (input[0].equals("mine")) {
-			mine();
+			this.tank.actuallyMine(map);
 		} else if (input[0].equals("die")) {
 			this.tank.actuallyDestroy(this.map);
 		} else {
