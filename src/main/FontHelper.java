@@ -24,7 +24,7 @@ public class FontHelper {
 
 		return fm.stringWidth(s);
 	}
-	
+
 	public static int stringHeight(Graphics2D g2d) {
 		FontMetrics fm = g2d.getFontMetrics(g2d.getFont());
 

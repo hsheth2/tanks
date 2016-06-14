@@ -73,21 +73,22 @@ public class Tank extends MovableMapItem {
 		Point sz = Window.game2real(size);
 
 		Path2D.Double path = new Path2D.Double();
-		
+
 		path.append(new Rectangle(pos.x, pos.y, sz.x, sz.y), false);
-		
+
 		AffineTransform at = new AffineTransform();
-		
-//		at.rotate(45);
+
+		// at.rotate(45);
 		path.transform(at);
 		g2d.draw(path);
 		g2d.setColor(Color.BLACK);
 		g2d.fill(path);
-//		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
-//		g2d.setColor(Color.BLACK);
-//		g2d.drawString(name, (int) pos.getX(), (int) pos.getY());
+		// g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(),
+		// (int) sz.getY());
+		// g2d.setColor(Color.BLACK);
+		// g2d.drawString(name, (int) pos.getX(), (int) pos.getY());
 	}
-	
+
 	public void actuallyDestroy(Map m) {
 		if (alive) {
 			this.alive = false;

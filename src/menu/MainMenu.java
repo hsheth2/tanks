@@ -18,26 +18,26 @@ import states.NetworkMenuState;
 
 public class MainMenu extends Menu {
 	private MouseListener ml;
-	
+
 	private Heading title;
 	private Button play, help;
-	
+
 	public MainMenu(GameState state, JPanel canvas) {
 		super(state, canvas);
-		
+
 		canvas.setBackground(Color.WHITE);
-		
+
 		g2d.setFont(Heading.FONT);
 		title = new Heading("TANKS", FontHelper.centerStringX("TANKS", Config.WIDTH, g2d), 200, Color.DARK_GRAY);
 		g2d.setFont(Button.FONT);
 		play = new Button("Play", MenuItem.centerX(200), 250, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
 		help = new Button("Help", MenuItem.centerX(200), 350, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
-		
+
 		ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				Point p = e.getPoint();
 				Game g = MainMenu.this.state.g;
-				
+
 				if (play.isHit(p)) {
 					g.changeState(new NetworkMenuState(g));
 				} else if (help.isHit(p)) {
@@ -45,16 +45,16 @@ public class MainMenu extends Menu {
 				}
 			}
 		};
-		
+
 		canvas.addMouseListener(ml);
 	}
-	
-	public void draw(Graphics2D g2d) {		
+
+	public void draw(Graphics2D g2d) {
 		title.draw(g2d);
 		play.draw(g2d);
 		help.draw(g2d);
 	}
-	
+
 	public void cleanup() {
 		canvas.removeMouseListener(ml);
 	}

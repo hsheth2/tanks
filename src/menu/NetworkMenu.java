@@ -80,7 +80,7 @@ public class NetworkMenu extends Menu {
 					try {
 						g.nm = new NetworkManager(state.g, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
 						waiting = true;
-						
+
 						new Thread(new Runnable() {
 							@Override
 							public void run() {
@@ -133,7 +133,7 @@ public class NetworkMenu extends Menu {
 	@Override
 	public void draw(Graphics2D g2d) {
 		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		
+
 		if (!waiting) {
 			back.draw(g2d);
 			addr.draw(g2d);

@@ -56,7 +56,7 @@ public class Bullet extends MovableMapItem {
 			}
 		} else if (other instanceof Tank) {
 			Tank t = (Tank) other;
-			
+
 			this.destroy(m);
 			t.destroy(m);
 		} else if (other instanceof Mine) {

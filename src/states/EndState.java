@@ -15,7 +15,7 @@ public class EndState extends GameState {
 
 	@Override
 	public void update() {
-		
+
 	}
 
 	@Override
