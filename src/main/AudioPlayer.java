@@ -13,8 +13,8 @@ import javax.sound.sampled.LineListener;
 
 public class AudioPlayer {
 	public static void play(String sound) {
-		Clip c;
-		AudioInputStream ais;
+		final Clip c;
+		final AudioInputStream ais;
 
 		try {
 			c = AudioSystem.getClip();
