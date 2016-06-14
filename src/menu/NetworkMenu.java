@@ -80,6 +80,8 @@ public class NetworkMenu extends Menu {
 						g.nm = new NetworkManager(state.g, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
 						waiting = true;
 						g.nm.waitForStart();
+						
+						
 
 						state.g.changeState(new PlayState(state.g));
 					} catch (UnknownHostException | ConnectException | NoRouteToHostException e) {
