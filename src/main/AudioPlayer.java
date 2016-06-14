@@ -1,6 +1,7 @@
 package main;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioInputStream;
@@ -35,6 +36,9 @@ public class AudioPlayer {
 					}
 				}
 			});
+		} catch (FileNotFoundException e) {
+			System.out.println("can not play track: " + sound);
+			System.err.println(e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

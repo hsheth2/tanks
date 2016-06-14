@@ -21,6 +21,7 @@ import physics.Vector;
 
 public class NetworkManager {
 	public static final int PORT = 6840;
+	public static final String TERMINATER = "GAME OVER";
 
 	private Game g;
 	private JPanel canvas;
@@ -29,14 +30,13 @@ public class NetworkManager {
 	private BufferedReader r;
 	private BufferedWriter w;
 	public KeyboardController controlMe;
-	
+
 	public int id;
 	public int peerCount;
 	private ArrayList<Controller> peers;
 	private Thread serverThread;
 
-	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port)
-			throws UnknownHostException, ConnectException, NoRouteToHostException, NetworkingException {
+	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port) throws UnknownHostException, ConnectException, NoRouteToHostException, NetworkingException {
 		try {
 			this.s = new Socket(ip, port);
 
@@ -116,6 +116,19 @@ public class NetworkManager {
 				}
 			});
 			serverThread.start();
+			// default is fine
+			// serverThread.setUncaughtExceptionHandler(new
+			// Thread.UncaughtExceptionHandler() {
+			// @Override
+			// public void uncaughtException(Thread t, Throwable e) {
+			// if (e instanceof ThreadDeath) {
+			// System.out.println("thread kill success");
+			// } else {
+			// e.printStackTrace();
+			// System.out.println("thread crashed; continue with caution");
+			// }
+			// }
+			// });
 		} catch (IOException e) {
 			throw new NetworkingException("Something went wrong with server or socket", e);
 		}
@@ -135,25 +148,35 @@ public class NetworkManager {
 	@SuppressWarnings("deprecation")
 	public void stop() {
 		try {
+			System.out.println("closing network manager");
+
 			serverThread.stop();
 			serverThread = null;
 
-			r.close();
-			r = null;
-			w.close();
-			w = null;
-
-			s.close();
-			s = null;
-			
-			if (controlMe != null) {
-				controlMe.stop();
-				controlMe = null;
-			}
-			
 			for (Controller c : peers) {
-				// TODO shouldn't this call c.stop()
-				c = null; // FIXME this doesn't do anything because its a local variable
+				c.stop(); // no-op if not running
+			}
+
+			synchronized (s) {
+				// wait for game over signal / echo
+				System.out.println("waiting for close signal");
+				if (this.id == 0) {
+					w.write(TERMINATER + "\n");
+					w.flush();
+				}
+				String line;
+				do {
+					line = r.readLine();
+					System.out.println("READ: " + line);
+				} while ( !(line == null || line.trim().equals(TERMINATER)) );
+
+				// r.close();
+				// r = null;
+				// w.close();
+				// w = null;
+
+				s.close();
+				s = null;
 			}
 		} catch (IOException e) {
 			throw new NetworkingException("failed to close network manager properly", e);

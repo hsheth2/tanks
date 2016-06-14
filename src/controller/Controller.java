@@ -8,10 +8,16 @@ public abstract class Controller {
 	private Map map;
 	private Tank tank;
 
+	protected boolean running = true;
+
 	public Controller(Map map, Tank tank) {
 		this.map = map;
 		this.tank = tank;
 		this.tank.setController(this);
+	}
+
+	public boolean isRunning() {
+		return running;
 	}
 
 	protected void setDir(Vector dir) {
@@ -35,6 +41,13 @@ public abstract class Controller {
 
 	protected void mine() {
 		tank.mine(map);
+	}
+
+	public void stop() {
+		if (this.running) {
+			this.running = false;
+			map.signalTankDeath();
+		}
 	}
 
 	public void locationUpdate(Vector loc) {

@@ -19,7 +19,7 @@ import BreezySwing.GBFrame;
 import controller.NetworkManager;
 
 public class Server extends GBFrame {
-	public static final int MAX_CLIENTS = 1;
+	public static final int MAX_CLIENTS = 4;
 	public static final int MIN_CLIENTS = 1;
 
 	private ServerSocket listener;
@@ -47,7 +47,7 @@ public class Server extends GBFrame {
 	private void sysout(String s) {
 		sysout(s, true);
 	}
-	
+
 	private void error_msg(String s) {
 		sysout(s);
 		messageBox(s);
@@ -79,7 +79,7 @@ public class Server extends GBFrame {
 
 	public Server() throws IOException {
 		this.setTitle("Tanks Game Server");
-		this.setSize(400, 200);
+		this.setSize(500, 200);
 
 		start.setEnabled(false);
 		log.setEditable(false);
@@ -104,8 +104,10 @@ public class Server extends GBFrame {
 							// System.out.println("adding to list");
 							sockets.add(s);
 							sysout(sockets.size() + " clients connected");
-							if (sockets.size() >= MIN_CLIENTS)
+							if (sockets.size() >= MIN_CLIENTS) {
 								start.setEnabled(true);
+								start.requestFocus();
+							}
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -159,8 +161,14 @@ public class Server extends GBFrame {
 				while ((line = r.readLine()) != null) {
 					line = line.trim();
 					// line = this.id + " " + line;
-					sysout("Got message: " + line);
+					sysout("Got message: " + line, false);
 					sendOnAll(line);
+					sysout(" ... broadcasted");
+					if (line.equals(NetworkManager.TERMINATER)) {
+						sysout("Termination signal received: stopping");
+						stop(this.id);
+						return;
+					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -201,41 +209,50 @@ public class Server extends GBFrame {
 				Server.this.dispose();
 			}
 		} else if (button == stop) {
-			try {
-				if (accepter != null) {
-					accepter.stop();
-					accepter = null;
-				}
-
-				if (listener != null) {
-					listener.close();
-					listener = null;
-				}
-
-				for (Thread x : pool) {
-					x.stop();
-				}
-
-				for (ThreadServer x : servers) {
-					x.r.close();
-					x.r = null;
-					x.w.close();
-					x.w = null;
-					x.s.close();
-					x.s = null;
-				}
-
-				this.running = false;
-				this.setVisible(false);
-				this.dispose();
-			} catch (IOException e) {
-				e.printStackTrace();
-				error_msg("Something went wrong when stopping the server...");
-				Server.this.running = false;
-				Server.this.dispose();
-			}
+			stop(0);
 		}
 
+	}
+
+	@SuppressWarnings("deprecation")
+	private void stop(int id) {
+		try {
+			if (accepter != null) {
+				accepter.stop();
+				accepter = null;
+			}
+
+			if (listener != null) {
+				listener.close();
+				listener = null;
+			}
+
+			for (int i = 0; i < pool.size(); i++) {
+				if (i == id)
+					continue;
+
+				pool.get(i).stop();
+			}
+
+			// everything can be closed
+			for (ThreadServer x : servers) {
+				x.r.close();
+				x.r = null;
+				x.w.close();
+				x.w = null;
+				x.s.close();
+				x.s = null;
+			}
+
+			this.running = false;
+			this.setVisible(false);
+			this.dispose();
+		} catch (IOException e) {
+			e.printStackTrace();
+			error_msg("Something went wrong when stopping the server...");
+			this.running = false;
+			this.dispose();
+		}
 	}
 
 	private void pickMap() {

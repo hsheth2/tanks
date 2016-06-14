@@ -22,7 +22,7 @@ public class Map implements Drawable {
 
 	public final DeltaTimer dt;
 	public final Game g;
-	
+
 	private ArrayList<MapItem> removalQueue = new ArrayList<>();
 
 	public Map(DeltaTimer t, Game g) {
@@ -61,25 +61,19 @@ public class Map implements Drawable {
 			if (!removalQueue.contains(item))
 				removalQueue.add(item);
 		}
-		
-		if (item instanceof Tank) {
-			int tanks = 0;
-			
-			// FIXME this logic doesn't exactly work because the tank isn't removed instantly
-			// should instead use a local instance variable to track the number of tanks remaining
-			for (MapItem mi : items) {
-				if (mi instanceof Tank) {
-					tanks++;
-				}
-			}
-			
-			if (tanks == g.nm.peerCount) {
-				// TODO call g.nm.stop()
-				g.changeState(new EndState(g)); // FIXME this really shouldn't be in map...
-			}
-		}
-		
+
 		return false;
+	}
+
+	int tankDeaths = 0;
+
+	public void signalTankDeath() {
+		tankDeaths++;
+
+		// solo play needs 1 (first) death, and multiplayer needs n-1 deaths
+		if ( g.nm.peerCount == 1 || (g.nm.peerCount > 1 && tankDeaths >= g.nm.peerCount-1)) {
+			g.changeState(new EndState(g));
+		}
 	}
 
 	public void removeAround(MapItem initial, double radius) {
@@ -138,10 +132,11 @@ public class Map implements Drawable {
 			MapItem item = items.get(i);
 			item.draw(g);
 		}
-		
-		if (this.g.nm.controlMe == null) {
+
+		if (this.g.nm.controlMe == null) { // if spectating
 			g.setFont(Heading.FONT);
-			Heading msg = new Heading("Spectating", FontHelper.centerStringX("Spectating", Config.WIDTH, g), FontHelper.centerStringY("Spectating", Config.HEIGHT, g), Color.LIGHT_GRAY);
+			Heading msg = new Heading("Spectating", FontHelper.centerStringX("Spectating", Config.WIDTH, g), FontHelper.centerStringY("Spectating", Config.HEIGHT, g),
+					Color.LIGHT_GRAY);
 			msg.draw(g);
 		}
 	}
