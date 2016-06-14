@@ -250,10 +250,10 @@ public class Server extends GBFrame {
 			}
 
 			for (ThreadServer x : servers) {
-				x.r.close();
-				x.r = null;
-				x.w.close();
-				x.w = null;
+//				x.r.close();
+//				x.r = null;
+//				x.w.close();
+//				x.w = null;
 				x.s.close();
 				x.s = null;
 				System.out.println("closed a connection");
@@ -266,7 +266,7 @@ public class Server extends GBFrame {
 			System.out.println("game server stopped");
 		} catch (IOException e) {
 			e.printStackTrace();
-			error_msg("Something went wrong when stopping the server...");
+			System.err.println("Something went wrong when stopping the server...");
 			this.running = false;
 			this.dispose();
 		}

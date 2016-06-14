@@ -23,6 +23,8 @@ public class NetworkedController extends Controller {
 			this.setLoc(loc);
 		} else if (input[0].equals("mine")) {
 			mine();
+		} else if (input[0].equals("die")) {
+			this.tank.actuallyDestroy(this.map);
 		} else {
 			throw new IllegalArgumentException("can not respond to " + input[0] + " action");
 		}
