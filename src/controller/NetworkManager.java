@@ -101,8 +101,17 @@ public class NetworkManager {
 					while (true) {
 						try {
 							String line = r.readLine().trim();
-							if (line.equals(TERMINATER))
-								return;
+							if (line.equals(TERMINATER)) {
+								new Thread(new Runnable() {
+									@Override
+									public void run() {
+										NetworkManager.this.stop();
+									}
+								}).start();
+								
+								while (true)
+									Thread.sleep(10);
+							}
 							
 							String[] lineTokens = line.split("[\\s]+", 2);
 							int peerId = Integer.parseInt(lineTokens[0]);
@@ -117,6 +126,8 @@ public class NetworkManager {
 							}
 						} catch (IOException e) {
 							throw new NetworkingException(e);
+						} catch (InterruptedException e) {
+							System.out.println("thread crashed (stopped) while sleeping");
 						}
 					}
 				}
@@ -150,9 +161,11 @@ public class NetworkManager {
 
 				serverThread.stop();
 				serverThread = null;
+				System.out.println("stopped the thread server");
 
 				for (Controller c : peers) {
 					c.stop(); // no-op if not running
+					System.out.println("stopped a controller");
 				}
 
 				synchronized (s) {
