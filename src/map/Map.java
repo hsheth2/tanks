@@ -130,7 +130,18 @@ public class Map implements Drawable {
 
 		for (int i = 0; i < items.size(); i++) {
 			MapItem item = items.get(i);
-			item.draw(g);
+			
+			if (item instanceof Mine) {
+				item.draw(g);
+			}
+		}
+		
+		for (int i = 0; i < items.size(); i++) {
+			MapItem item = items.get(i);
+			
+			if (!(item instanceof Mine)) {
+				item.draw(g);
+			}
 		}
 
 		if (this.g.nm.controlMe == null) { // if spectating

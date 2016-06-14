@@ -1,5 +1,6 @@
 package map;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -26,6 +27,9 @@ public class Wall extends StaticMapItem {
 
 		g2d.setColor(Color.LIGHT_GRAY);
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke(4));
+		g2d.drawRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package map;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -31,12 +32,14 @@ public class Mine extends StaticMapItem implements Updatable {
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		g2d.setColor(Color.MAGENTA);
-
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
-
+		
+		g2d.setColor(Color.GREEN);
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
+		g2d.setColor(Color.BLACK);
+		g2d.setStroke(new BasicStroke(4));
+		g2d.drawRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
 
 	public void destroy(Map m) {
