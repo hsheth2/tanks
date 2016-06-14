@@ -9,6 +9,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 
 import controller.Controller;
+import controller.KeyboardController;
 import main.AudioPlayer;
 import main.Window;
 import physics.DeltaTimer;
@@ -24,6 +25,7 @@ public class Tank extends MovableMapItem {
 
 	private String name;
 	private Controller control;
+	private boolean alive = true;
 
 	public Tank(Vector position, String name) {
 		this(position, Vector.ZERO, name);
@@ -85,18 +87,27 @@ public class Tank extends MovableMapItem {
 //		g2d.setColor(Color.BLACK);
 //		g2d.drawString(name, (int) pos.getX(), (int) pos.getY());
 	}
+	
+	public void actuallyDestroy(Map m) {
+		if (alive) {
+			this.alive = false;
+			System.out.println("tank has died");
+
+			if (this.control instanceof KeyboardController)
+				((KeyboardController) this.control).died();
+
+			this.control.stop();
+
+			m.removeItem(this);
+			m.signalTankDeath();
+			// TODO destroy this tank's animation + sound
+		}
+	}
 
 	public void destroy(Map m) {
-		System.out.println("tank has died");
-		
-		if (name.equals(m.g.nm.nickname)) {
-			m.g.nm.controlMe.stop();
-			m.g.nm.controlMe = null;
+		if (this.control instanceof KeyboardController) {
+			actuallyDestroy(m);
 		}
-		
-		m.removeItem(this);
-		// TODO destroy this tank's animation + sound
-		// TODO stop game if this is me
 	}
 
 	@Override

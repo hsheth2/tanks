@@ -39,7 +39,7 @@ public class FontHelper {
 
 	public static int centerStringY(String s, int h, Graphics2D g2d) {
 		FontMetrics fm = g2d.getFontMetrics(g2d.getFont());
-		Rectangle r = fm.getStringBounds(s, g2d).getBounds();
+		Rectangle r = fm.getStringBounds(s, g2d).getBounds(); // FIXME what is this used for?
 
 		FontRenderContext frc = g2d.getFontRenderContext();
 		GlyphVector gv = g2d.getFont().createGlyphVector(frc, s);

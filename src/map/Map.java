@@ -22,7 +22,7 @@ public class Map implements Drawable {
 
 	public final DeltaTimer dt;
 	public final Game g;
-	
+
 	private ArrayList<MapItem> removalQueue = new ArrayList<>();
 
 	
@@ -64,21 +64,18 @@ public class Map implements Drawable {
 				removalQueue.add(item);
 		}
 		
-		if (item instanceof Tank) {
-			int tanks = 0;
-			
-			for (MapItem mi : items) {
-				if (mi instanceof Tank) {
-					tanks++;
-				}
-			}
-			
-			if (tanks <= 2) {
-				g.changeState(new EndState(g));
-			}
-		}
-		
 		return false;
+	}
+
+	int tankDeaths = 0;
+
+	public void signalTankDeath() {
+		tankDeaths++;
+
+		// solo play needs 1 (first) death, and multiplayer needs n-1 deaths
+		if ( g.nm.peerCount == 1 || (g.nm.peerCount > 1 && tankDeaths == g.nm.peerCount-1)) {
+			g.changeState(new EndState(g));
+		}
 	}
 
 	public void removeAround(MapItem initial, double radius) {
@@ -137,10 +134,11 @@ public class Map implements Drawable {
 			MapItem item = items.get(i);
 			item.draw(g);
 		}
-		
-		if (this.g.nm.controlMe == null) {
+
+		if (this.g.nm.controlMe == null) { // if spectating
 			g.setFont(Heading.FONT);
-			Heading msg = new Heading("Spectating", FontHelper.centerStringX("Spectating", Config.WIDTH, g), FontHelper.centerStringY("Spectating", Config.HEIGHT, g), Color.LIGHT_GRAY);
+			Heading msg = new Heading("Spectating", FontHelper.centerStringX("Spectating", Config.WIDTH, g), FontHelper.centerStringY("Spectating", Config.HEIGHT, g),
+					Color.DARK_GRAY);
 			msg.draw(g);
 		}
 	}

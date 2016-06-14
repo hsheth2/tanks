@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.ConnectException;
+import java.net.NoRouteToHostException;
 import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
@@ -81,9 +82,9 @@ public class NetworkMenu extends Menu {
 						g.nm.waitForStart();
 
 						state.g.changeState(new PlayState(state.g));
-					} catch (UnknownHostException | ConnectException e) {
+					} catch (UnknownHostException | ConnectException | NoRouteToHostException e) {
 						System.out.println("Invalid host address");
-						JOptionPane.showMessageDialog(null, "Invalid host address");
+						JOptionPane.showMessageDialog(null, "Invalid host address", "Connection Error", JOptionPane.ERROR_MESSAGE);
 					} catch (NetworkingException e) {
 						e.printStackTrace();
 						System.exit(1); // FIXME fail gracefully

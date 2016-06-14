@@ -4,7 +4,6 @@ import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -26,7 +25,7 @@ public class KeyboardController extends Controller {
 	public KeyboardController(Map map, Tank tank, JPanel canvas) {
 		this(map, tank, canvas, null);
 	}
-	
+
 	private KeyEventDispatcher keyevent = new KeyEventDispatcher() {
 		@Override
 		public boolean dispatchKeyEvent(KeyEvent ke) {
@@ -48,7 +47,7 @@ public class KeyboardController extends Controller {
 			return false;
 		}
 	};
-	
+
 	private MouseAdapter mouselistener = new MouseAdapter() {
 		public void mousePressed(MouseEvent e) {
 			// System.out.println("Mouse pressed; # of clicks: " +
@@ -56,7 +55,7 @@ public class KeyboardController extends Controller {
 			KeyboardController.this.mouseClicked(e.getPoint());
 		}
 	};
-	
+
 	private JPanel canvas;
 
 	public KeyboardController(Map map, Tank tank, JPanel canvas, NetworkManager manager) {
@@ -106,15 +105,21 @@ public class KeyboardController extends Controller {
 				manager.sendUpdate("loc " + loc.toComputerString());
 		}
 	}
-
-	public void stop() {
-		canvas.removeMouseListener(mouselistener);
-		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyevent);
+	
+	public void died() {
+		manager.sendUpdate("die now");
 	}
 
-//	@Override
-//	public void stop() {
-//		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyevent);
-//		this.canvas.addMouseListener(mouselistener);
-//	}
+	@Override
+	public void stop() {
+		if (this.running) {
+			super.stop();
+
+			canvas.removeMouseListener(mouselistener);
+			KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyevent);
+
+			System.out.println("set control to null");
+			this.manager.controlMe = null;
+		}
+	}
 }

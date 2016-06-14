@@ -47,7 +47,7 @@ public class Server extends GBFrame {
 	private void sysout(String s) {
 		sysout(s, true);
 	}
-	
+
 	private void error_msg(String s) {
 		sysout(s);
 		messageBox(s);
@@ -79,7 +79,7 @@ public class Server extends GBFrame {
 
 	public Server() throws IOException {
 		this.setTitle("Tanks Game Server");
-		this.setSize(400, 200);
+		this.setSize(500, 200);
 
 		start.setEnabled(false);
 		log.setEditable(false);
@@ -104,8 +104,10 @@ public class Server extends GBFrame {
 							// System.out.println("adding to list");
 							sockets.add(s);
 							sysout(sockets.size() + " clients connected");
-							if (sockets.size() >= MIN_CLIENTS)
+							if (sockets.size() >= MIN_CLIENTS) {
 								start.setEnabled(true);
+								start.requestFocus();
+							}
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -159,14 +161,34 @@ public class Server extends GBFrame {
 				while ((line = r.readLine()) != null) {
 					line = line.trim();
 					// line = this.id + " " + line;
-					sysout("Got message: " + line);
+					sysout("Got message: " + line, false);
 					sendOnAll(line);
+					sysout(" ... broadcasted");
+					if (line.equals(NetworkManager.TERMINATER)) {
+						sysout("Termination signal received: stopping");
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								System.out.println("Attempting to stop the game");
+								Server.this.stop();
+								System.out.println("GAME SERVER STOPPED");
+							}
+						}).start();
+						
+						// busy wait until killed
+						Thread.sleep(1000);
+						System.err.println("Server stopping is not working... exiting");
+						System.exit(1);
+					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 				error_msg("error on socket " + id);
 				Server.this.running = false;
 				Server.this.dispose();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				System.out.println("Crashed while sleeping");
 			}
 		}
 	}
@@ -201,41 +223,53 @@ public class Server extends GBFrame {
 				Server.this.dispose();
 			}
 		} else if (button == stop) {
-			try {
-				if (accepter != null) {
-					accepter.stop();
-					accepter = null;
-				}
-
-				if (listener != null) {
-					listener.close();
-					listener = null;
-				}
-
-				for (Thread x : pool) {
-					x.stop();
-				}
-
-				for (ThreadServer x : servers) {
-					x.r.close();
-					x.r = null;
-					x.w.close();
-					x.w = null;
-					x.s.close();
-					x.s = null;
-				}
-
-				this.running = false;
-				this.setVisible(false);
-				this.dispose();
-			} catch (IOException e) {
-				e.printStackTrace();
-				error_msg("Something went wrong when stopping the server...");
-				Server.this.running = false;
-				Server.this.dispose();
-			}
+			stop();
 		}
 
+	}
+
+	@SuppressWarnings("deprecation")
+	private void stop() {
+		sysout("stopping game");
+		try {
+			if (accepter != null) {
+				accepter.stop();
+				accepter = null;
+			}
+			System.out.println("stopped accepter");
+
+			if (listener != null) {
+				listener.close();
+				listener = null;
+			}
+			System.out.println("stopped listener");
+
+			for (Thread x : pool) {
+				x.stop();
+				System.out.println("stopped thread");
+			}
+
+			for (ThreadServer x : servers) {
+//				x.r.close();
+//				x.r = null;
+//				x.w.close();
+//				x.w = null;
+				x.s.close();
+				x.s = null;
+				System.out.println("closed a connection");
+			}
+
+			this.running = false;
+			this.setVisible(false);
+			this.dispose();
+			
+			System.out.println("game server stopped");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.err.println("Something went wrong when stopping the server...");
+			this.running = false;
+			this.dispose();
+		}
 	}
 
 	private void pickMap() {

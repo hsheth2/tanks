@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ConnectException;
+import java.net.NoRouteToHostException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import physics.Vector;
 
 public class NetworkManager {
 	public static final int PORT = 6840;
+	public static final String TERMINATER = "GAME OVER";
 
 	private Game g;
 	private JPanel canvas;
@@ -28,13 +30,15 @@ public class NetworkManager {
 	private BufferedReader r;
 	private BufferedWriter w;
 	public KeyboardController controlMe;
-	
-	private int id;
+
+	public int id;
+	public int peerCount;
 	private ArrayList<Controller> peers;
 	private Thread serverThread;
 
-	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port)
-			throws UnknownHostException, ConnectException, NetworkingException {
+	private boolean running = true;
+
+	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port) throws UnknownHostException, ConnectException, NoRouteToHostException, NetworkingException {
 		try {
 			this.s = new Socket(ip, port);
 
@@ -44,7 +48,7 @@ public class NetworkManager {
 			this.g = g;
 			this.canvas = canvas;
 			this.nickname = nickname;
-		} catch (UnknownHostException | ConnectException e) {
+		} catch (UnknownHostException | ConnectException | NoRouteToHostException e) {
 			throw e;
 		} catch (IOException e) {
 			throw new NetworkingException(e);
@@ -55,7 +59,7 @@ public class NetworkManager {
 		try {
 			// wait for starting signal
 			id = Integer.parseInt(r.readLine().trim());
-			int peerCount = Integer.parseInt(r.readLine().trim());
+			peerCount = Integer.parseInt(r.readLine().trim());
 			peers = new ArrayList<>(peerCount);
 
 			// get map
@@ -96,7 +100,20 @@ public class NetworkManager {
 				public void run() {
 					while (true) {
 						try {
-							String[] lineTokens = r.readLine().trim().split("[\\s]+", 2);
+							String line = r.readLine().trim();
+							if (line.equals(TERMINATER)) {
+								new Thread(new Runnable() {
+									@Override
+									public void run() {
+										NetworkManager.this.stop();
+									}
+								}).start();
+								
+								while (true)
+									Thread.sleep(10);
+							}
+							
+							String[] lineTokens = line.split("[\\s]+", 2);
 							int peerId = Integer.parseInt(lineTokens[0]);
 							String cmd = lineTokens[1];
 
@@ -109,6 +126,8 @@ public class NetworkManager {
 							}
 						} catch (IOException e) {
 							throw new NetworkingException(e);
+						} catch (InterruptedException e) {
+							System.out.println("thread crashed (stopped) while sleeping");
 						}
 					}
 				}
@@ -125,35 +144,54 @@ public class NetworkManager {
 				w.write(id + " " + data + "\n");
 				w.flush();
 			} catch (IOException e) {
-				throw new NetworkingException("failed to send update on socket", e);
+				NetworkingException crash = new NetworkingException("failed to send update on socket", e);
+				crash.printStackTrace();
+				System.err.println("silently ignoring above error");
 			}
 		}
 	}
 
 	@SuppressWarnings("deprecation")
 	public void stop() {
-		try {
-			serverThread.stop();
-			serverThread = null;
-
-			r.close();
-			r = null;
-			w.close();
-			w = null;
-
-			s.close();
-			s = null;
+		if (this.running) {
+			this.running = false;
 			
-			if (controlMe != null) {
-				controlMe.stop();
-				controlMe = null;
+			try {
+				System.out.println("closing network manager");
+
+				serverThread.stop();
+				serverThread = null;
+				System.out.println("stopped the thread server");
+
+				for (Controller c : peers) {
+					c.stop(); // no-op if not running
+					System.out.println("stopped a controller");
+				}
+
+				synchronized (s) {
+					// wait for game over signal / echo
+					System.out.println("waiting for close signal");
+					if (this.id == 0) {
+						w.write(TERMINATER + "\n");
+						w.flush();
+					}
+					String line;
+					do {
+						line = r.readLine();
+						System.out.println("READ: " + line);
+					} while (!(line == null || line.trim().equals(TERMINATER)));
+
+					// r.close();
+					// r = null;
+					// w.close();
+					// w = null;
+
+					s.close();
+					s = null;
+				}
+			} catch (IOException e) {
+				throw new NetworkingException("failed to close network manager properly", e);
 			}
-			
-			for (Controller c : peers) {
-				c = null;
-			}
-		} catch (IOException e) {
-			throw new NetworkingException("failed to close network manager properly", e);
 		}
 	}
 
