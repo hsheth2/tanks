@@ -3,7 +3,7 @@ package map;
 import physics.Vector;
 
 public abstract class MovableMapItem extends MapItem implements Updatable {
-	private Vector velocity;
+	protected Vector velocity;
 
 	protected int frameCounter = 0;
 

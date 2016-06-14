@@ -1,5 +1,6 @@
 package map;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -16,7 +17,7 @@ import physics.DeltaTimer;
 import physics.Vector;
 
 public class Tank extends MovableMapItem {
-	public static final Vector SIZE = new Vector(16, 16);
+	public static final Vector SIZE = new Vector(24, 24);
 	public static final int SPEED = 3;
 
 	private static final int MINE_DELAY = DeltaTimer.FPS * 1;
@@ -67,28 +68,29 @@ public class Tank extends MovableMapItem {
 	@Override
 	public void draw(Graphics2D g2d) {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setColor(Color.RED);
+		g2d.setColor(Color.BLACK);
 
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
+		Point center = Window.game2real(getCenter());
 
 		Path2D.Double path = new Path2D.Double();
-
+		
 		path.append(new Rectangle(pos.x, pos.y, sz.x, sz.y), false);
-
+		
 		AffineTransform at = new AffineTransform();
-
-		// at.rotate(45);
+		
+		at.rotate(Math.toRadians(velocity.angle()), center.x, center.y);
 		path.transform(at);
+		g2d.setStroke(new BasicStroke(4));
 		g2d.draw(path);
-		g2d.setColor(Color.BLACK);
+		g2d.setColor(Color.RED);
 		g2d.fill(path);
-		// g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(),
-		// (int) sz.getY());
-		// g2d.setColor(Color.BLACK);
-		// g2d.drawString(name, (int) pos.getX(), (int) pos.getY());
+//		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
+//		g2d.setColor(Color.BLACK);
+//		g2d.drawString(name, (int) pos.getX(), (int) pos.getY());
 	}
-
+	
 	public void actuallyDestroy(Map m) {
 		if (alive) {
 			this.alive = false;
