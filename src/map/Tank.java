@@ -3,6 +3,10 @@ package map;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Path2D;
 
 import controller.Controller;
 import main.AudioPlayer;
@@ -60,14 +64,26 @@ public class Tank extends MovableMapItem {
 
 	@Override
 	public void draw(Graphics2D g2d) {
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setColor(Color.RED);
 
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
 
-		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
+		Path2D.Double path = new Path2D.Double();
+		
+		path.append(new Rectangle(pos.x, pos.y, sz.x, sz.y), false);
+		
+		AffineTransform at = new AffineTransform();
+		
+//		at.rotate(45);
+		path.transform(at);
+		g2d.draw(path);
 		g2d.setColor(Color.BLACK);
-		g2d.drawString(name, (int) pos.getX(), (int) pos.getY());
+		g2d.fill(path);
+//		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
+//		g2d.setColor(Color.BLACK);
+//		g2d.drawString(name, (int) pos.getX(), (int) pos.getY());
 	}
 
 	public void destroy(Map m) {

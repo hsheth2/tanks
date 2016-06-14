@@ -19,7 +19,7 @@ import BreezySwing.GBFrame;
 import controller.NetworkManager;
 
 public class Server extends GBFrame {
-	public static final int MAX_CLIENTS = 1;
+	public static final int MAX_CLIENTS = 4;
 	public static final int MIN_CLIENTS = 1;
 
 	private ServerSocket listener;

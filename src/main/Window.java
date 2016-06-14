@@ -8,6 +8,7 @@ import java.awt.RenderingHints;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import physics.Vector;
 import states.EndState;
@@ -37,7 +38,7 @@ public class Window extends JFrame {
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pack();
-		setTitle("Tanks Game");
+		setTitle("Tanks");
 		setVisible(true);
 		setResizable(true);
 
@@ -53,6 +54,7 @@ public class Window extends JFrame {
 			g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 			if (game.state instanceof PlayState && game.map != null) {
+				setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 				game.map.draw(g2d);
 			} else if ((game.state instanceof MainMenuState || game.state instanceof NetworkMenuState || game.state instanceof EndState || game.state instanceof HelpState) && game.menu != null) {
 				game.menu.draw(g2d);

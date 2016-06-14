@@ -25,6 +25,8 @@ public class Map implements Drawable {
 	
 	private ArrayList<MapItem> removalQueue = new ArrayList<>();
 
+	
+	
 	public Map(DeltaTimer t, Game g) {
 		this.dt = t;
 		this.g = g;
@@ -71,7 +73,7 @@ public class Map implements Drawable {
 				}
 			}
 			
-			if (tanks == 2) {
+			if (tanks <= 2) {
 				g.changeState(new EndState(g));
 			}
 		}
