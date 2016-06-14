@@ -10,7 +10,7 @@ import physics.Vector;
 
 public class Bullet extends MovableMapItem {
 	public static final Vector SIZE = new Vector(8, 8);
-	public static final int SPEED = 8;
+	public static final int SPEED = 5;
 
 	private static final double START_MULT = Bullet.SIZE.add(Tank.SIZE).magnitude() / 2.0;
 	private static final int BOUNCE_LIMIT = 1;
