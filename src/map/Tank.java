@@ -57,7 +57,7 @@ public class Tank extends MovableMapItem {
 	public void update() {
 		super.update();
 		if (control != null)
-			control.locationUpdate(this.getPosition());
+			control.locationUpdate();
 	};
 
 	@Override

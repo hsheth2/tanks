@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controller.NetworkManager;
-import controller.NetworkingException;
 import main.Config;
 import main.FontHelper;
 import main.Game;
@@ -33,7 +32,7 @@ public class NetworkMenu extends Menu {
 	private Input addrIn, nickIn;
 	private Button connect, back;
 	private Label msg;
-	
+
 	public boolean waiting = false;
 
 	public NetworkMenu(final NetworkMenuState state, final JPanel canvas) {
@@ -50,13 +49,14 @@ public class NetworkMenu extends Menu {
 
 		addrIn = new Input(320, 140, 400, 80);
 		nickIn = new Input(320, 240, 400, 80);
-		
+
 		connect = new Button("Connect", MenuItem.centerX(200), 400, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
 		back = new Button("Back", 20, 20, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
 
 		g2d.setFont(Label.FONT);
-		msg = new Label("Waiting for game to begin...", FontHelper.centerStringX("Waiting for game to begin...", Config.WIDTH, g2d), FontHelper.centerStringY("Waiting for game to begin...", Config.HEIGHT, g2d), Color.DARK_GRAY);
-		
+		msg = new Label("Waiting for game to begin...", FontHelper.centerStringX("Waiting for game to begin...", Config.WIDTH, g2d),
+				FontHelper.centerStringY("Waiting for game to begin...", Config.HEIGHT, g2d), Color.DARK_GRAY);
+
 		ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent event) {
 				Point p = event.getPoint();
@@ -85,9 +85,6 @@ public class NetworkMenu extends Menu {
 					} catch (UnknownHostException | ConnectException | NoRouteToHostException e) {
 						System.out.println("Invalid host address");
 						JOptionPane.showMessageDialog(null, "Invalid host address", "Connection Error", JOptionPane.ERROR_MESSAGE);
-					} catch (NetworkingException e) {
-						e.printStackTrace();
-						System.exit(1); // FIXME fail gracefully
 					}
 				} else {
 					addrIn.focused = false;

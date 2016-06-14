@@ -39,6 +39,8 @@ public class AudioPlayer {
 		} catch (FileNotFoundException e) {
 			System.out.println("can not play track: " + sound);
 			System.err.println(e.getMessage());
+		} catch (IllegalArgumentException e) {
+			System.err.println("No matching interface problem");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

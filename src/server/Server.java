@@ -123,12 +123,17 @@ public class Server extends GBFrame {
 		this.setVisible(true);
 	}
 
-	private void sendOnAll(String text) throws IOException {
+	private void sendOnAll(String text) {
+		try {
 		synchronized (servers) {
 			for (ThreadServer s : servers) {
 				s.w.write(text + "\n");
 				s.w.flush();
 			}
+		}
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+			this.stop();
 		}
 	}
 
@@ -166,15 +171,8 @@ public class Server extends GBFrame {
 					sysout(" ... broadcasted");
 					if (line.equals(NetworkManager.TERMINATER)) {
 						sysout("Termination signal received: stopping");
-						new Thread(new Runnable() {
-							@Override
-							public void run() {
-								System.out.println("Attempting to stop the game");
-								Server.this.stop();
-								System.out.println("GAME SERVER STOPPED");
-							}
-						}).start();
-						
+						dispatchStop();
+
 						// busy wait until killed
 						Thread.sleep(1000);
 						System.err.println("Server stopping is not working... exiting");
@@ -183,14 +181,26 @@ public class Server extends GBFrame {
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-				error_msg("error on socket " + id);
-				Server.this.running = false;
-				Server.this.dispose();
+				System.err.println("error on socket " + id);
+				dispatchStop();
+				return;
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				System.out.println("Crashed while sleeping");
+				return;
 			}
 		}
+	}
+	
+	private void dispatchStop() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("Attempting to stop the game");
+				Server.this.stop();
+				System.out.println("GAME SERVER STOPPED");
+			}
+		}).start();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -250,10 +260,10 @@ public class Server extends GBFrame {
 			}
 
 			for (ThreadServer x : servers) {
-//				x.r.close();
-//				x.r = null;
-//				x.w.close();
-//				x.w = null;
+				// x.r.close();
+				// x.r = null;
+				// x.w.close();
+				// x.w = null;
 				x.s.close();
 				x.s = null;
 				System.out.println("closed a connection");
@@ -262,7 +272,7 @@ public class Server extends GBFrame {
 			this.running = false;
 			this.setVisible(false);
 			this.dispose();
-			
+
 			System.out.println("game server stopped");
 		} catch (IOException e) {
 			e.printStackTrace();
