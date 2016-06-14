@@ -92,6 +92,7 @@ public class Tank extends MovableMapItem {
 		if (alive) {
 			this.alive = false;
 			System.out.println("tank has died");
+			AudioPlayer.play("tank_explode.wav");
 
 			if (this.control instanceof KeyboardController)
 				((KeyboardController) this.control).died();

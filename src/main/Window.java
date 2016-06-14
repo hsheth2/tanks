@@ -45,7 +45,7 @@ public class Window extends JFrame {
 		game = g;
 	}
 
-	private class Canvas extends JPanel {
+	public class Canvas extends JPanel {
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			

@@ -3,6 +3,7 @@ package menu;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -33,7 +34,7 @@ public class NetworkMenu extends Menu {
 	private Button connect, back;
 	private Label msg;
 
-	public boolean waiting = false;
+	public volatile boolean waiting = false;
 
 	public NetworkMenu(final NetworkMenuState state, final JPanel canvas) {
 		super(state, canvas);
@@ -60,7 +61,7 @@ public class NetworkMenu extends Menu {
 		ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent event) {
 				Point p = event.getPoint();
-				Game g = NetworkMenu.this.state.g;
+				final Game g = NetworkMenu.this.state.g;
 
 				NetworkMenu.this.canvas.requestFocusInWindow();
 
@@ -79,9 +80,14 @@ public class NetworkMenu extends Menu {
 					try {
 						g.nm = new NetworkManager(state.g, canvas, nickIn.text, addrIn.text, NetworkManager.PORT);
 						waiting = true;
-						g.nm.waitForStart();
 						
-						state.g.changeState(new PlayState(state.g));
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								g.nm.waitForStart();
+								state.g.changeState(new PlayState(state.g));
+							}
+						}).start();
 					} catch (UnknownHostException | ConnectException | NoRouteToHostException e) {
 						System.out.println("Invalid host address");
 						JOptionPane.showMessageDialog(null, "Invalid host address, host is unavailable, or server is not running", "Connection Error", JOptionPane.ERROR_MESSAGE);
@@ -126,6 +132,8 @@ public class NetworkMenu extends Menu {
 
 	@Override
 	public void draw(Graphics2D g2d) {
+		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		
 		if (!waiting) {
 			back.draw(g2d);
 			addr.draw(g2d);

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import main.AudioPlayer;
 import main.Window;
 import physics.Vector;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -40,7 +41,7 @@ public class Mine extends StaticMapItem implements Updatable {
 	
 	public void destroy(Map m) {
 		m.removeAround(this, MINE_RADIUS);
-		// TODO destroy this mine's animation + sound
+		AudioPlayer.play("mine_explode.wav");
 	}
 
 	@Override
