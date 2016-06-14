@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineEvent.Type;
 import javax.sound.sampled.LineListener;
@@ -24,6 +25,10 @@ public class AudioPlayer {
 			ais = AudioSystem.getAudioInputStream(f);
 
 			c.open(ais);
+			
+			FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-20.0f);
+			
 			c.start();
 			c.addLineListener(new LineListener() {
 				@Override
