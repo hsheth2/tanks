@@ -133,7 +133,9 @@ public class NetworkManager {
 				w.write(id + " " + data + "\n");
 				w.flush();
 			} catch (IOException e) {
-				throw new NetworkingException("failed to send update on socket", e);
+				NetworkingException crash = new NetworkingException("failed to send update on socket", e);
+				crash.printStackTrace();
+				System.err.println("silently ignoring above error");
 			}
 		}
 	}
