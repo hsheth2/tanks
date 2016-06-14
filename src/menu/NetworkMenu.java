@@ -84,7 +84,7 @@ public class NetworkMenu extends Menu {
 						state.g.changeState(new PlayState(state.g));
 					} catch (UnknownHostException | ConnectException | NoRouteToHostException e) {
 						System.out.println("Invalid host address");
-						JOptionPane.showMessageDialog(null, "Invalid host address", "Connection Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Invalid host address, host is unavailable, or server is not running", "Connection Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					addrIn.focused = false;
