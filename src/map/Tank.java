@@ -28,12 +28,15 @@ public class Tank extends MovableMapItem {
 	private int lastMineLayed = -2 * MINE_DELAY;
 
 	private String name;
+	public Color color;
 	private Controller control;
 	private boolean alive = true;
 	private Vector dir = Vector.LEFT;
+	private double facing = 0;
 
-	public Tank(Vector position, String name) {
+	public Tank(Vector position, String name, Color color) {
 		this(position, Vector.ZERO, name);
+		this.color = color;
 	}
 
 	public Tank(Vector position, Vector velocity, String name) {
@@ -81,8 +84,10 @@ public class Tank extends MovableMapItem {
 	@Override
 	public void update() {
 		super.update();
-		if (control != null && !getVelocity().equals(Vector.ZERO))
+		if (control != null && !getVelocity().equals(Vector.ZERO)) {
 			control.locationUpdate();
+			facing = Math.toRadians(velocity.angle());
+		}
 	};
 
 	@Override
@@ -99,11 +104,10 @@ public class Tank extends MovableMapItem {
 
 		AffineTransform at = new AffineTransform();
 
-		at.rotate(Math.toRadians(velocity.angle()), center.x, center.y);
+		at.rotate(facing, center.x, center.y);
 		body.transform(at);
-		g2d.setColor(Color.RED);
+		g2d.setColor(color);
 		g2d.fill(body);
-
 		g2d.setColor(Color.BLACK);
 		g2d.setStroke(new BasicStroke(4));
 		g2d.draw(body);
@@ -138,7 +142,7 @@ public class Tank extends MovableMapItem {
 		
 		Polygon arrow = new Polygon(new int[] {center.x, center.x - 12, center.x + 12}, new int[] {center.y - 24, center.y - 36,  center.y - 36}, 3);
 		
-		g2d.setColor(Color.RED);
+		g2d.setColor(color);
 		g2d.fillPolygon(arrow);
 		g2d.setColor(Color.BLACK);
 		g2d.setStroke(new BasicStroke(4));
