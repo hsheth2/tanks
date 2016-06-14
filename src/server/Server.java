@@ -166,7 +166,13 @@ public class Server extends GBFrame {
 					sysout(" ... broadcasted");
 					if (line.equals(NetworkManager.TERMINATER)) {
 						sysout("Termination signal received: stopping");
-						stop(this.id);
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								Server.this.stop();
+								System.out.println("GAME SERVER STOPPED");
+							}
+						}).start();
 						return;
 					}
 				}
@@ -209,13 +215,13 @@ public class Server extends GBFrame {
 				Server.this.dispose();
 			}
 		} else if (button == stop) {
-			stop(0);
+			stop();
 		}
 
 	}
 
 	@SuppressWarnings("deprecation")
-	private void stop(int id) {
+	private void stop() {
 		try {
 			if (accepter != null) {
 				accepter.stop();
@@ -227,14 +233,10 @@ public class Server extends GBFrame {
 				listener = null;
 			}
 
-			for (int i = 0; i < pool.size(); i++) {
-				if (i == id)
-					continue;
-
-				pool.get(i).stop();
+			for (Thread x : pool) {
+				x.stop();
 			}
 
-			// everything can be closed
 			for (ThreadServer x : servers) {
 				x.r.close();
 				x.r = null;

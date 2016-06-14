@@ -36,6 +36,8 @@ public class NetworkManager {
 	private ArrayList<Controller> peers;
 	private Thread serverThread;
 
+	private boolean running = true;
+
 	public NetworkManager(Game g, JPanel canvas, String nickname, String ip, int port) throws UnknownHostException, ConnectException, NoRouteToHostException, NetworkingException {
 		try {
 			this.s = new Socket(ip, port);
@@ -147,39 +149,43 @@ public class NetworkManager {
 
 	@SuppressWarnings("deprecation")
 	public void stop() {
-		try {
-			System.out.println("closing network manager");
+		if (running) {
+			running = false;
+			
+			try {
+				System.out.println("closing network manager");
 
-			serverThread.stop();
-			serverThread = null;
+				serverThread.stop();
+				serverThread = null;
 
-			for (Controller c : peers) {
-				c.stop(); // no-op if not running
-			}
-
-			synchronized (s) {
-				// wait for game over signal / echo
-				System.out.println("waiting for close signal");
-				if (this.id == 0) {
-					w.write(TERMINATER + "\n");
-					w.flush();
+				for (Controller c : peers) {
+					c.stop(); // no-op if not running
 				}
-				String line;
-				do {
-					line = r.readLine();
-					System.out.println("READ: " + line);
-				} while ( !(line == null || line.trim().equals(TERMINATER)) );
 
-				// r.close();
-				// r = null;
-				// w.close();
-				// w = null;
+				synchronized (s) {
+					// wait for game over signal / echo
+					System.out.println("waiting for close signal");
+					if (this.id == 0) {
+						w.write(TERMINATER + "\n");
+						w.flush();
+					}
+					String line;
+					do {
+						line = r.readLine();
+						System.out.println("READ: " + line);
+					} while (!(line == null || line.trim().equals(TERMINATER)));
 
-				s.close();
-				s = null;
+					// r.close();
+					// r = null;
+					// w.close();
+					// w = null;
+
+					s.close();
+					s = null;
+				}
+			} catch (IOException e) {
+				throw new NetworkingException("failed to close network manager properly", e);
 			}
-		} catch (IOException e) {
-			throw new NetworkingException("failed to close network manager properly", e);
 		}
 	}
 
