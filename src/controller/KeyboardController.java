@@ -105,6 +105,10 @@ public class KeyboardController extends Controller {
 				manager.sendUpdate("loc " + loc.toComputerString());
 		}
 	}
+	
+	public void died() {
+		manager.sendUpdate("die now");
+	}
 
 	@Override
 	public void stop() {

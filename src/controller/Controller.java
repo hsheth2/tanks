@@ -5,8 +5,8 @@ import map.Tank;
 import physics.Vector;
 
 public abstract class Controller {
-	private Map map;
-	private Tank tank;
+	protected Map map;
+	protected Tank tank;
 
 	protected boolean running = true;
 
