@@ -57,6 +57,7 @@ public class Window extends JFrame {
 				setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 				game.map.draw(g2d);
 			} else if ((game.state instanceof MainMenuState || game.state instanceof NetworkMenuState || game.state instanceof EndState || game.state instanceof HelpState) && game.menu != null) {
+				setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 				game.menu.draw(g2d);
 			}
 		}

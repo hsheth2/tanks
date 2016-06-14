@@ -81,8 +81,6 @@ public class NetworkMenu extends Menu {
 						waiting = true;
 						g.nm.waitForStart();
 						
-						
-
 						state.g.changeState(new PlayState(state.g));
 					} catch (UnknownHostException | ConnectException | NoRouteToHostException e) {
 						System.out.println("Invalid host address");
