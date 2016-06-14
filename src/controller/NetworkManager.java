@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import physics.Vector;
 public class NetworkManager {
 	public static final int PORT = 6840;
 	public static final String TERMINATER = "GAME OVER";
+	public static Color[] colors = {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW};
 
 	private Game g;
 	private JPanel canvas;
@@ -71,7 +73,7 @@ public class NetworkManager {
 				if (i == id) {
 					// my turn
 					Vector position = g.map.getValidPosition(Tank.SIZE);
-					Tank me = new Tank(position, nickname);
+					Tank me = new Tank(position, nickname, colors[i]);
 					controlMe = new KeyboardController(g.map, me, canvas, this);
 					g.map.addItem(me);
 					peers.add(controlMe);
@@ -81,7 +83,7 @@ public class NetworkManager {
 					// their turn
 					String[] line = r.readLine().trim().split("[\\s]+");
 					Vector position = Vector.parseLine(line[1]);
-					Tank them = new Tank(position, line[2]);
+					Tank them = new Tank(position, line[2], colors[i]);
 					NetworkedController control_them = new NetworkedController(g.map, them);
 					g.map.addItem(them);
 					peers.add(control_them);
