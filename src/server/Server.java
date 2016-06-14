@@ -169,11 +169,16 @@ public class Server extends GBFrame {
 						new Thread(new Runnable() {
 							@Override
 							public void run() {
+								System.out.println("Attempting to stop the game");
 								Server.this.stop();
 								System.out.println("GAME SERVER STOPPED");
 							}
 						}).start();
-						return;
+						
+						// busy wait until killed
+						while (true) {
+							Thread.sleep(10);
+						}
 					}
 				}
 			} catch (IOException e) {
@@ -181,6 +186,9 @@ public class Server extends GBFrame {
 				error_msg("error on socket " + id);
 				Server.this.running = false;
 				Server.this.dispose();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				System.out.println("Crashed while sleeping");
 			}
 		}
 	}
@@ -222,6 +230,7 @@ public class Server extends GBFrame {
 
 	@SuppressWarnings("deprecation")
 	private void stop() {
+		sysout("stopping game");
 		try {
 			if (accepter != null) {
 				accepter.stop();
@@ -249,6 +258,8 @@ public class Server extends GBFrame {
 			this.running = false;
 			this.setVisible(false);
 			this.dispose();
+			
+			System.out.println("game server stopped");
 		} catch (IOException e) {
 			e.printStackTrace();
 			error_msg("Something went wrong when stopping the server...");
