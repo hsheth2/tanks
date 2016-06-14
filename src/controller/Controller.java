@@ -46,7 +46,6 @@ public abstract class Controller {
 	public void stop() {
 		if (this.running) {
 			this.running = false;
-			map.signalTankDeath();
 		}
 	}
 

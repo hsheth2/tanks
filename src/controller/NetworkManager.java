@@ -100,7 +100,11 @@ public class NetworkManager {
 				public void run() {
 					while (true) {
 						try {
-							String[] lineTokens = r.readLine().trim().split("[\\s]+", 2);
+							String line = r.readLine().trim();
+							if (line.equals(TERMINATER))
+								return;
+							
+							String[] lineTokens = line.split("[\\s]+", 2);
 							int peerId = Integer.parseInt(lineTokens[0]);
 							String cmd = lineTokens[1];
 
@@ -118,19 +122,6 @@ public class NetworkManager {
 				}
 			});
 			serverThread.start();
-			// default is fine
-			// serverThread.setUncaughtExceptionHandler(new
-			// Thread.UncaughtExceptionHandler() {
-			// @Override
-			// public void uncaughtException(Thread t, Throwable e) {
-			// if (e instanceof ThreadDeath) {
-			// System.out.println("thread kill success");
-			// } else {
-			// e.printStackTrace();
-			// System.out.println("thread crashed; continue with caution");
-			// }
-			// }
-			// });
 		} catch (IOException e) {
 			throw new NetworkingException("Something went wrong with server or socket", e);
 		}
@@ -149,8 +140,8 @@ public class NetworkManager {
 
 	@SuppressWarnings("deprecation")
 	public void stop() {
-		if (running) {
-			running = false;
+		if (this.running) {
+			this.running = false;
 			
 			try {
 				System.out.println("closing network manager");

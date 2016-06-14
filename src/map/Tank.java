@@ -76,6 +76,7 @@ public class Tank extends MovableMapItem {
 		this.control.stop();
 		
 		m.removeItem(this);
+		m.signalTankDeath();
 		// TODO destroy this tank's animation + sound
 	}
 
