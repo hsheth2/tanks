@@ -71,7 +71,7 @@ public class Map implements Drawable {
 		tankDeaths++;
 
 		// solo play needs 1 (first) death, and multiplayer needs n-1 deaths
-		if ( g.nm.peerCount == 1 || (g.nm.peerCount > 1 && tankDeaths >= g.nm.peerCount-1)) {
+		if ( g.nm.peerCount == 1 || (g.nm.peerCount > 1 && tankDeaths == g.nm.peerCount-1)) {
 			g.changeState(new EndState(g));
 		}
 	}
