@@ -15,7 +15,7 @@ public class HelpState extends GameState {
 
 	@Override
 	public void update() {
-				
+
 	}
 
 	@Override

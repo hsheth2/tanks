@@ -25,8 +25,6 @@ public class Map implements Drawable {
 
 	private ArrayList<MapItem> removalQueue = new ArrayList<>();
 
-	
-	
 	public Map(DeltaTimer t, Game g) {
 		this.dt = t;
 		this.g = g;
@@ -63,7 +61,7 @@ public class Map implements Drawable {
 			if (!removalQueue.contains(item))
 				removalQueue.add(item);
 		}
-		
+
 		return false;
 	}
 
@@ -73,7 +71,7 @@ public class Map implements Drawable {
 		tankDeaths++;
 
 		// solo play needs 1 (first) death, and multiplayer needs n-1 deaths
-		if ( g.nm.peerCount == 1 || (g.nm.peerCount > 1 && tankDeaths == g.nm.peerCount-1)) {
+		if (g.nm.peerCount == 1 || (g.nm.peerCount > 1 && tankDeaths == g.nm.peerCount - 1)) {
 			g.changeState(new EndState(g));
 		}
 	}
@@ -137,9 +135,7 @@ public class Map implements Drawable {
 
 		if (this.g.nm.controlMe == null) { // if spectating
 			g.setFont(Heading.FONT);
-			Heading msg = new Heading("Spectating", FontHelper.centerStringX("Spectating", Config.WIDTH, g), FontHelper.centerStringY("Spectating", Config.HEIGHT, g),
-					Color.DARK_GRAY);
-			msg.draw(g);
+			new Heading("Spectating", FontHelper.centerStringX("Spectating", Config.WIDTH, g), FontHelper.centerStringY("Spectating", Config.HEIGHT, g), Color.DARK_GRAY).draw(g);
 		}
 	}
 

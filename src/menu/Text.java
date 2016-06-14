@@ -11,10 +11,10 @@ public class Text extends MenuItem implements Drawable {
 	private String text;
 	public static final Font FONT = FontHelper.makeFont("RobotoCondensed-Regular.ttf", 36f);
 	public Color color;
-	
+
 	public Text(String text, int px, int py, Color color) {
 		super(px, py, 0, 0);
-		
+
 		this.text = text;
 		this.color = color;
 	}

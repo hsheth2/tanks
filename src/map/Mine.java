@@ -6,9 +6,9 @@ import java.awt.Point;
 
 import main.AudioPlayer;
 import main.Window;
+import physics.DeltaTimer;
 import physics.Vector;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import physics.DeltaTimer;
 
 public class Mine extends StaticMapItem implements Updatable {
 	public static final Vector SIZE = new Vector(16, 16);
@@ -19,7 +19,7 @@ public class Mine extends StaticMapItem implements Updatable {
 
 	private int timer = 0;
 	private Tank owner;
-	
+
 	private Map map;
 
 	public Mine(Vector position, Tank owner, Map m) {
@@ -38,7 +38,7 @@ public class Mine extends StaticMapItem implements Updatable {
 
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
-	
+
 	public void destroy(Map m) {
 		m.removeAround(this, MINE_RADIUS);
 		AudioPlayer.play("mine_explode.wav");
@@ -69,7 +69,7 @@ public class Mine extends StaticMapItem implements Updatable {
 			}
 		} else if (other instanceof Bullet) {
 			Bullet b = (Bullet) other;
-			
+
 			b.destroy(m);
 			this.destroy(m);
 		} else {

@@ -11,10 +11,10 @@ public class Heading extends MenuItem implements Drawable {
 	private String text;
 	public static final Font FONT = FontHelper.makeFont("Oswald-Stencil.ttf", 96f);
 	public Color color;
-	
+
 	public Heading(String text, int px, int py, Color color) {
 		super(px, py, 0, 0);
-		
+
 		this.text = text;
 		this.color = color;
 	}

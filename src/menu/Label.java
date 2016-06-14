@@ -11,10 +11,10 @@ public class Label extends MenuItem implements Drawable {
 	private String text;
 	public static final Font FONT = FontHelper.makeFont("Oswald-Regular.ttf", 60f);
 	public Color color;
-	
+
 	public Label(String text, int px, int py, Color color) {
 		super(px, py, 0, 0);
-		
+
 		this.text = text;
 		this.color = color;
 	}
