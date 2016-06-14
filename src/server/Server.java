@@ -176,9 +176,9 @@ public class Server extends GBFrame {
 						}).start();
 						
 						// busy wait until killed
-						while (true) {
-							Thread.sleep(10);
-						}
+						Thread.sleep(1000);
+						System.err.println("Server stopping is not working... exiting");
+						System.exit(1);
 					}
 				}
 			} catch (IOException e) {
@@ -236,14 +236,17 @@ public class Server extends GBFrame {
 				accepter.stop();
 				accepter = null;
 			}
+			System.out.println("stopped accepter");
 
 			if (listener != null) {
 				listener.close();
 				listener = null;
 			}
+			System.out.println("stopped listener");
 
 			for (Thread x : pool) {
 				x.stop();
+				System.out.println("stopped thread");
 			}
 
 			for (ThreadServer x : servers) {
@@ -253,6 +256,7 @@ public class Server extends GBFrame {
 				x.w = null;
 				x.s.close();
 				x.s = null;
+				System.out.println("closed a connection");
 			}
 
 			this.running = false;
