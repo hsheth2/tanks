@@ -136,7 +136,7 @@ public class Map implements Drawable {
 		if (this.g.nm.controlMe == null) { // if spectating
 			g.setFont(Heading.FONT);
 			Heading msg = new Heading("Spectating", FontHelper.centerStringX("Spectating", Config.WIDTH, g), FontHelper.centerStringY("Spectating", Config.HEIGHT, g),
-					Color.LIGHT_GRAY);
+					Color.DARK_GRAY);
 			msg.draw(g);
 		}
 	}
