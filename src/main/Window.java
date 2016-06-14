@@ -37,7 +37,7 @@ public class Window extends JFrame {
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pack();
-		setTitle("Tanks Game");
+		setTitle("Tanks");
 		setVisible(true);
 		setResizable(true);
 
