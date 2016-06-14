@@ -287,7 +287,7 @@ public class Server extends GBFrame {
 	}
 
 	private static class MainServer extends GBFrame {
-		private JButton newGame = addButton("Start a new Game", 1, 1, 1, 1);
+		private JButton newGame = addButton("Start a New Game", 1, 1, 1, 1);
 		private JButton exit = addButton("Exit", 2, 1, 1, 1);
 
 		public MainServer() {
