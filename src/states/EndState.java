@@ -10,7 +10,7 @@ public class EndState extends GameState {
 
 	@Override
 	public void init() {
-		g.menu = new EndMenu(this, g.w.canvas);
+		g.menu = new EndMenu(this, g.w.canvas, g.nm);
 	}
 
 	@Override

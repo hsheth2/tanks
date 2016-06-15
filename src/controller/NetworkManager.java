@@ -38,6 +38,8 @@ public class NetworkManager {
 	public int peerCount;
 	private ArrayList<Controller> peers;
 	private Thread serverThread;
+	
+	public boolean won = false;
 
 	private volatile boolean running = true;
 
@@ -167,6 +169,9 @@ public class NetworkManager {
 		if (this.running) {
 			this.running = false;
 
+			if (this.controlMe != null)
+				this.won = true;
+			
 			try {
 				System.out.println("closing network manager");
 

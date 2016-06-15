@@ -28,6 +28,6 @@ public class PlayState extends GameState {
 	public void cleanup() {
 		g.map = null;
 		g.nm.stop();
-		g.nm = null;
+//		g.nm = null;
 	}
 }
