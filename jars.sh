@@ -1,3 +1,7 @@
+#!/bin/sh
+mkdir bin
+
+javac -d bin -cp lib/BreezySwing.jar src/*/*.java
 
 rm -f *.jar
 ant -buildfile game.xml
