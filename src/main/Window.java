@@ -54,12 +54,16 @@ public class Window extends JFrame {
 			g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 			if (game.state instanceof PlayState && game.map != null) {
-				setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 				game.map.draw(g2d);
 			} else if ((game.state instanceof MainMenuState || game.state instanceof NetworkMenuState || game.state instanceof EndState || game.state instanceof HelpState)
 					&& game.menu != null) {
-				setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 				game.menu.draw(g2d);
+			}
+			
+			if (game.state instanceof PlayState || game.state instanceof NetworkMenuState) {
+				setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+			} else {
+				setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			}
 		}
 	}
