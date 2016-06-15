@@ -46,18 +46,18 @@ public class NetworkMenu extends Menu {
 		canvas.setFocusable(true);
 		canvas.setBackground(Color.WHITE);
 
-		addr = new Label("Address", 80, 200, Color.BLACK);
-		nick = new Label("Nickname", 80, 300, Color.BLACK);
+		addr = new Label("Address", 80, 200, Palette.BLACK);
+		nick = new Label("Nickname", 80, 300, Palette.BLACK);
 
 		addrIn = new Input(320, 140, 400, 80);
 		nickIn = new Input(320, 240, 400, 80);
 
-		connect = new Button("Connect", 440, 400, 200, 80, Palette.GREEN, Palette.WHITE);
-		back = new Button("Back", 160, 400, 200, 80, Palette.DARK_GRAY, Palette.WHITE);
+		connect = new Button("Connect", 440, 400, 200, 80, Palette.GREEN, Color.WHITE);
+		back = new Button("Back", 160, 400, 200, 80, Palette.DARK_GRAY, Color.WHITE);
 
 		g2d.setFont(Label.FONT);
 		msg = new Label("Waiting for game to begin...", FontHelper.centerStringX("Waiting for game to begin...", Config.WIDTH, g2d),
-				FontHelper.centerStringY("Waiting for game to begin...", Config.HEIGHT, g2d), Color.DARK_GRAY);
+				FontHelper.centerStringY("Waiting for game to begin...", Config.HEIGHT, g2d), Palette.DARK_GRAY);
 
 		ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent event) {

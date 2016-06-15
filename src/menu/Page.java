@@ -1,11 +1,11 @@
 package menu;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 import main.Config;
 import main.Drawable;
 import main.FontHelper;
+import main.Palette;
 
 public class Page extends MenuItem implements Drawable {
 	public Menu parent;
@@ -25,7 +25,7 @@ public class Page extends MenuItem implements Drawable {
 		int yinc = FontHelper.stringHeight(parent.g2d);
 
 		for (int i = 0; i < lines.length; i++) {
-			this.lines[i] = new Text(lines[i], FontHelper.centerStringX(lines[i], Config.WIDTH, parent.g2d), y, Color.BLACK);
+			this.lines[i] = new Text(lines[i], FontHelper.centerStringX(lines[i], Config.WIDTH, parent.g2d), y, Palette.BLACK);
 
 			y += yinc;
 		}

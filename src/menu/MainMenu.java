@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import main.Config;
 import main.FontHelper;
 import main.Game;
+import main.Palette;
 import states.GameState;
 import states.HelpState;
 import states.NetworkMenuState;
@@ -28,10 +29,10 @@ public class MainMenu extends Menu {
 		canvas.setBackground(Color.WHITE);
 
 		g2d.setFont(Heading.FONT);
-		title = new Heading("TANKS", FontHelper.centerStringX("TANKS", Config.WIDTH, g2d), 200, Color.DARK_GRAY);
+		title = new Heading("TANKS", FontHelper.centerStringX("TANKS", Config.WIDTH, g2d), 200, Palette.BLACK);
 		g2d.setFont(Button.FONT);
-		play = new Button("Play", MenuItem.centerX(200), 250, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
-		help = new Button("Help", MenuItem.centerX(200), 350, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
+		play = new Button("Play", MenuItem.centerX(200), 250, 200, 80, Palette.GREEN, Color.WHITE);
+		help = new Button("Help", MenuItem.centerX(200), 350, 200, 80, Palette.DARK_GRAY, Color.WHITE);
 
 		ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {

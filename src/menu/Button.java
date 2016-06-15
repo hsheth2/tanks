@@ -1,11 +1,13 @@
 package menu;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
 import main.Drawable;
 import main.FontHelper;
+import main.Palette;
 
 public class Button extends MenuItem implements Drawable {
 	private String text;

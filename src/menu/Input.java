@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import main.Drawable;
 import main.FontHelper;
+import main.Palette;
 
 public class Input extends MenuItem implements Drawable {
 	public static final Font FONT = FontHelper.makeFont("RobotoCondensed-Regular.ttf", 48f);
@@ -36,15 +37,16 @@ public class Input extends MenuItem implements Drawable {
 	@Override
 	public void draw(Graphics2D g2d) {
 		if (focused) {
-			g2d.setColor(Color.BLACK);
+			g2d.setColor(Palette.BLACK);
+			g2d.setStroke(new BasicStroke(6));
 		} else {
-			g2d.setColor(Color.GRAY);
+			g2d.setColor(Palette.DARK_GRAY);
+			g2d.setStroke(new BasicStroke(4));
 		}
-
-		g2d.setStroke(new BasicStroke(4));
+		
 		g2d.drawRect(box.x, box.y, box.width, box.height);
 
-		g2d.setColor(Color.BLACK);
+		g2d.setColor(Palette.BLACK);
 		g2d.setFont(FONT);
 		g2d.drawString(text, box.x + 20, box.y + FontHelper.centerStringY(text, box.height, g2d));
 	}

@@ -35,7 +35,7 @@ public class Mine extends StaticMapItem implements Updatable {
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
 		
-		g2d.setColor(Palette.WEIRD_GREEN);
+		g2d.setColor(Palette.PURPLE);
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 		g2d.setColor(Palette.REALLY_BLACK);
 		g2d.setStroke(new BasicStroke(4));

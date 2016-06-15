@@ -8,7 +8,7 @@ public class Palette {
 			GREEN = new Color(39, 174, 96),
 			YELLOW = new Color(241, 196, 15),
 			ORANGE = new Color(243, 156, 18),
-			WEIRD_GREEN = new Color(22, 160, 133),
+			PURPLE = new Color(142, 68, 173),
 			LIGHT_GRAY = new Color(189, 195, 199),
 			DARK_GRAY = new Color(127, 140, 141),
 			BLACK = new Color(52, 73, 94),

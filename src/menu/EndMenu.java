@@ -13,6 +13,7 @@ import controller.NetworkManager;
 import main.Config;
 import main.FontHelper;
 import main.Game;
+import main.Palette;
 import states.GameState;
 import states.MainMenuState;
 
@@ -34,10 +35,10 @@ public class EndMenu extends Menu {
 		}
 
 		g2d.setFont(Label.FONT);
-		msg = new Label(message, FontHelper.centerStringX(message, Config.WIDTH, g2d), 200, Color.BLACK);
+		msg = new Label(message, FontHelper.centerStringX(message, Config.WIDTH, g2d), 200, Palette.BLACK);
 
 		g2d.setFont(Button.FONT);
-		back = new Button("Back", MenuItem.centerX(200), 400, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
+		back = new Button("Back", MenuItem.centerX(200), 400, 200, 80, Palette.DARK_GRAY, Color.WHITE);
 
 		ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {

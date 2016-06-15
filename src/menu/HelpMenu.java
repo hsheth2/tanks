@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import main.Config;
 import main.FontHelper;
 import main.Game;
+import main.Palette;
 import states.GameState;
 import states.MainMenuState;
 
@@ -29,19 +30,20 @@ public class HelpMenu extends Menu {
 		pages = new Page[] { new Page("Controls", new String[] { "WASD - Move", "Click - Shoot", "Space - Lay mine" }, 0, 300, this),
 				new Page("Objective", new String[] { "It's every player for themself!", "Destroy your opponents without", "getting destroyed yourself." }, 0, 300, this),
 				new Page("Bullets", new String[] { "Bullets can bounce off walls", "once before exploding. Use this", "to your advantage!" }, 0, 300, this),
-				new Page("Walls", new String[] { "You can't shoot through or move", "through a wall." }, 0, 300, this), new Page("Holes", new String[] { "You can shoot through a hole, but", "you can't move over it." }, 0, 300, this),
+				new Page("Walls", new String[] { "Walls are gray. You can't shoot through", "or move through a wall." }, 0, 300, this), new Page("Holes", new String[] { "Holes are black. You can shoot through", "a hole, but you can't move over it." }, 0, 300, this),
+				new Page("Mines", new String[] { "Mines are purple. Mines explode after 5 seconds", "or after being shot, whichever comes first." }, 0, 300, this),
 				new Page("Server (1/2)", new String[] { "You need a server to play Tanks.", "Just run the server and click", "on 'Start a New Game'." }, 0, 300, this),
 				new Page("Server (2/2)", new String[] { "Everyone needs to enter the IP address", "displayed on the server. Once everyone is", "connected, click 'Start Game' on the server." }, 0, 300, this),
 				new Page("Level Editor (1/2)", new String[] { "You can design your own levels using", "the Level Editor. You can easily load and save files", "using the provided buttons." }, 0, 300, this),
 				new Page("Level Editor (2/2)", new String[] { "Press 'G' to create empty ground.", "Press 'W' to create walls.", "Press 'H' to create holes. ", "Clicking on the map will create the specified object." }, 0, 300, this), };
 
 		g2d.setFont(Label.FONT);
-		title = new Label(pages[0].title, FontHelper.centerStringX(pages[0].title, Config.WIDTH, g2d), 200, Color.BLACK);
+		title = new Label(pages[0].title, FontHelper.centerStringX(pages[0].title, Config.WIDTH, g2d), 200, Palette.REALLY_BLACK);
 
 		g2d.setFont(Button.FONT);
-		back = new Button("Back", 20, 20, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
-		next = new Button("Next", 440, 480, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
-		prev = new Button("Prev", 160, 480, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
+		back = new Button("Back", MenuItem.centerX(200), 40, 200, 80, Palette.DARK_GRAY, Color.WHITE);
+		next = new Button("Next", 440, 480, 200, 80, Palette.DARK_GRAY, Color.WHITE);
+		prev = new Button("Prev", 160, 480, 200, 80, Palette.DARK_GRAY, Color.WHITE);
 
 		prev.active = false;
 
@@ -59,7 +61,7 @@ public class HelpMenu extends Menu {
 					page++;
 
 					g2d.setFont(Label.FONT);
-					title = new Label(pages[page].title, FontHelper.centerStringX(pages[page].title, Config.WIDTH, g2d), 200, Color.BLACK);
+					title = new Label(pages[page].title, FontHelper.centerStringX(pages[page].title, Config.WIDTH, g2d), 200, Palette.REALLY_BLACK);
 
 					if (page == pages.length - 1) {
 						next.active = false;
@@ -70,7 +72,7 @@ public class HelpMenu extends Menu {
 					page--;
 
 					g2d.setFont(Label.FONT);
-					title = new Label(pages[page].title, FontHelper.centerStringX(pages[page].title, Config.WIDTH, g2d), 200, Color.BLACK);
+					title = new Label(pages[page].title, FontHelper.centerStringX(pages[page].title, Config.WIDTH, g2d), 200, Palette.REALLY_BLACK);
 
 					if (page == 0) {
 						prev.active = false;
