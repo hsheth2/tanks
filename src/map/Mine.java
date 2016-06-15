@@ -9,7 +9,6 @@ import main.Palette;
 import main.Window;
 import physics.DeltaTimer;
 import physics.Vector;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Mine extends StaticMapItem implements Updatable {
 	public static final Vector SIZE = new Vector(16, 16);
@@ -57,7 +56,7 @@ public class Mine extends StaticMapItem implements Updatable {
 
 	@Override
 	public void unupdate() {
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
