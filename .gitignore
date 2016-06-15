@@ -7,7 +7,6 @@ tmp/
 *.swp
 *.class
 *~.nib
-*.sh
 local.properties
 .settings/
 .loadpath
