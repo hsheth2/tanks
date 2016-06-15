@@ -10,6 +10,7 @@ import main.Config;
 import main.Drawable;
 import main.FontHelper;
 import main.Game;
+import main.Palette;
 import menu.Heading;
 import physics.CollisionHandler;
 import physics.DeltaTimer;
@@ -146,6 +147,7 @@ public class Map implements Drawable {
 
 		if (this.g.nm.controlMe == null) { // if spectating
 			g.setFont(Heading.FONT);
+			g.setColor(Palette.DARK_GRAY);
 			new Heading("Spectating", FontHelper.centerStringX("Spectating", Config.WIDTH, g), FontHelper.centerStringY("Spectating", Config.HEIGHT, g), Color.DARK_GRAY).draw(g);
 		}
 	}

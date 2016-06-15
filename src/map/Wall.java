@@ -1,11 +1,11 @@
 package map;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
 import main.Config;
+import main.Palette;
 import main.Window;
 import physics.Vector;
 
@@ -25,9 +25,9 @@ public class Wall extends StaticMapItem {
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
 
-		g2d.setColor(Color.LIGHT_GRAY);
+		g2d.setColor(Palette.LIGHT_GRAY);
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
-		g2d.setColor(Color.DARK_GRAY);
+		g2d.setColor(Palette.DARK_GRAY);
 		g2d.setStroke(new BasicStroke(4));
 		g2d.drawRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 	}
