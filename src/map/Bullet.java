@@ -1,6 +1,5 @@
 package map;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -8,6 +7,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 
 import main.AudioPlayer;
+import main.Palette;
 import main.Window;
 import physics.Vector;
 
@@ -39,7 +39,7 @@ public class Bullet extends MovableMapItem {
 		
 		at.rotate(Math.toRadians(velocity.angle()), center.x, center.y);
 		path.transform(at);
-		g2d.setColor(Color.ORANGE);
+		g2d.setColor(Palette.ORANGE);
 		g2d.fill(path);
 	}
 

@@ -15,6 +15,7 @@ import controller.KeyboardController;
 import main.AudioPlayer;
 import main.Config;
 import main.FontHelper;
+import main.Palette;
 import main.Window;
 import physics.DeltaTimer;
 import physics.Vector;
@@ -108,7 +109,7 @@ public class Tank extends MovableMapItem {
 		body.transform(at);
 		g2d.setColor(color);
 		g2d.fill(body);
-		g2d.setColor(Color.BLACK);
+		g2d.setColor(Palette.REALLY_BLACK);
 		g2d.setStroke(new BasicStroke(4));
 		g2d.draw(body);
 
@@ -121,9 +122,9 @@ public class Tank extends MovableMapItem {
 		at2.rotate(Math.toRadians(dir.angle()), center.x, center.y);
 		barrel.append(new Rectangle(center.x + sz.x / 3, center.y - sz.y / 2, sz.x, sz.y), false);
 		barrel.transform(at2);
-		g2d.setColor(Color.LIGHT_GRAY);
+		g2d.setColor(Palette.LIGHT_GRAY);
 		g2d.fill(barrel);
-		g2d.setColor(Color.BLACK);
+		g2d.setColor(Palette.REALLY_BLACK);
 		g2d.setStroke(new BasicStroke(4));
 		g2d.draw(barrel);
 
@@ -134,9 +135,9 @@ public class Tank extends MovableMapItem {
 		turret.append(new Rectangle(center.x - sz.x / 2, center.y - sz.y / 2, sz.x, sz.x), false);
 
 		turret.transform(at2);
-		g2d.setColor(Color.DARK_GRAY);
+		g2d.setColor(Palette.DARK_GRAY);
 		g2d.fill(turret);
-		g2d.setColor(Color.BLACK);
+		g2d.setColor(Palette.REALLY_BLACK);
 		g2d.setStroke(new BasicStroke(4));
 		g2d.draw(turret);
 
@@ -144,10 +145,11 @@ public class Tank extends MovableMapItem {
 
 		g2d.setColor(color);
 		g2d.fillPolygon(arrow);
-		g2d.setColor(Color.BLACK);
+		g2d.setColor(Palette.REALLY_BLACK);
 		g2d.setStroke(new BasicStroke(4));
 		g2d.drawPolygon(arrow);
-
+		
+		g2d.setColor(Palette.BLACK);
 		g2d.setFont(FontHelper.makeFont("RobotoCondensed-Bold.ttf", 24f));
 		g2d.drawString(name, center.x - FontHelper.stringWidth(name, g2d) / 2, center.y - 48);
 	}
