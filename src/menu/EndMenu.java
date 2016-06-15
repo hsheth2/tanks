@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+import controller.NetworkManager;
 import main.Config;
 import main.FontHelper;
 import main.Game;
@@ -20,11 +21,20 @@ public class EndMenu extends Menu {
 	private Label msg;
 	private Button back;
 
-	public EndMenu(GameState state, JPanel canvas) {
+	public EndMenu(GameState state, JPanel canvas, NetworkManager nm) {
 		super(state, canvas);
 
+		String message = "Game over. ";
+		if (nm.peerCount > 1) {
+			if (!nm.won) {
+				message += "You lost!";
+			} else {
+				message += "You won!";
+			}
+		}
+
 		g2d.setFont(Label.FONT);
-		msg = new Label("Game over!", FontHelper.centerStringX("Game over!", Config.WIDTH, g2d), 200, Color.BLACK);
+		msg = new Label(message, FontHelper.centerStringX(message, Config.WIDTH, g2d), 200, Color.BLACK);
 
 		g2d.setFont(Button.FONT);
 		back = new Button("Back", MenuItem.centerX(200), 400, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
