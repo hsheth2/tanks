@@ -21,6 +21,7 @@ import controller.NetworkManager;
 import main.Config;
 import main.FontHelper;
 import main.Game;
+import main.Palette;
 import states.MainMenuState;
 import states.NetworkMenuState;
 import states.PlayState;
@@ -51,8 +52,8 @@ public class NetworkMenu extends Menu {
 		addrIn = new Input(320, 140, 400, 80);
 		nickIn = new Input(320, 240, 400, 80);
 
-		connect = new Button("Connect", MenuItem.centerX(200), 400, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
-		back = new Button("Back", 20, 20, 200, 80, Color.LIGHT_GRAY, Color.WHITE);
+		connect = new Button("Connect", 440, 400, 200, 80, Palette.GREEN, Palette.WHITE);
+		back = new Button("Back", 160, 400, 200, 80, Palette.DARK_GRAY, Palette.WHITE);
 
 		g2d.setFont(Label.FONT);
 		msg = new Label("Waiting for game to begin...", FontHelper.centerStringX("Waiting for game to begin...", Config.WIDTH, g2d),
