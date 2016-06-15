@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import editor.Level;
 import main.Game;
+import main.Palette;
 import map.Map;
 import map.Tank;
 import physics.Vector;
@@ -23,7 +24,7 @@ import physics.Vector;
 public class NetworkManager {
 	public static final int PORT = 6840;
 	public static final String TERMINATER = "GAME OVER";
-	public static Color[] colors = {Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW};
+	public static Color[] colors = {Palette.RED, Palette.BLUE, Palette.GREEN, Palette.YELLOW};
 
 	private Game g;
 	private JPanel canvas;
