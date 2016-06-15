@@ -25,10 +25,10 @@ public class AudioPlayer {
 			ais = AudioSystem.getAudioInputStream(f);
 
 			c.open(ais);
-			
+
 			FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
 			gainControl.setValue(-20.0f);
-			
+
 			c.start();
 			c.addLineListener(new LineListener() {
 				@Override

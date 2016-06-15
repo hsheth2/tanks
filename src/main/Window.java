@@ -55,11 +55,10 @@ public class Window extends JFrame {
 
 			if (game.state instanceof PlayState && game.map != null) {
 				game.map.draw(g2d);
-			} else if ((game.state instanceof MainMenuState || game.state instanceof NetworkMenuState || game.state instanceof EndState || game.state instanceof HelpState)
-					&& game.menu != null) {
+			} else if ((game.state instanceof MainMenuState || game.state instanceof NetworkMenuState || game.state instanceof EndState || game.state instanceof HelpState) && game.menu != null) {
 				game.menu.draw(g2d);
 			}
-			
+
 			if (game.state instanceof PlayState || game.state instanceof NetworkMenuState) {
 				setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 			} else {

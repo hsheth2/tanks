@@ -24,7 +24,7 @@ import physics.Vector;
 public class NetworkManager {
 	public static final int PORT = 6840;
 	public static final String TERMINATER = "GAME OVER";
-	public static Color[] colors = {Palette.RED, Palette.BLUE, Palette.GREEN, Palette.YELLOW};
+	public static Color[] colors = { Palette.RED, Palette.BLUE, Palette.GREEN, Palette.YELLOW };
 
 	private Game g;
 	private JPanel canvas;
@@ -38,7 +38,7 @@ public class NetworkManager {
 	public int peerCount;
 	private ArrayList<Controller> peers;
 	private Thread serverThread;
-	
+
 	public boolean won = false;
 
 	private volatile boolean running = true;
@@ -171,7 +171,7 @@ public class NetworkManager {
 
 			if (this.controlMe != null)
 				this.won = true;
-			
+
 			try {
 				System.out.println("closing network manager");
 

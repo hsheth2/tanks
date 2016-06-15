@@ -148,7 +148,7 @@ public class Tank extends MovableMapItem {
 		g2d.setColor(Palette.REALLY_BLACK);
 		g2d.setStroke(new BasicStroke(4));
 		g2d.drawPolygon(arrow);
-		
+
 		g2d.setColor(Palette.BLACK);
 		g2d.setFont(FontHelper.makeFont("RobotoCondensed-Bold.ttf", 24f));
 		g2d.drawString(name, center.x - FontHelper.stringWidth(name, g2d) / 2, center.y - 48);

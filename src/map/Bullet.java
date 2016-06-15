@@ -30,13 +30,13 @@ public class Bullet extends MovableMapItem {
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
 		Point center = Window.game2real(getCenter());
-		
+
 		Path2D.Double path = new Path2D.Double();
-		
+
 		path.append(new Rectangle(pos.x, pos.y, sz.x, sz.y), false);
-		
+
 		AffineTransform at = new AffineTransform();
-		
+
 		at.rotate(Math.toRadians(velocity.angle()), center.x, center.y);
 		path.transform(at);
 		g2d.setColor(Palette.ORANGE);

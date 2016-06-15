@@ -33,7 +33,7 @@ public class Mine extends StaticMapItem implements Updatable {
 	public void draw(Graphics2D g2d) {
 		Point pos = Window.game2real(position);
 		Point sz = Window.game2real(size);
-		
+
 		g2d.setColor(Palette.PURPLE);
 		g2d.fillRect((int) pos.getX(), (int) pos.getY(), (int) sz.getX(), (int) sz.getY());
 		g2d.setColor(Palette.REALLY_BLACK);

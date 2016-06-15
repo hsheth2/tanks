@@ -56,8 +56,7 @@ public class NetworkMenu extends Menu {
 		back = new Button("Back", 160, 400, 200, 80, Palette.DARK_GRAY, Color.WHITE);
 
 		g2d.setFont(Label.FONT);
-		msg = new Label("Waiting for game to begin...", FontHelper.centerStringX("Waiting for game to begin...", Config.WIDTH, g2d),
-				FontHelper.centerStringY("Waiting for game to begin...", Config.HEIGHT, g2d), Palette.DARK_GRAY);
+		msg = new Label("Waiting for game to begin...", FontHelper.centerStringX("Waiting for game to begin...", Config.WIDTH, g2d), FontHelper.centerStringY("Waiting for game to begin...", Config.HEIGHT, g2d), Palette.DARK_GRAY);
 
 		ml = new MouseAdapter() {
 			public void mousePressed(MouseEvent event) {
@@ -112,7 +111,7 @@ public class NetworkMenu extends Menu {
 				if (addrIn.focused) {
 					if (del) {
 						addrIn.backspace();
-					} else if (c != KeyEvent.VK_SPACE){
+					} else if (c != KeyEvent.VK_SPACE) {
 						addrIn.append(c);
 					}
 				}

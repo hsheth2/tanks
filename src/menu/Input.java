@@ -1,7 +1,6 @@
 package menu;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
@@ -43,7 +42,7 @@ public class Input extends MenuItem implements Drawable {
 			g2d.setColor(Palette.DARK_GRAY);
 			g2d.setStroke(new BasicStroke(4));
 		}
-		
+
 		g2d.drawRect(box.x, box.y, box.width, box.height);
 
 		g2d.setColor(Palette.BLACK);

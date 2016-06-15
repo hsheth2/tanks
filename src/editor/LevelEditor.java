@@ -40,7 +40,7 @@ public class LevelEditor extends JFrame {
 		open = new JButton("Open");
 		open.setBounds(480, 480, 80, 40);
 		add(open);
-		
+
 		clear = new JButton("Clear");
 		clear.setBounds(360, 480, 80, 40);
 		add(clear);
@@ -77,7 +77,7 @@ public class LevelEditor extends JFrame {
 				g.repaint();
 			}
 		});
-		
+
 		clear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				g.init();
