@@ -16,7 +16,7 @@ public class LevelEditor extends JFrame {
 	public Grid g;
 
 	public JTextField name;
-	public JButton save, open;
+	public JButton save, open, clear;
 	public JLabel mode;
 
 	public LevelEditor() {
@@ -40,6 +40,10 @@ public class LevelEditor extends JFrame {
 		open = new JButton("Open");
 		open.setBounds(480, 480, 80, 40);
 		add(open);
+		
+		clear = new JButton("Clear");
+		clear.setBounds(360, 480, 80, 40);
+		add(clear);
 
 		mode = new JLabel("Mode: Ground");
 		mode.setBounds(360, 20, 80, 40);
@@ -70,6 +74,13 @@ public class LevelEditor extends JFrame {
 					JOptionPane.showMessageDialog(null, "Cannot load assets/levels/" + path + ".");
 				}
 
+				g.repaint();
+			}
+		});
+		
+		clear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				g.init();
 				g.repaint();
 			}
 		});

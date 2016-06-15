@@ -131,7 +131,7 @@ public class Map implements Drawable {
 		for (int i = 0; i < items.size(); i++) {
 			MapItem item = items.get(i);
 			
-			if (item instanceof Mine) {
+			if (item instanceof Mine || item instanceof Hole) {
 				item.draw(g);
 			}
 		}
@@ -139,7 +139,7 @@ public class Map implements Drawable {
 		for (int i = 0; i < items.size(); i++) {
 			MapItem item = items.get(i);
 			
-			if (!(item instanceof Mine)) {
+			if (!(item instanceof Mine || item instanceof Hole)) {
 				item.draw(g);
 			}
 		}
