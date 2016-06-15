@@ -112,7 +112,7 @@ public class NetworkMenu extends Menu {
 				if (addrIn.focused) {
 					if (del) {
 						addrIn.backspace();
-					} else {
+					} else if (c != KeyEvent.VK_SPACE){
 						addrIn.append(c);
 					}
 				}
@@ -120,7 +120,7 @@ public class NetworkMenu extends Menu {
 				if (nickIn.focused) {
 					if (del) {
 						nickIn.backspace();
-					} else {
+					} else if (c != KeyEvent.VK_SPACE) {
 						nickIn.append(c);
 					}
 				}

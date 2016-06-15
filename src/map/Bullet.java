@@ -56,6 +56,7 @@ public class Bullet extends MovableMapItem {
 			Bullet b = (Bullet) other;
 			this.destroy(m);
 			b.destroy(m);
+			AudioPlayer.play("explode.wav");
 		} else if (other instanceof Wall) {
 			if (bounceCount < BOUNCE_LIMIT) {
 				this.unupdate();

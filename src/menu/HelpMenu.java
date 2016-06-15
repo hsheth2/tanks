@@ -32,7 +32,8 @@ public class HelpMenu extends Menu {
 				new Page("Bullets", new String[] { "Bullets can bounce off walls", "once before exploding. Use this", "to your advantage!" }, 0, 300, this),
 				new Page("Walls", new String[] { "Walls are gray. You can't shoot through", "or move through a wall." }, 0, 300, this), new Page("Holes", new String[] { "Holes are black. You can shoot through", "a hole, but you can't move over it." }, 0, 300, this),
 				new Page("Mines", new String[] { "Mines are purple. Mines explode after 5 seconds", "or after being shot, whichever comes first." }, 0, 300, this),
-				new Page("Server (1/2)", new String[] { "You need a server to play Tanks.", "Just run the server and click", "on 'Start a New Game'." }, 0, 300, this),
+				new Page("Grace Period", new String[] { "In the event that players spawn near each other,", "a 3-second grace period is provided at the start", "of each game.  Nobody can shoot or", "lay mines during this period." }, 0, 300, this),
+				new Page("Server (1/2)", new String[] { "You need a server to play Tanks. Just run", " the server and click on 'Start a New Game'.", "Up to 4 players can play." }, 0, 300, this),
 				new Page("Server (2/2)", new String[] { "Everyone needs to enter the IP address", "displayed on the server. Once everyone is", "connected, click 'Start Game' on the server." }, 0, 300, this),
 				new Page("Level Editor (1/2)", new String[] { "You can design your own levels using", "the Level Editor. You can easily load and save files", "using the provided buttons." }, 0, 300, this),
 				new Page("Level Editor (2/2)", new String[] { "Press 'G' to create empty ground.", "Press 'W' to create walls.", "Press 'H' to create holes. ", "Clicking on the map will create the specified object." }, 0, 300, this), };
